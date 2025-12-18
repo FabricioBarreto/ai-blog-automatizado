@@ -1,0 +1,46 @@
+name: Generate & Publish Article
+
+on:
+  schedule:
+    # Corre cada 3 días a las 10:00 AM UTC
+    - cron: "0 10 */3 * *"
+  workflow_dispatch: # Permite ejecutar manualmente
+
+jobs:
+  generate-article:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: |
+          npm install
+          npm install openai axios
+
+      - name: Generate article with AI
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+        run: node scripts/generate-article.js
+
+      - name: Commit and push new article
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add src/content/blog/*.md
+          git add public/images/*.jpg
+          git diff --quiet && git diff --staged --quiet || git commit -m "🤖 New article generated automatically"
+          git push
+
+      - name: Trigger Vercel deploy
+        run: |
+          echo "Vercel will auto-deploy on push"
