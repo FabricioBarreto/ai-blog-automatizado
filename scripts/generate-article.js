@@ -107,7 +107,11 @@ author: 'AI Blog Team'
       max_tokens: 2600,
     });
 
-    const articleContent = completion.choices[0].message.content;
+    let articleContent = completion.choices[0].message.content;
+
+    // ✅ ARREGLAR FRONTMATTER YAML
+    articleContent = fixYamlFrontmatter(articleContent);
+
     console.log("✅ Article content generated");
 
     // Descargar imagen desde Pexels
@@ -156,6 +160,51 @@ author: 'AI Blog Team'
   }
 }
 
+function fixYamlFrontmatter(content) {
+  // Extraer frontmatter
+  const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+  if (!frontmatterMatch) return content;
+
+  let frontmatter = frontmatterMatch[1];
+  const bodyContent = content.replace(/^---\n[\s\S]*?\n---/, "");
+
+  // Arreglar title y description (agregar comillas si tienen caracteres especiales)
+  frontmatter = frontmatter.replace(
+    /^(title|description):\s*(.+)$/gm,
+    (match, key, value) => {
+      const trimmedValue = value.trim();
+
+      // Si ya tiene comillas, dejarlo como está
+      if (trimmedValue.startsWith('"') || trimmedValue.startsWith("'")) {
+        return match;
+      }
+
+      // Si tiene caracteres especiales que rompen YAML, agregar comillas
+      if (
+        trimmedValue.includes(":") ||
+        trimmedValue.includes("#") ||
+        trimmedValue.includes("&") ||
+        trimmedValue.includes("*") ||
+        trimmedValue.includes("!") ||
+        trimmedValue.includes("|") ||
+        trimmedValue.includes(">") ||
+        trimmedValue.includes("[") ||
+        trimmedValue.includes("]") ||
+        trimmedValue.includes("{") ||
+        trimmedValue.includes("}")
+      ) {
+        // Escapar comillas dobles dentro del valor
+        const escapedValue = trimmedValue.replace(/"/g, '\\"');
+        return `${key}: "${escapedValue}"`;
+      }
+
+      return match;
+    }
+  );
+
+  return `---\n${frontmatter}\n---${bodyContent}`;
+}
+
 async function downloadImageFromPexels(query) {
   try {
     if (!process.env.PEXELS_API_KEY) {
@@ -186,7 +235,7 @@ async function downloadImageFromPexels(query) {
 
     const imageResponse = await axios.get(photo.src.large, {
       responseType: "arraybuffer",
-      timeout: 30000, // 30 segundos timeout
+      timeout: 30000,
     });
 
     const filename = `${Date.now()}.jpg`;
