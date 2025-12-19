@@ -15,8 +15,8 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: generate-article-main
-  cancel-in-progress: true
+  group: generate-article
+  cancel-in-progress: false
 
 jobs:
   generate-article:
@@ -49,14 +49,36 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.PAT_TOKEN }}
-          commit-message: "🤖 Auto-generated article - ${{ github.run_id }}"
-          title: "🤖 Auto-generated article - ${{ github.run_id }}"
+          commit-message: "🤖 Auto-generated article - $(date +'%Y-%m-%d %H:%M')"
+          title: "🤖 New article: ${{ github.event.inputs.keyword || 'auto-generated' }}"
           body: |
-            Artículo generado automáticamente por GitHub Actions.
-            Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          branch: bot/auto-article-${{ github.run_id }}
+            ## 📝 Artículo generado automáticamente
+
+            **Keyword**: `${{ github.event.inputs.keyword || 'auto-generated' }}`
+            **Run ID**: [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            **Fecha**: $(date +'%Y-%m-%d %H:%M UTC')
+
+            ---
+
+            ✅ Revisar y mergear para publicar
+          branch: bot/article-${{ github.run_id }}
           base: main
           add-paths: |
             src/content/blog/*.md
             public/images/*.jpg
           delete-branch: true
+          labels: |
+            automated
+            content
+
+      - name: Enable auto-merge
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+          sleep 2
+          PR_NUMBER=$(gh pr list --head bot/article-${{ github.run_id }} --json number --jq '.[0].number')
+          if [ ! -z "$PR_NUMBER" ]; then
+            echo "✅ Habilitando auto-merge para PR #$PR_NUMBER"
+            gh pr merge $PR_NUMBER --auto --squash --delete-branch
+          fi
