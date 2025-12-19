@@ -23,6 +23,13 @@ jobs:
         with:
           token: ${{ secrets.PAT_TOKEN }}
           fetch-depth: 0
+          ref: main
+
+      - name: Pull latest changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "GitHub Actions Bot"
+          git pull origin main --rebase
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -44,20 +51,8 @@ jobs:
 
       - name: Commit and push new article
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "GitHub Actions Bot"
-
-          # Obtener últimos cambios
-          git fetch origin main
-
-          # Resetear a la versión remota
-          git reset --hard origin/main
-
-          # Regenerar el artículo si es necesario
-          # (tus archivos ya están generados del paso anterior)
-
-          git add src/content/blog/*.md
-          git add public/images/*.jpg
+          git add src/content/blog/*.md 2>/dev/null || true
+          git add public/images/*.jpg 2>/dev/null || true
 
           if git diff --staged --quiet; then
             echo "ℹ️  No new articles to commit"
