@@ -46,6 +46,16 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "GitHub Actions Bot"
+
+          # Obtener últimos cambios
+          git fetch origin main
+
+          # Resetear a la versión remota
+          git reset --hard origin/main
+
+          # Regenerar el artículo si es necesario
+          # (tus archivos ya están generados del paso anterior)
+
           git add src/content/blog/*.md
           git add public/images/*.jpg
 
@@ -53,7 +63,7 @@ jobs:
             echo "ℹ️  No new articles to commit"
           else
             git commit -m "🤖 Auto-generated article - $(date +'%Y-%m-%d')"
-            git push
+            git push origin main
             echo "✅ Article committed and pushed successfully!"
           fi
 
