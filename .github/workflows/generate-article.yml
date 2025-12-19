@@ -45,40 +45,62 @@ jobs:
           CUSTOM_KEYWORD: ${{ github.event.inputs.keyword }}
         run: node scripts/generate-article.js
 
+      - name: Debug - Check generated files
+        run: |
+          echo "📁 Archivos en src/content/blog:"
+          ls -la src/content/blog/ || echo "❌ Directorio no existe"
+
+          echo ""
+          echo "📁 Archivos en public/images:"
+          ls -la public/images/ || echo "❌ Directorio no existe"
+
+          echo ""
+          echo "🔍 Git status:"
+          git status
+
+          echo ""
+          echo "📊 Git diff:"
+          git diff --stat
+
       - name: Create Pull Request
+        id: cpr
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.PAT_TOKEN }}
-          commit-message: "🤖 Auto-generated article - $(date +'%Y-%m-%d %H:%M')"
+          commit-message: "🤖 Auto-generated article - ${{ github.run_number }}"
           title: "🤖 New article: ${{ github.event.inputs.keyword || 'auto-generated' }}"
           body: |
             ## 📝 Artículo generado automáticamente
 
             **Keyword**: `${{ github.event.inputs.keyword || 'auto-generated' }}`
             **Run ID**: [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-            **Fecha**: $(date +'%Y-%m-%d %H:%M UTC')
+            **Run Number**: ${{ github.run_number }}
 
             ---
 
             ✅ Revisar y mergear para publicar
-          branch: bot/article-${{ github.run_id }}
+          branch: bot/article-${{ github.run_number }}
           base: main
-          add-paths: |
-            src/content/blog/*.md
-            public/images/*.jpg
           delete-branch: true
           labels: |
             automated
             content
 
+      - name: Check PR creation
+        run: |
+          echo "PR Number: ${{ steps.cpr.outputs.pull-request-number }}"
+          echo "PR URL: ${{ steps.cpr.outputs.pull-request-url }}"
+          if [ -z "${{ steps.cpr.outputs.pull-request-number }}" ]; then
+            echo "⚠️ No se creó PR - probablemente no hay cambios"
+          else
+            echo "✅ PR creado exitosamente: #${{ steps.cpr.outputs.pull-request-number }}"
+          fi
+
       - name: Enable auto-merge
-        if: success()
+        if: steps.cpr.outputs.pull-request-number != ''
         env:
           GH_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
-          sleep 2
-          PR_NUMBER=$(gh pr list --head bot/article-${{ github.run_id }} --json number --jq '.[0].number')
-          if [ ! -z "$PR_NUMBER" ]; then
-            echo "✅ Habilitando auto-merge para PR #$PR_NUMBER"
-            gh pr merge $PR_NUMBER --auto --squash --delete-branch
-          fi
+          PR_NUMBER=${{ steps.cpr.outputs.pull-request-number }}
+          echo "✅ Habilitando auto-merge para PR #$PR_NUMBER"
+          gh pr merge $PR_NUMBER --auto --squash --delete-branch || echo "⚠️ No se pudo habilitar auto-merge (puede que no tengas branch protection)"
