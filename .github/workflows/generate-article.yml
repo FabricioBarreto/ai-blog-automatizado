@@ -2,17 +2,14 @@ name: Generate & Publish Article
 
 on:
   schedule:
-    # Ejecutar cada 3 días a las 10:00 AM UTC (7 AM Argentina)
     - cron: "0 10 */3 * *"
-
-  workflow_dispatch: # Permite ejecutar manualmente desde GitHub
+  workflow_dispatch:
     inputs:
       keyword:
         description: "Keyword personalizada (opcional)"
         required: false
         type: string
 
-# Permisos necesarios para push
 permissions:
   contents: write
 
@@ -52,15 +49,11 @@ jobs:
           git add src/content/blog/*.md
           git add public/images/*.jpg
 
-          # Solo hacer commit si hay cambios
           if git diff --staged --quiet; then
             echo "ℹ️  No new articles to commit"
           else
             git commit -m "🤖 Auto-generated article - $(date +'%Y-%m-%d')"
-            
-            # Push usando el token explícitamente
-            git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/FabricioBarreto/ai-blog-automatizado.git HEAD:main
-            
+            git push
             echo "✅ Article committed and pushed successfully!"
           fi
 
