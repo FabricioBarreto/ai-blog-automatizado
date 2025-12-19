@@ -12,8 +12,8 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
-# ✅ Clave: evita que 2 runs se pisen entre sí
 concurrency:
   group: generate-article-main
   cancel-in-progress: true
@@ -28,12 +28,6 @@ jobs:
         with:
           token: ${{ secrets.PAT_TOKEN }}
           fetch-depth: 0
-          ref: main
-
-      - name: Setup git identity
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "GitHub Actions Bot"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -42,9 +36,7 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: |
-          npm ci --legacy-peer-deps
-          npm install openai axios dotenv --legacy-peer-deps
+        run: npm ci --legacy-peer-deps
 
       - name: Generate article with AI
         env:
@@ -53,33 +45,18 @@ jobs:
           CUSTOM_KEYWORD: ${{ github.event.inputs.keyword }}
         run: node scripts/generate-article.js
 
-      - name: Commit & push (safe)
-        run: |
-          set -e
-
-          git add src/content/blog/*.md 2>/dev/null || true
-          git add public/images/*.jpg 2>/dev/null || true
-
-          if git diff --staged --quiet; then
-            echo "ℹ️ No new articles to commit"
-            exit 0
-          fi
-
-          git commit -m "🤖 Auto-generated article - $(date +'%Y-%m-%d')"
-
-          # ✅ Rebase al final: trae lo último por si main avanzó durante el job
-          git pull --rebase origin main
-
-          # ✅ Retry corto por conflictos de timing raros
-          for i in 1 2 3; do
-            if git push origin main; then
-              echo "✅ Article committed and pushed successfully!"
-              exit 0
-            fi
-            echo "⚠️ Push falló (intento $i). Reintentando..."
-            git pull --rebase origin main
-            sleep 2
-          done
-
-          echo "❌ No se pudo pushear después de 3 intentos"
-          exit 1
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+          commit-message: "🤖 Auto-generated article - ${{ github.run_id }}"
+          title: "🤖 Auto-generated article - ${{ github.run_id }}"
+          body: |
+            Artículo generado automáticamente por GitHub Actions.
+            Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          branch: bot/auto-article-${{ github.run_id }}
+          base: main
+          add-paths: |
+            src/content/blog/*.md
+            public/images/*.jpg
+          delete-branch: true
