@@ -57,7 +57,10 @@ jobs:
             echo "ℹ️  No new articles to commit"
           else
             git commit -m "🤖 Auto-generated article - $(date +'%Y-%m-%d')"
-            git push
+            
+            # Push usando el token explícitamente
+            git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/FabricioBarreto/ai-blog-automatizado.git HEAD:main
+            
             echo "✅ Article committed and pushed successfully!"
           fi
 
