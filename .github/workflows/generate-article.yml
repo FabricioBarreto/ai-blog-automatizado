@@ -13,6 +13,11 @@ on:
 permissions:
   contents: write
 
+# ✅ Clave: evita que 2 runs se pisen entre sí
+concurrency:
+  group: generate-article-main
+  cancel-in-progress: true
+
 jobs:
   generate-article:
     runs-on: ubuntu-latest
@@ -25,11 +30,10 @@ jobs:
           fetch-depth: 0
           ref: main
 
-      - name: Pull latest changes
+      - name: Setup git identity
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "GitHub Actions Bot"
-          git pull origin main --rebase
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -49,27 +53,33 @@ jobs:
           CUSTOM_KEYWORD: ${{ github.event.inputs.keyword }}
         run: node scripts/generate-article.js
 
-      - name: Commit and push new article
+      - name: Commit & push (safe)
         run: |
+          set -e
+
           git add src/content/blog/*.md 2>/dev/null || true
           git add public/images/*.jpg 2>/dev/null || true
 
           if git diff --staged --quiet; then
-            echo "ℹ️  No new articles to commit"
-          else
-            git commit -m "🤖 Auto-generated article - $(date +'%Y-%m-%d')"
-            git push origin main
-            echo "✅ Article committed and pushed successfully!"
+            echo "ℹ️ No new articles to commit"
+            exit 0
           fi
 
-      - name: Notify success
-        if: success()
-        run: |
-          echo "✅ Workflow completed successfully!"
-          echo "🚀 Vercel will auto-deploy in 1-2 minutes"
-          echo "📊 Check your blog at: https://ai-blog-automatizado.vercel.app"
+          git commit -m "🤖 Auto-generated article - $(date +'%Y-%m-%d')"
 
-      - name: Notify failure
-        if: failure()
-        run: |
-          echo "❌ Workflow failed. Check logs above for details."
+          # ✅ Rebase al final: trae lo último por si main avanzó durante el job
+          git pull --rebase origin main
+
+          # ✅ Retry corto por conflictos de timing raros
+          for i in 1 2 3; do
+            if git push origin main; then
+              echo "✅ Article committed and pushed successfully!"
+              exit 0
+            fi
+            echo "⚠️ Push falló (intento $i). Reintentando..."
+            git pull --rebase origin main
+            sleep 2
+          done
+
+          echo "❌ No se pudo pushear después de 3 intentos"
+          exit 1
