@@ -1,63 +1,369 @@
 ---
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage={AboutHeroImage}
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<!doctype html>
+<html lang="es">
+	<head>
+		<BaseHead 
+			title={`Acerca de - ${SITE_TITLE}`} 
+			description="Conoce nuestra misión de democratizar el acceso a herramientas de IA y ayudar a profesionales a maximizar su productividad."
+		/>
+		<style>
+			.hero-about {
+				text-align: center;
+				padding: 4rem 2rem;
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				border-radius: 24px;
+				margin-bottom: 4rem;
+				color: white;
+			}
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+			.hero-about h1 {
+				font-size: 3rem;
+				margin-bottom: 1rem;
+				color: white;
+			}
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+			.hero-about p {
+				font-size: 1.3rem;
+				color: rgba(255, 255, 255, 0.9);
+				max-width: 700px;
+				margin: 0 auto;
+				line-height: 1.6;
+			}
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+			.content-grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 3rem;
+				margin: 4rem 0;
+			}
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+			.content-card {
+				background: white;
+				padding: 2.5rem;
+				border-radius: 20px;
+				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+				transition: all 0.3s ease;
+			}
+
+			.content-card:hover {
+				transform: translateY(-5px);
+				box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+			}
+
+			.content-card h2 {
+				font-size: 1.8rem;
+				margin-bottom: 1rem;
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+			}
+
+			.card-icon {
+				font-size: 2.5rem;
+			}
+
+			.stats-section {
+				background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+				padding: 3rem;
+				border-radius: 20px;
+				margin: 4rem 0;
+			}
+
+			.stats-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+				gap: 2rem;
+				text-align: center;
+			}
+
+			.stat-item {
+				padding: 2rem;
+			}
+
+			.stat-number {
+				font-size: 3rem;
+				font-weight: 800;
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				margin-bottom: 0.5rem;
+			}
+
+			.stat-label {
+				color: rgb(var(--gray));
+				font-weight: 600;
+			}
+
+			.values-section {
+				margin: 4rem 0;
+			}
+
+			.values-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+				gap: 2rem;
+				margin-top: 2rem;
+			}
+
+			.value-card {
+				padding: 2rem;
+				background: white;
+				border-radius: 16px;
+				border: 2px solid rgba(102, 126, 234, 0.1);
+				transition: all 0.3s ease;
+			}
+
+			.value-card:hover {
+				border-color: rgba(102, 126, 234, 0.3);
+				transform: translateY(-5px);
+			}
+
+			.value-icon {
+				font-size: 3rem;
+				margin-bottom: 1rem;
+			}
+
+			.value-card h3 {
+				font-size: 1.4rem;
+				margin-bottom: 0.75rem;
+			}
+
+			.value-card p {
+				color: rgb(var(--gray));
+				line-height: 1.6;
+			}
+
+			.cta-section {
+				text-align: center;
+				padding: 4rem 2rem;
+				background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+				border-radius: 24px;
+				margin: 4rem 0;
+				color: white;
+			}
+
+			.cta-section h2 {
+				font-size: 2.5rem;
+				margin-bottom: 1rem;
+				color: white;
+			}
+
+			.cta-section p {
+				font-size: 1.2rem;
+				margin-bottom: 2rem;
+				color: rgba(255, 255, 255, 0.9);
+			}
+
+			.cta-buttons {
+				display: flex;
+				gap: 1rem;
+				justify-content: center;
+				flex-wrap: wrap;
+			}
+
+			.btn {
+				padding: 1rem 2.5rem;
+				border-radius: 50px;
+				font-weight: 700;
+				text-decoration: none;
+				transition: all 0.3s ease;
+				font-size: 1.1rem;
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5rem;
+			}
+
+			.btn-white {
+				background: white;
+				color: #4facfe;
+				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+			}
+
+			.btn-white:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
+			}
+
+			.btn-outline {
+				background: transparent;
+				color: white;
+				border: 2px solid white;
+			}
+
+			.btn-outline:hover {
+				background: white;
+				color: #4facfe;
+			}
+
+			@media (max-width: 768px) {
+				.hero-about h1 {
+					font-size: 2rem;
+				}
+
+				.hero-about p {
+					font-size: 1.1rem;
+				}
+
+				.content-grid {
+					grid-template-columns: 1fr;
+					gap: 2rem;
+				}
+
+				.stats-grid {
+					grid-template-columns: 1fr;
+				}
+
+				.values-grid {
+					grid-template-columns: 1fr;
+				}
+
+				.cta-buttons {
+					flex-direction: column;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="hero-about">
+				<h1>🚀 Democratizando el Acceso a la IA</h1>
+				<p>
+					Nuestra misión es simple: hacer que las herramientas de inteligencia artificial 
+					sean accesibles y comprensibles para todos los profesionales que buscan 
+					maximizar su productividad.
+				</p>
+			</section>
+
+			<div class="content-grid">
+				<div class="content-card">
+					<h2>
+						<span class="card-icon">🎯</span>
+						Nuestra Misión
+					</h2>
+					<p>
+						Creemos que la inteligencia artificial no debería ser un lujo reservado para 
+						expertos técnicos. Cada día, analizamos y probamos herramientas de IA para 
+						ofrecerte reviews honestas, tutoriales claros y comparativas útiles.
+					</p>
+					<p>
+						Nuestro contenido está diseñado para ahorrarte tiempo y dinero, ayudándote 
+						a tomar decisiones informadas sobre qué herramientas realmente valen la pena.
+					</p>
+				</div>
+
+				<div class="content-card">
+					<h2>
+						<span class="card-icon">💡</span>
+						Qué nos hace diferentes
+					</h2>
+					<p>
+						A diferencia de otros blogs que simplemente enumeran herramientas, nosotros 
+						las probamos en profundidad. Cada review incluye casos de uso reales, pros y 
+						contras honestos, y comparaciones con alternativas.
+					</p>
+					<p>
+						Además, utilizamos IA para generar contenido de calidad de forma eficiente, 
+						lo que nos permite mantenernos siempre actualizados con las últimas novedades 
+						del sector.
+					</p>
+				</div>
+			</div>
+
+			<section class="stats-section">
+				<h2 class="text-center" style="margin-bottom: 3rem; font-size: 2.5rem;">
+					📊 Nuestro Impacto
+				</h2>
+				<div class="stats-grid">
+					<div class="stat-item">
+						<div class="stat-number">50+</div>
+						<div class="stat-label">Herramientas Revisadas</div>
+					</div>
+					<div class="stat-item">
+						<div class="stat-number">10K+</div>
+						<div class="stat-label">Lectores Mensuales</div>
+					</div>
+					<div class="stat-item">
+						<div class="stat-number">100%</div>
+						<div class="stat-label">Reviews Honestas</div>
+					</div>
+					<div class="stat-item">
+						<div class="stat-number">24/7</div>
+						<div class="stat-label">Contenido Actualizado</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="values-section">
+				<h2 class="text-center" style="font-size: 2.5rem; margin-bottom: 1rem;">
+					✨ Nuestros Valores
+				</h2>
+				<p class="text-center" style="color: rgb(var(--gray)); margin-bottom: 3rem; font-size: 1.1rem;">
+					Principios que guían cada artículo que publicamos
+				</p>
+				
+				<div class="values-grid">
+					<div class="value-card">
+						<div class="value-icon">🔍</div>
+						<h3>Transparencia</h3>
+						<p>
+							Nunca ocultamos las limitaciones de una herramienta. 
+							Si algo no funciona bien, te lo decimos claramente.
+						</p>
+					</div>
+
+					<div class="value-card">
+						<div class="value-icon">🎓</div>
+						<h3>Educación</h3>
+						<p>
+							No solo recomendamos herramientas, te enseñamos a usarlas 
+							eficientemente con tutoriales paso a paso.
+						</p>
+					</div>
+
+					<div class="value-card">
+						<div class="value-icon">⚡</div>
+						<h3>Practicidad</h3>
+						<p>
+							Cada artículo incluye casos de uso reales y consejos 
+							que puedes aplicar inmediatamente en tu trabajo.
+						</p>
+					</div>
+
+					<div class="value-card">
+						<div class="value-icon">🔄</div>
+						<h3>Actualización</h3>
+						<p>
+							El mundo de la IA cambia rápido. Actualizamos nuestro 
+							contenido regularmente para mantenerte informado.
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<section class="cta-section">
+				<h2>¿Listo para maximizar tu productividad?</h2>
+				<p>
+					Únete a miles de profesionales que ya están aprovechando 
+					el poder de la IA en su día a día
+				</p>
+				<div class="cta-buttons">
+					<a href="/blog" class="btn btn-white">
+						📚 Explorar Artículos
+					</a>
+					<a href="#newsletter" class="btn btn-outline">
+						✉️ Newsletter Gratis
+					</a>
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
