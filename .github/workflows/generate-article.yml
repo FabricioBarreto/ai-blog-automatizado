@@ -2,6 +2,7 @@ name: Generate & Publish Article
 
 on:
   schedule:
+    # Ejecutar cada 3 días a las 10:00 AM UTC
     - cron: "0 10 */3 * *"
   workflow_dispatch:
     inputs:
@@ -21,6 +22,7 @@ concurrency:
 jobs:
   generate-article:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Checkout repository
@@ -62,45 +64,100 @@ jobs:
           echo "📊 Git diff:"
           git diff --stat
 
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "✅ Cambios detectados"
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "⚠️ No hay cambios para commitear"
+          fi
+
+      - name: Get article info
+        if: steps.check_changes.outputs.has_changes == 'true'
+        id: article_info
+        run: |
+          # Obtener el nombre del último archivo creado
+          LATEST_FILE=$(ls -t src/content/blog/*.md | head -1)
+          ARTICLE_TITLE=$(grep '^title:' "$LATEST_FILE" | sed 's/title: //g' | tr -d '"')
+          echo "article_title=$ARTICLE_TITLE" >> $GITHUB_OUTPUT
+          echo "📝 Artículo: $ARTICLE_TITLE"
+
       - name: Create Pull Request
+        if: steps.check_changes.outputs.has_changes == 'true'
         id: cpr
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.PAT_TOKEN }}
-          commit-message: "🤖 Auto-generated article - ${{ github.run_number }}"
-          title: "🤖 New article: ${{ github.event.inputs.keyword || 'auto-generated' }}"
+          commit-message: "🤖 Add new article: ${{ steps.article_info.outputs.article_title }}"
+          title: "🤖 New Article: ${{ steps.article_info.outputs.article_title }}"
           body: |
             ## 📝 Artículo generado automáticamente
 
-            **Keyword**: `${{ github.event.inputs.keyword || 'auto-generated' }}`
+            **Título**: ${{ steps.article_info.outputs.article_title }}
+            **Keyword**: `${{ github.event.inputs.keyword || 'auto-generated from keyword list' }}`
             **Run ID**: [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-            **Run Number**: ${{ github.run_number }}
+            **Fecha**: ${{ github.event.repository.updated_at }}
 
             ---
 
-            ✅ Revisar y mergear para publicar
+            ### 📋 Checklist
+            - [ ] Revisar contenido del artículo
+            - [ ] Verificar imagen hero
+            - [ ] Confirmar tags y metadata
+            - [ ] Aprobar y mergear para publicar
+
+            ### 🚀 Deployment
+            Una vez mergeado, el artículo se publicará automáticamente en el sitio.
+
+            ---
+            *Este PR fue creado automáticamente por GitHub Actions*
           branch: bot/article-${{ github.run_number }}
           base: main
           delete-branch: true
           labels: |
             automated
             content
+            new-article
+          assignees: ${{ github.repository_owner }}
 
-      - name: Check PR creation
+      - name: PR Summary
+        if: steps.check_changes.outputs.has_changes == 'true'
         run: |
-          echo "PR Number: ${{ steps.cpr.outputs.pull-request-number }}"
-          echo "PR URL: ${{ steps.cpr.outputs.pull-request-url }}"
-          if [ -z "${{ steps.cpr.outputs.pull-request-number }}" ]; then
-            echo "⚠️ No se creó PR - probablemente no hay cambios"
+          echo "## 📊 PR Creation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -n "${{ steps.cpr.outputs.pull-request-number }}" ]; then
+            echo "✅ **PR creado exitosamente**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "- **PR Number**: #${{ steps.cpr.outputs.pull-request-number }}" >> $GITHUB_STEP_SUMMARY
+            echo "- **PR URL**: ${{ steps.cpr.outputs.pull-request-url }}" >> $GITHUB_STEP_SUMMARY
+            echo "- **Article**: ${{ steps.article_info.outputs.article_title }}" >> $GITHUB_STEP_SUMMARY
           else
-            echo "✅ PR creado exitosamente: #${{ steps.cpr.outputs.pull-request-number }}"
+            echo "⚠️ **No se creó PR** - Los cambios pueden ya existir" >> $GITHUB_STEP_SUMMARY
           fi
 
-      - name: Enable auto-merge
+      - name: Enable auto-merge (optional)
         if: steps.cpr.outputs.pull-request-number != ''
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           PR_NUMBER=${{ steps.cpr.outputs.pull-request-number }}
-          echo "✅ Habilitando auto-merge para PR #$PR_NUMBER"
-          gh pr merge $PR_NUMBER --auto --squash --delete-branch || echo "⚠️ No se pudo habilitar auto-merge (puede que no tengas branch protection)"
+          echo "🔄 Intentando habilitar auto-merge para PR #$PR_NUMBER"
+          gh pr merge $PR_NUMBER --auto --squash --delete-branch || echo "⚠️ Auto-merge no disponible (requiere branch protection rules)"
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "## ❌ Workflow Failed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "El workflow falló. Revisa los logs para más detalles." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Run URL**: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_STEP_SUMMARY

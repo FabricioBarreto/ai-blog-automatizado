@@ -88,12 +88,12 @@ Formatting Requirements:
 Output format (STRICT — do not add explanations before or after):
 
 ---
-title: [Catchy, keyword-rich title (50–60 characters)]
-description: [Meta description with CTA, max 155 characters]
+title: "Catchy, keyword-rich title (50–60 characters)"
+description: "Meta description with CTA, max 155 characters"
 pubDate: ${today}
-heroImage: '/images/placeholder.jpg'
-tags: ['AI Tools', 'Productivity', 'Tutorial']
-author: 'AI Blog Team'
+heroImage: "/images/placeholder.jpg"
+tags: ["AI Tools", "Productivity", "Tutorial"]
+author: "AI Blog Team"
 ---
 
 [Full markdown article content]`;
@@ -119,10 +119,9 @@ author: 'AI Blog Team'
     const imageUrl = await downloadImageFromPexels(imageQuery);
 
     // Reemplazar imagen placeholder
-    const finalContent = articleContent.replace(
-      "/images/placeholder.jpg",
-      imageUrl
-    );
+    const finalContent = articleContent
+      .replace('"/images/placeholder.jpg"', `"${imageUrl}"`)
+      .replace("'/images/placeholder.jpg'", `"${imageUrl}"`);
 
     // Generar slug
     const slug = keyword
@@ -149,6 +148,7 @@ author: 'AI Blog Team'
 🎉 SUCCESS! Article generated:
    📄 File: ${filename}
    🔑 Keyword: ${keyword}
+   🖼️  Image: ${imageUrl}
    💵 Cost: $${cost.toFixed(4)}
 `);
   } catch (error) {
@@ -168,37 +168,37 @@ function fixYamlFrontmatter(content) {
   let frontmatter = frontmatterMatch[1];
   const bodyContent = content.replace(/^---\n[\s\S]*?\n---/, "");
 
-  // Arreglar title y description (agregar comillas si tienen caracteres especiales)
+  // Reemplazar comillas simples por dobles en todo el frontmatter
+  frontmatter = frontmatter.replace(/'/g, '"');
+
+  // Arreglar title y description (asegurar que tengan comillas dobles)
   frontmatter = frontmatter.replace(
-    /^(title|description):\s*(.+)$/gm,
+    /^(title|description|heroImage|author):\s*(.+)$/gm,
     (match, key, value) => {
       const trimmedValue = value.trim();
 
-      // Si ya tiene comillas, dejarlo como está
-      if (trimmedValue.startsWith('"') || trimmedValue.startsWith("'")) {
+      // Si ya tiene comillas dobles, dejarlo como está
+      if (trimmedValue.startsWith('"') && trimmedValue.endsWith('"')) {
         return match;
       }
 
-      // Si tiene caracteres especiales que rompen YAML, agregar comillas
-      if (
-        trimmedValue.includes(":") ||
-        trimmedValue.includes("#") ||
-        trimmedValue.includes("&") ||
-        trimmedValue.includes("*") ||
-        trimmedValue.includes("!") ||
-        trimmedValue.includes("|") ||
-        trimmedValue.includes(">") ||
-        trimmedValue.includes("[") ||
-        trimmedValue.includes("]") ||
-        trimmedValue.includes("{") ||
-        trimmedValue.includes("}")
-      ) {
-        // Escapar comillas dobles dentro del valor
-        const escapedValue = trimmedValue.replace(/"/g, '\\"');
-        return `${key}: "${escapedValue}"`;
-      }
+      // Remover comillas simples si existen
+      const cleanValue = trimmedValue.replace(/^['"]|['"]$/g, "");
 
-      return match;
+      // Escapar comillas dobles dentro del valor
+      const escapedValue = cleanValue.replace(/"/g, '\\"');
+
+      return `${key}: "${escapedValue}"`;
+    }
+  );
+
+  // Arreglar arrays de tags (asegurar comillas dobles)
+  frontmatter = frontmatter.replace(
+    /^tags:\s*\[(.*?)\]$/gm,
+    (match, tagsContent) => {
+      // Reemplazar comillas simples por dobles en el array
+      const fixedTags = tagsContent.replace(/'/g, '"');
+      return `tags: [${fixedTags}]`;
     }
   );
 
