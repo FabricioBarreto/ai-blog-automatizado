@@ -4,6 +4,9 @@
 import '../styles/global.css';
 import { SITE_TITLE } from '../consts';
 
+import { GOOGLE_ANALYTICS_ID } from '../consts';
+import GoogleAnalytics from './GoogleAnalytics.astro';
+
 interface Props {
 	title: string;
 	description: string;
@@ -57,3 +60,5 @@ const imageURL = new URL(image, Astro.site);
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={imageURL} />
+
+{GOOGLE_ANALYTICS_ID && <GoogleAnalytics id={GOOGLE_ANALYTICS_ID} />}
