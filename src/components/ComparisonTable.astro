@@ -1,4 +1,6 @@
 ---
+import { AFFILIATE_TAG } from '../consts';
+
 interface Product {
   name: string;
   image: string;
@@ -17,7 +19,7 @@ interface Props {
 }
 
 const { title, products } = Astro.props;
-const affiliateTag = 'productivitylab-20';
+const affiliateTag = AFFILIATE_TAG;
 
 function addAffiliateTag(url: string): string {
   return url.includes('tag=')

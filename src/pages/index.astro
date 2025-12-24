@@ -549,7 +549,7 @@ const hasPosts = posts.length > 0;
 					Recibe las últimas novedades, reviews y tutoriales directamente en tu inbox. 
 					Sin spam, solo contenido de valor.
 				</p>
-				<form class="newsletter-form" action="#" method="post">
+				<form class="newsletter-form" id="homepage-newsletter">
 					<input 
 						type="email" 
 						placeholder="tu@email.com" 
@@ -564,5 +564,44 @@ const hasPosts = posts.length > 0;
 			</section>
 		</main>
 		<Footer />
+
+		<script is:inline>
+			// Newsletter signup tracking
+			document.getElementById('homepage-newsletter')?.addEventListener('submit', async (e) => {
+				e.preventDefault();
+				const form = e.target;
+				const email = form.querySelector('input[name="email"]').value;
+				const button = form.querySelector('button');
+
+				button.textContent = 'Suscribiendo...';
+				button.disabled = true;
+
+				try {
+					const res = await fetch('/api/subscribe', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({ email, source: 'homepage' })
+					});
+
+					if (res.ok) {
+						window.gtag?.('event', 'newsletter_signup', {
+							event_category: 'engagement',
+							event_label: 'homepage'
+						});
+						button.textContent = '✅ ¡Listo! Revisa tu email';
+						button.style.background = '#10b981';
+						form.reset();
+					} else {
+						throw new Error('Failed');
+					}
+				} catch (error) {
+					button.textContent = '❌ Error, intenta de nuevo';
+					setTimeout(() => {
+						button.textContent = 'Suscribirme Gratis';
+						button.disabled = false;
+					}, 3000);
+				}
+			});
+		</script>
 	</body>
 </html>

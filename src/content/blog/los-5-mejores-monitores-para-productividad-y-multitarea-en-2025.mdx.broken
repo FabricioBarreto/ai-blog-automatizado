@@ -46,7 +46,7 @@ Antes de elegir, debes evaluar:
       isBestChoice: true
     },
     {
-      name: "Dell U2723DE 27" 4K",
+      name: 'Dell U2723DE 27" 4K',
       image: "https://via.placeholder.com/400x300?text=Dell%20U2723DE%2027%22%204K",
       rating: 4.7,
       price: "$529",
@@ -69,7 +69,7 @@ Antes de elegir, debes evaluar:
   amazonUrl="https://www.amazon.com/dp/B07YGZ7C1K?tag=productivitylab-20"
   price="$449"
   rating={4.6}
-  description="34" ultrawide. USB-C 60W. QHD 3440x1440. Color sRGB 99%. Desventaja: No 4K. Desventaja: Sin HDR"
+  description='34" ultrawide. USB-C 60W. QHD 3440x1440. Color sRGB 99%. Desventaja: No 4K. Desventaja: Sin HDR'
   buttonText="Ver Precio en Amazon"
 />
 

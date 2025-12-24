@@ -2,6 +2,7 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import AmazonAffiliate from '../../components/AmazonAffiliate.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
@@ -88,6 +89,36 @@ const fallbackImage = "/images/default-hero.jpg";
 					</div>
 				)}
 			</section>
+
+			{hasPosts && (
+				<section style="margin: 4rem 0;">
+					<h2 style="text-align: center; font-size: 2rem; margin-bottom: 2rem;">
+						🛠️ Herramientas Recomendadas
+					</h2>
+
+					<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;">
+						<AmazonAffiliate
+							productName="Logitech MX Keys - Teclado Inalámbrico"
+							amazonUrl="https://www.amazon.com/dp/B07S92QBCM"
+							price="$119"
+							rating={4.6}
+							description="Teclas perfectas, multi-dispositivo, batería recargable."
+							buttonText="Ver Precio"
+							ctaStyle="secondary"
+						/>
+
+						<AmazonAffiliate
+							productName="Sony WH-1000XM5 - Auriculares ANC"
+							amazonUrl="https://www.amazon.com/dp/B09XS7JWHH"
+							price="$398"
+							rating={4.7}
+							description="Mejor cancelación de ruido. 30h batería, audio Hi-Res."
+							buttonText="Ver Precio"
+							ctaStyle="secondary"
+						/>
+					</div>
+				</section>
+			)}
 		</main>
 		<Footer />
 	</body>

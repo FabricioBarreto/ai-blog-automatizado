@@ -127,27 +127,6 @@ export function getRecommendedAffiliates(category: string): AffiliateProgram[] {
   );
 }
 
-export function trackConversion(
-  productId: string,
-  type: "view" | "click" | "purchase"
-) {
-  // ✅ Nunca explotar en SSR
-  if (typeof window === "undefined") return;
-
-  // GA4
-  // @ts-ignore
-  window.gtag?.("event", type, {
-    event_category: "monetization",
-    event_label: productId,
-    value: type === "purchase" ? 1 : 0,
-  });
-
-  // Endpoint propio (si existe)
-  if (typeof fetch !== "undefined") {
-    fetch("/api/track", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ productId, type, timestamp: Date.now() }),
-    }).catch(() => {});
-  }
-}
+// trackConversion moved to monetization.config.ts to avoid duplication
+// Import it from there if needed:
+// import { trackConversion } from './monetization.config';

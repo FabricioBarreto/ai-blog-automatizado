@@ -1,10 +1,12 @@
 // config/monetization.config.ts
 // ✅ SINGLE SOURCE OF TRUTH para toda la monetización
 
+import { AFFILIATE_TAG } from '../consts';
+
 export const MONETIZATION_CONFIG = {
   // Amazon Associates
   amazon: {
-    tag: "productivitylab-20", // TU TAG REAL
+    tag: AFFILIATE_TAG, // Importado desde consts.ts
     apiKey: process.env.AMAZON_API_KEY, // Para Product Advertising API (opcional)
     trackingPixel: true,
   },

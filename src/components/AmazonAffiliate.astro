@@ -1,4 +1,6 @@
 ---
+import { AFFILIATE_TAG } from '../consts';
+
 interface Props {
   productName: string;
   amazonUrl: string;
@@ -21,7 +23,7 @@ const {
   ctaStyle = 'primary'
 } = Astro.props;
 
-const affiliateTag = 'productivitylab-20';
+const affiliateTag = AFFILIATE_TAG;
 
 // ✅ Single source of truth: SIEMPRE agregar tag acá (y scripts sin tag)
 const finalUrl = amazonUrl.includes('tag=')

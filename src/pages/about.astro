@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import AmazonAffiliate from '../components/AmazonAffiliate.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
@@ -345,6 +346,24 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 							contenido regularmente para mantenerte informado.
 						</p>
 					</div>
+				</div>
+			</section>
+
+			<!-- Recommended Tools Section -->
+			<section style="margin: 4rem 0;">
+				<h2 style="text-align: center; font-size: 2rem; margin-bottom: 2rem; color: rgb(var(--accent));">
+					🎁 Recursos Recomendados
+				</h2>
+				<div style="max-width: 800px; margin: 0 auto;">
+					<AmazonAffiliate
+						productName="Logitech MX Master 3S - Mouse Inalámbrico"
+						amazonUrl="https://www.amazon.com/dp/B09HM94VDS"
+						price="$99.99"
+						rating={4.7}
+						description="El mouse definitivo para profesionales. Sensor 8K DPI, 7 botones programables, conectividad multi-dispositivo y batería de 70 días. Ideal para IA, diseño y programación."
+						buttonText="Ver en Amazon"
+						ctaStyle="primary"
+					/>
 				</div>
 			</section>
 
