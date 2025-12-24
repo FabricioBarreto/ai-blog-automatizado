@@ -29,6 +29,17 @@ const KEYWORDS = [
   "best ai chrome extensions",
 ];
 
+const DEFAULT_HERO = "/images/default-hero.jpg";
+
+function slugify(input) {
+  return input
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
 // Usar keyword personalizada o seleccionar aleatoria
 const keyword =
   process.env.CUSTOM_KEYWORD ||
@@ -40,7 +51,6 @@ async function generateArticle() {
 
     const today = new Date().toISOString().split("T")[0];
 
-    // Prompt profesional optimizado
     const prompt = `You are an expert SEO content writer specializing in AI tools and productivity software.
 
 Your writing style is:
@@ -91,7 +101,7 @@ Output format (STRICT — do not add explanations before or after):
 title: "Catchy, keyword-rich title (50–60 characters)"
 description: "Meta description with CTA, max 155 characters"
 pubDate: ${today}
-heroImage: "/images/placeholder.jpg"
+heroImage: "${DEFAULT_HERO}"
 tags: ["AI Tools", "Productivity", "Tutorial"]
 author: "AI Blog Team"
 ---
@@ -107,9 +117,9 @@ author: "AI Blog Team"
       max_tokens: 2600,
     });
 
-    let articleContent = completion.choices[0].message.content;
+    let articleContent = completion.choices[0].message.content || "";
 
-    // ✅ ARREGLAR FRONTMATTER YAML
+    // ✅ ARREGLAR FRONTMATTER YAML (más robusto)
     articleContent = fixYamlFrontmatter(articleContent);
 
     console.log("✅ Article content generated");
@@ -118,27 +128,30 @@ author: "AI Blog Team"
     const imageQuery = keyword.split(" ").slice(0, 3).join(" ");
     const imageUrl = await downloadImageFromPexels(imageQuery);
 
-    // Reemplazar imagen placeholder
+    // Reemplazar imagen default
     const finalContent = articleContent
-      .replace('"/images/placeholder.jpg"', `"${imageUrl}"`)
-      .replace("'/images/placeholder.jpg'", `"${imageUrl}"`);
+      .replaceAll(`"${DEFAULT_HERO}"`, `"${imageUrl}"`)
+      .replaceAll(`'${DEFAULT_HERO}'`, `"${imageUrl}"`);
 
     // Generar slug
-    const slug = keyword
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-|-$/g, "");
+    const slug = slugify(keyword);
 
-    const filename = `${today}-${slug}.md`;
-    const filepath = path.join("src", "content", "blog", filename);
+    // Nombre de archivo (evitar colisiones si se regenera mismo día)
+    let filename = `${today}-${slug}.md`;
+    let filepath = path.join("src", "content", "blog", filename);
 
-    // Asegurar que el directorio existe
+    if (fs.existsSync(filepath)) {
+      const suffix = Date.now();
+      filename = `${today}-${slug}-${suffix}.md`;
+      filepath = path.join("src", "content", "blog", filename);
+    }
+
     fs.mkdirSync(path.dirname(filepath), { recursive: true });
     fs.writeFileSync(filepath, finalContent, "utf-8");
 
     console.log(`✅ Article saved: ${filename}`);
 
-    // Estimación de costos
+    // Estimación de costos (aprox)
     const inputTokens = Math.ceil(prompt.length / 4);
     const outputTokens = Math.ceil(articleContent.length / 4);
     const cost = (inputTokens * 0.15 + outputTokens * 0.6) / 1_000_000;
@@ -161,42 +174,34 @@ author: "AI Blog Team"
 }
 
 function fixYamlFrontmatter(content) {
-  // Extraer frontmatter
   const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
   if (!frontmatterMatch) return content;
 
   let frontmatter = frontmatterMatch[1];
   const bodyContent = content.replace(/^---\n[\s\S]*?\n---/, "");
 
-  // Reemplazar comillas simples por dobles en todo el frontmatter
+  // Normalizar comillas simples -> dobles en frontmatter
   frontmatter = frontmatter.replace(/'/g, '"');
 
-  // Arreglar title y description (asegurar que tengan comillas dobles)
+  // Asegurar comillas dobles en campos string típicos
   frontmatter = frontmatter.replace(
     /^(title|description|heroImage|author):\s*(.+)$/gm,
     (match, key, value) => {
       const trimmedValue = value.trim();
-
-      // Si ya tiene comillas dobles, dejarlo como está
-      if (trimmedValue.startsWith('"') && trimmedValue.endsWith('"')) {
+      if (trimmedValue.startsWith('"') && trimmedValue.endsWith('"'))
         return match;
-      }
 
-      // Remover comillas simples si existen
       const cleanValue = trimmedValue.replace(/^['"]|['"]$/g, "");
-
-      // Escapar comillas dobles dentro del valor
       const escapedValue = cleanValue.replace(/"/g, '\\"');
 
       return `${key}: "${escapedValue}"`;
     }
   );
 
-  // Arreglar arrays de tags (asegurar comillas dobles)
+  // Tags: asegurar array válido
   frontmatter = frontmatter.replace(
     /^tags:\s*\[(.*?)\]$/gm,
     (match, tagsContent) => {
-      // Reemplazar comillas simples por dobles en el array
       const fixedTags = tagsContent.replace(/'/g, '"');
       return `tags: [${fixedTags}]`;
     }
@@ -209,7 +214,7 @@ async function downloadImageFromPexels(query) {
   try {
     if (!process.env.PEXELS_API_KEY) {
       console.log("⚠️  No Pexels API key, using default image");
-      return "/images/default-hero.jpg";
+      return DEFAULT_HERO;
     }
 
     console.log(`🖼️  Searching image for: ${query}`);
@@ -223,11 +228,12 @@ async function downloadImageFromPexels(query) {
         per_page: 1,
         orientation: "landscape",
       },
+      timeout: 30000,
     });
 
     if (!response.data.photos || response.data.photos.length === 0) {
       console.log("⚠️  No photos found, using default image");
-      return "/images/default-hero.jpg";
+      return DEFAULT_HERO;
     }
 
     const photo = response.data.photos[0];
@@ -241,7 +247,6 @@ async function downloadImageFromPexels(query) {
     const filename = `${Date.now()}.jpg`;
     const filepath = path.join("public", "images", filename);
 
-    // Asegurar que el directorio existe
     fs.mkdirSync(path.dirname(filepath), { recursive: true });
     fs.writeFileSync(filepath, imageResponse.data);
 
@@ -250,7 +255,7 @@ async function downloadImageFromPexels(query) {
   } catch (error) {
     console.error("⚠️  Error downloading image:", error.message);
     console.log("Using default image instead");
-    return "/images/default-hero.jpg";
+    return DEFAULT_HERO;
   }
 }
 

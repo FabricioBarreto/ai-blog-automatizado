@@ -1,0 +1,252 @@
+---
+// src/pages/dashboard.astro
+// ✅ Dashboard privado para monitorear performance
+
+// Protección básica (mejorá con auth real)
+const password = Astro.url.searchParams.get('p');
+const correctPassword = import.meta.env.DASHBOARD_PASSWORD || 'changeme';
+
+if (password !== correctPassword) {
+  return Astro.redirect('/404');
+}
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📊 Blog Analytics Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 2rem;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    header {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      margin-bottom: 2rem;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    
+    .subtitle {
+      color: #666;
+      font-size: 1rem;
+    }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    }
+    
+    .card h2 {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .card .value {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #1a1a1a;
+      margin-bottom: 0.5rem;
+    }
+    
+    .card .change {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    
+    .positive { color: #10b981; }
+    .negative { color: #ef4444; }
+    
+    .table-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      overflow-x: auto;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    th {
+      text-align: left;
+      padding: 1rem;
+      background: #f9fafb;
+      font-weight: 700;
+      color: #374151;
+      border-bottom: 2px solid #e5e7eb;
+    }
+    
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 400px;
+      font-size: 1.5rem;
+      color: white;
+    }
+    
+    .error {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📊 Blog Analytics Dashboard</h1>
+      <p class="subtitle">Monitoreando performance en tiempo real</p>
+    </header>
+
+    <div id="dashboard-content">
+      <div class="loading">⏳ Cargando datos...</div>
+    </div>
+  </div>
+
+  <script>
+    async function loadDashboard() {
+      const container = document.getElementById('dashboard-content');
+      
+      try {
+        const response = await fetch('/api/analytics-summary.json', {
+          headers: {
+            'Authorization': 'Bearer YOUR_SECRET_HERE' // Reemplazar
+          }
+        });
+        
+        if (!response.ok) throw new Error('Failed to load');
+        
+        const data = await response.json();
+        
+        container.innerHTML = `
+          <div class="grid">
+            <div class="card">
+              <h2>👀 Visitas Totales</h2>
+              <div class="value">${data.traffic.pageviews.toLocaleString()}</div>
+              <div class="change positive">↑ 18% vs mes anterior</div>
+            </div>
+            
+            <div class="card">
+              <h2>👥 Usuarios Únicos</h2>
+              <div class="value">${data.traffic.uniqueVisitors.toLocaleString()}</div>
+              <div class="change positive">↑ 12%</div>
+            </div>
+            
+            <div class="card">
+              <h2>💰 Ingresos Totales</h2>
+              <div class="value">$${data.monetization.estimatedEarnings.total.toFixed(2)}</div>
+              <div class="change positive">↑ $124 vs mes anterior</div>
+            </div>
+            
+            <div class="card">
+              <h2>📧 Suscriptores</h2>
+              <div class="value">${data.newsletter.subscribers.toLocaleString()}</div>
+              <div class="change positive">${data.newsletter.growthRate}</div>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="card">
+              <h2>🔗 Clicks de Afiliados</h2>
+              <p style="margin: 1rem 0;">
+                <strong>Amazon:</strong> ${data.monetization.affiliateClicks.amazon}<br>
+                <strong>Otros:</strong> ${data.monetization.affiliateClicks.other}
+              </p>
+              <p><strong>Conversion Rate:</strong> ${data.monetization.conversionRate}</p>
+            </div>
+            
+            <div class="card">
+              <h2>💸 Breakdown de Ingresos</h2>
+              <p style="margin: 1rem 0;">
+                <strong>Amazon:</strong> $${data.monetization.estimatedEarnings.amazon}<br>
+                <strong>AdSense:</strong> $${data.monetization.estimatedEarnings.adsense}<br>
+                <strong>Productos Digitales:</strong> $${data.monetization.estimatedEarnings.digitalProducts}
+              </p>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <h2 style="margin-bottom: 1rem; font-size: 1.5rem;">🏆 Top Posts</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Artículo</th>
+                  <th>Vistas</th>
+                  <th>Clicks</th>
+                  <th>Earnings</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${data.topPosts.map(post => `
+                  <tr>
+                    <td><a href="/blog/${post.slug}" style="color: #667eea; text-decoration: none;">${post.slug}</a></td>
+                    <td>${post.views.toLocaleString()}</td>
+                    <td>${post.affiliateClicks}</td>
+                    <td><strong>$${post.earnings.toFixed(2)}</strong></td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        `;
+      } catch (error) {
+        container.innerHTML = `
+          <div class="error">
+            ❌ Error al cargar el dashboard. Revisá la consola.
+          </div>
+        `;
+        console.error('Dashboard error:', error);
+      }
+    }
+
+    loadDashboard();
+    
+    // Auto-refresh cada 5 minutos
+    setInterval(loadDashboard, 5 * 60 * 1000);
+  </script>
+</body>
+</html>

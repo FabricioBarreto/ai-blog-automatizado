@@ -1,15 +1,14 @@
 ---
-// Componente para gestionar diferentes métodos de monetización
 interface Props {
   postId: string;
   postTitle: string;
   category?: string;
 }
 
-const { postId, postTitle, category } = Astro.props;
+const { postId, postTitle, category = "tecnologia" } = Astro.props;
 ---
 
-<div class="monetization-wrapper">
+<div class="monetization-wrapper" data-category={category} data-post-id={postId} data-post-title={postTitle}>
   <!-- Google AdSense Placeholder -->
   <div class="ad-container" data-ad-slot="top-banner">
     <ins class="adsbygoogle"
@@ -23,165 +22,131 @@ const { postId, postTitle, category } = Astro.props;
   <!-- Affiliate Product Box -->
   <div class="affiliate-box">
     <h3>📚 Recursos Recomendados</h3>
-    <div id="affiliate-products"></div>
+    <div id={`affiliate-products-${postId}`}></div>
   </div>
 
   <!-- Newsletter Signup -->
   <div class="newsletter-cta">
     <h3>💌 Recibe contenido exclusivo</h3>
-    <p>Suscríbete y obtén acceso a guías premium gratis</p>
-    <form id="newsletter-form">
+    <p>Suscribite y obtené guías premium gratis</p>
+    <form id={`newsletter-form-${postId}`}>
       <input type="email" placeholder="tu@email.com" required />
       <button type="submit">Suscribirme</button>
     </form>
   </div>
 
   <!-- Digital Product Promo -->
-  <div class="product-promo" id="digital-product">
+  <div class="product-promo" id={`digital-product-${postId}`}>
     <!-- Se carga dinámicamente según la categoría -->
   </div>
 </div>
 
 <style>
-  .monetization-wrapper {
-    max-width: 800px;
-    margin: 0 auto;
-  }
+  .monetization-wrapper { max-width: 800px; margin: 0 auto; }
+  .ad-container { margin: 2rem 0; min-height: 250px; background: #f5f5f5; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
+  .affiliate-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 12px; margin: 2rem 0; }
+  .affiliate-box h3 { margin-top: 0; }
+  .newsletter-cta { background: #fff; border: 2px solid #667eea; padding: 2rem; border-radius: 12px; text-align: center; margin: 2rem 0; }
+  form { display: flex; gap: 0.5rem; max-width: 400px; margin: 1rem auto 0; }
+  input { flex: 1; padding: 0.75rem; border: 1px solid #ddd; border-radius: 6px; }
+  button { background: #667eea; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 600; }
+  button:hover { background: #5568d3; }
+  .product-promo { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1.5rem; border-radius: 8px; margin: 2rem 0; }
 
-  .ad-container {
-    margin: 2rem 0;
-    min-height: 250px;
-    background: #f5f5f5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-  }
-
-  .affiliate-box {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  .affiliate-card {
+    display: block;
+    background: rgba(255,255,255,0.12);
+    padding: 0.9rem 1rem;
+    border-radius: 10px;
     color: white;
-    padding: 2rem;
-    border-radius: 12px;
-    margin: 2rem 0;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.18);
+    transition: transform 0.15s ease, background 0.15s ease;
   }
-
-  .affiliate-box h3 {
-    margin-top: 0;
-  }
-
-  #affiliate-products {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-
-  .newsletter-cta {
-    background: #fff;
-    border: 2px solid #667eea;
-    padding: 2rem;
-    border-radius: 12px;
-    text-align: center;
-    margin: 2rem 0;
-  }
-
-  #newsletter-form {
-    display: flex;
-    gap: 0.5rem;
-    max-width: 400px;
-    margin: 1rem auto 0;
-  }
-
-  #newsletter-form input {
-    flex: 1;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-  }
-
-  #newsletter-form button {
-    background: #667eea;
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-  }
-
-  #newsletter-form button:hover {
-    background: #5568d3;
-  }
-
-  .product-promo {
-    background: #fef3c7;
-    border-left: 4px solid #f59e0b;
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin: 2rem 0;
-  }
+  .affiliate-card:hover { transform: translateY(-2px); background: rgba(255,255,255,0.18); }
+  .affiliate-card span { display: block; opacity: 0.9; margin-top: 0.25rem; font-size: 0.9rem; }
 </style>
 
-<script>
-  declare global {
-    interface Window {
-      adsbygoogle: any[];
-    }
-  }
-
-  // Cargar productos afiliados basados en categoría
-  function loadAffiliateProducts(category) {
+<script is:inline define:vars={{ postId, postTitle, category }}>
+  // Cargar productos afiliados basados en categoría (demo; reemplazá por config real)
+  function loadAffiliateProducts(category, postId) {
     const products = {
-      'tecnologia': [
+      tecnologia: [
         { name: 'Curso de Desarrollo Web', url: 'https://affiliate-link-1', price: '$49' },
         { name: 'Herramientas SEO', url: 'https://affiliate-link-2', price: '$29/mes' }
       ],
-      'negocios': [
+      negocios: [
         { name: 'Libro de Marketing Digital', url: 'https://affiliate-link-3', price: '$19' },
         { name: 'Software de Gestión', url: 'https://affiliate-link-4', price: '$39/mes' }
       ]
     };
 
-    const container = document.getElementById('affiliate-products');
-    const categoryProducts = products[category] || products['tecnologia'];
+    const container = document.getElementById(`affiliate-products-${postId}`);
+    if (!container) return;
+
+    const categoryProducts = products[category] || products.tecnologia;
 
     container.innerHTML = categoryProducts.map(p => `
-      <a href="${p.url}" target="_blank" rel="nofollow noopener" class="affiliate-card">
+      <a
+        href="${p.url}"
+        target="_blank"
+        rel="nofollow noopener noreferrer sponsored"
+        class="affiliate-card"
+        data-affiliate-name="${p.name}"
+      >
         <strong>${p.name}</strong>
         <span>${p.price}</span>
       </a>
     `).join('');
+
+    container.querySelectorAll('a[data-affiliate-name]').forEach(a => {
+      a.addEventListener('click', () => {
+        window.gtag?.('event', 'affiliate_click', {
+          event_category: 'monetization',
+          event_label: a.getAttribute('data-affiliate-name'),
+          destination: 'custom_affiliate'
+        });
+      });
+    });
   }
 
-  // Newsletter submission
-  document.getElementById('newsletter-form')?.addEventListener('submit', async (e) => {
+  // Newsletter submission (placeholder)
+  const form = document.getElementById(`newsletter-form-${postId}`);
+  form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const email = e.target.querySelector('input[type="email"]').value;
-    
-    // Aquí integrarías con tu servicio de email (ConvertKit, Mailchimp, etc.)
-    console.log('Subscribing:', email);
-    
-    // Simular éxito
+    const input = form.querySelector('input[type="email"]');
+    const email = input?.value;
+
+    if (!email) return;
+
+    window.gtag?.('event', 'newsletter_signup', {
+      event_category: 'engagement',
+      event_label: postTitle
+    });
+
     alert('¡Gracias por suscribirte! Revisa tu email.');
-    e.target.reset();
+    form.reset();
   });
 
-  // Cargar productos al inicio
-  const category = document.querySelector('[data-category]')?.dataset.category;
-  loadAffiliateProducts(category);
+  loadAffiliateProducts(category, postId);
 
-  // Google AdSense
-  (function() {
+  // Google AdSense: evitar cargar script repetidas veces si el componente aparece múltiples veces
+  (function initAdsenseOnce() {
+    const SCRIPT_ID = 'adsbygoogle-loader';
+    if (document.getElementById(SCRIPT_ID)) {
+      try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch {}
+      return;
+    }
+
     const script = document.createElement('script');
+    script.id = SCRIPT_ID;
     script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
     script.async = true;
     script.setAttribute('data-ad-client', 'ca-pub-XXXXXXXXXXXXXXXX');
     document.head.appendChild(script);
 
-    // Inicializar ads cuando el script cargue
     script.onload = () => {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
+      try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch {}
     };
   })();
 </script>

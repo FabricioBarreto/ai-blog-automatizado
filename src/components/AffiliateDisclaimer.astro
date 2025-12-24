@@ -1,0 +1,62 @@
+---
+interface Props {
+  placement?: 'top' | 'bottom' | 'sidebar';
+  compact?: boolean;
+}
+
+const { placement = 'bottom', compact = false } = Astro.props;
+---
+
+{compact ? (
+  <div class="affiliate-disclaimer-compact bg-amber-50 dark:bg-amber-900/20 border-l-4 border-amber-500 p-3 my-4 text-sm">
+    <p class="text-gray-700 dark:text-gray-300">
+      <strong>🔗 Aviso:</strong> Este artículo contiene enlaces de afiliados de Amazon.
+      Si comprás a través de estos enlaces, recibo una pequeña comisión sin costo adicional para vos.
+    </p>
+  </div>
+) : (
+  <div class="affiliate-disclaimer bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 my-8 border border-blue-200 dark:border-gray-700 shadow-md">
+    <div class="flex items-start gap-4">
+      <div class="flex-shrink-0 w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white text-2xl">
+        ℹ️
+      </div>
+      <div class="flex-1">
+        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+          Aviso de Transparencia sobre Enlaces de Afiliados
+        </h3>
+        <div class="text-gray-700 dark:text-gray-300 space-y-2 text-sm leading-relaxed">
+          <p>
+            <strong>Productivity Lab</strong> participa en el Programa de Afiliados de Amazon Services LLC,
+            un programa de publicidad diseñado para proporcionar a los sitios un medio para ganar
+            tarifas de publicidad mediante publicidad y enlaces a Amazon.com.
+          </p>
+          <p>
+            Cuando hacés clic en enlaces de Amazon en este sitio y realizás una compra, <strong>recibimos
+            una pequeña comisión sin ningún costo adicional para vos</strong>. Esta comisión nos ayuda a:
+          </p>
+          <ul class="list-disc list-inside space-y-1 ml-4">
+            <li>Mantener el sitio funcionando</li>
+            <li>Crear contenido de calidad gratuito</li>
+            <li>Probar nuevos productos y herramientas</li>
+            <li>Mejorar constantemente nuestras guías</li>
+          </ul>
+          <p>
+            <strong>Importante:</strong> Solo recomendamos productos que genuinamente creemos que pueden
+            ayudarte. Nuestras opiniones son honestas y basadas en experiencia real con las herramientas.
+          </p>
+          <p class="text-xs text-gray-600 dark:text-gray-400 mt-4 pt-4 border-t border-gray-300 dark:border-gray-600">
+            Los precios y disponibilidad pueden cambiar sin previo aviso.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+<style>
+  .affiliate-disclaimer { animation: fadeIn 0.5s ease-in; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>

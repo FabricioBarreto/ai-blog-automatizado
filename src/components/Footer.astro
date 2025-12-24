@@ -1,4 +1,6 @@
 ---
+import AffiliateDisclaimer from "./AffiliateDisclaimer.astro";
+
 const currentYear = new Date().getFullYear();
 ---
 
@@ -236,7 +238,7 @@ const currentYear = new Date().getFullYear();
 			</div>
 
 			<!-- Newsletter -->
-			<div class="footer-newsletter">
+			<div class="footer-newsletter" id="newsletter">
 				<h3>📬 Newsletter Semanal</h3>
 				<p>Recibe las mejores novedades en tu inbox</p>
 				<form class="newsletter-form" action="#" method="post">
@@ -258,5 +260,7 @@ const currentYear = new Date().getFullYear();
 				<a href="#">Contacto</a>
 			</p>
 		</div>
+		    <AffiliateDisclaimer placement="bottom" compact={true} />
+ 
 	</div>
 </footer>

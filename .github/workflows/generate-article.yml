@@ -1,26 +1,20 @@
-name: Generate & Publish Article
+name: Generate Monetized Article
 
 on:
   schedule:
-    # Ejecutar cada 3 días a las 10:00 AM UTC
-    - cron: "0 10 */3 * *"
+    - cron: "0 10 * * *"
   workflow_dispatch:
-    inputs:
-      keyword:
-        description: "Keyword personalizada (opcional)"
-        required: false
-        type: string
 
 permissions:
   contents: write
   pull-requests: write
 
 concurrency:
-  group: generate-article
+  group: generate-monetized-article
   cancel-in-progress: false
 
 jobs:
-  generate-article:
+  generate-monetized-article:
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -40,12 +34,8 @@ jobs:
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
 
-      - name: Generate article with AI
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
-          CUSTOM_KEYWORD: ${{ github.event.inputs.keyword }}
-        run: node scripts/generate-article.js
+      - name: Generate monetized article
+        run: node scripts/generate-monetized-articles.js
 
       - name: Debug - Check generated files
         run: |
@@ -53,15 +43,11 @@ jobs:
           ls -la src/content/blog/ || echo "❌ Directorio no existe"
 
           echo ""
-          echo "📁 Archivos en public/images:"
-          ls -la public/images/ || echo "❌ Directorio no existe"
-
-          echo ""
           echo "🔍 Git status:"
           git status
 
           echo ""
-          echo "📊 Git diff:"
+          echo "📊 Cambios detectados:"
           git diff --stat
 
       - name: Configure Git
@@ -80,78 +66,51 @@ jobs:
             echo "⚠️ No hay cambios para commitear"
           fi
 
-      - name: Get article info
+      - name: Get articles info
         if: steps.check_changes.outputs.has_changes == 'true'
-        id: article_info
+        id: articles_info
         run: |
-          # Obtener el nombre del último archivo creado
-          LATEST_FILE=$(ls -t src/content/blog/*.md | head -1)
-          ARTICLE_TITLE=$(grep '^title:' "$LATEST_FILE" | sed 's/title: //g' | tr -d '"')
-          echo "article_title=$ARTICLE_TITLE" >> $GITHUB_OUTPUT
-          echo "📝 Artículo: $ARTICLE_TITLE"
+          ARTICLE_COUNT=$(git status --porcelain | grep -c "src/content/blog/.*\.mdx" || echo "0")
+          echo "article_count=$ARTICLE_COUNT" >> $GITHUB_OUTPUT
 
-      - name: Create Pull Request
-        if: steps.check_changes.outputs.has_changes == 'true'
-        id: cpr
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.PAT_TOKEN }}
-          commit-message: "🤖 Add new article: ${{ steps.article_info.outputs.article_title }}"
-          title: "🤖 New Article: ${{ steps.article_info.outputs.article_title }}"
-          body: |
-            ## 📝 Artículo generado automáticamente
+          TITLES=$(git diff --name-only | grep "src/content/blog/.*\.mdx" | while read file; do
+            grep "^title:" "$file" | sed 's/title: //g' | tr -d '"'
+          done | head -5 | paste -sd "," -)
 
-            **Título**: ${{ steps.article_info.outputs.article_title }}
-            **Keyword**: `${{ github.event.inputs.keyword || 'auto-generated from keyword list' }}`
-            **Run ID**: [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-            **Fecha**: ${{ github.event.repository.updated_at }}
+          echo "article_titles=$TITLES" >> $GITHUB_OUTPUT
+          echo "📝 Artículos generados: $ARTICLE_COUNT"
 
-            ---
-
-            ### 📋 Checklist
-            - [ ] Revisar contenido del artículo
-            - [ ] Verificar imagen hero
-            - [ ] Confirmar tags y metadata
-            - [ ] Aprobar y mergear para publicar
-
-            ### 🚀 Deployment
-            Una vez mergeado, el artículo se publicará automáticamente en el sitio.
-
-            ---
-            *Este PR fue creado automáticamente por GitHub Actions*
-          branch: bot/article-${{ github.run_number }}
-          base: main
-          delete-branch: true
-          labels: |
-            automated
-            content
-            new-article
-          assignees: ${{ github.repository_owner }}
-
-      - name: PR Summary
+      - name: Commit and push changes
         if: steps.check_changes.outputs.has_changes == 'true'
         run: |
-          echo "## 📊 PR Creation Summary" >> $GITHUB_STEP_SUMMARY
+          git add src/content/blog/*.mdx
+          git commit -m "🤖 Add ${{ steps.articles_info.outputs.article_count }} monetized articles
+
+          Articles:
+          - ${{ steps.articles_info.outputs.article_titles }}
+
+          Generated automatically by GitHub Actions
+          Run: ${{ github.run_id }}"
+
+          git push origin main
+
+      - name: Workflow Summary
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          echo "## 📊 Monetized Articles Generated" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          if [ -n "${{ steps.cpr.outputs.pull-request-number }}" ]; then
-            echo "✅ **PR creado exitosamente**" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "- **PR Number**: #${{ steps.cpr.outputs.pull-request-number }}" >> $GITHUB_STEP_SUMMARY
-            echo "- **PR URL**: ${{ steps.cpr.outputs.pull-request-url }}" >> $GITHUB_STEP_SUMMARY
-            echo "- **Article**: ${{ steps.article_info.outputs.article_title }}" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "⚠️ **No se creó PR** - Los cambios pueden ya existir" >> $GITHUB_STEP_SUMMARY
-          fi
+          echo "✅ **${{ steps.articles_info.outputs.article_count }} artículos monetizados creados**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📝 Artículos:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
 
-      - name: Enable auto-merge (optional)
-        if: steps.cpr.outputs.pull-request-number != ''
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
-        run: |
-          PR_NUMBER=${{ steps.cpr.outputs.pull-request-number }}
-          echo "🔄 Intentando habilitar auto-merge para PR #$PR_NUMBER"
-          gh pr merge $PR_NUMBER --auto --squash --delete-branch || echo "⚠️ Auto-merge no disponible (requiere branch protection rules)"
+          IFS=',' read -ra TITLES <<< "${{ steps.articles_info.outputs.article_titles }}"
+          for title in "${TITLES[@]}"; do
+            echo "- $title" >> $GITHUB_STEP_SUMMARY
+          done
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🚀 Los artículos se desplegarán automáticamente en Vercel" >> $GITHUB_STEP_SUMMARY
 
       - name: Notify on failure
         if: failure()

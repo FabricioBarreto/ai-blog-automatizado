@@ -6,7 +6,6 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
 
-// Obtener todos los posts de forma segura
 let posts = [];
 try {
 	const allPosts = await getCollection('blog');
@@ -15,11 +14,12 @@ try {
 			(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 		);
 	}
-} catch (error) {
+} catch {
 	console.log('ℹ️ No hay posts disponibles aún');
 }
 
 const hasPosts = posts.length > 0;
+const fallbackImage = "/images/default-hero.jpg";
 ---
 
 <!doctype html>
@@ -27,96 +27,28 @@ const hasPosts = posts.length > 0;
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			.empty-state {
-				text-align: center;
-				padding: 4rem 2rem;
-				background: linear-gradient(135deg, rgba(var(--accent-light), 0.1) 0%, rgba(var(--accent), 0.1) 100%);
-				border-radius: 12px;
-				margin: 2rem 0;
-			}
-			.empty-state-icon {
-				font-size: 5rem;
-				margin-bottom: 1.5rem;
-				opacity: 0.7;
-			}
-			.empty-state h2 {
-				font-size: 1.8rem;
-				margin-bottom: 1rem;
-				color: rgb(var(--black));
-			}
-			.empty-state p {
-				font-size: 1.1rem;
-				color: rgb(var(--gray));
-				max-width: 500px;
-				margin: 0 auto 1.5rem;
-				line-height: 1.6;
-			}
+			main { width: 960px; }
+			ul { display: flex; flex-wrap: wrap; gap: 2rem; list-style-type: none; margin: 0; padding: 0; }
+			ul li { width: calc(50% - 1rem); }
+			ul li * { text-decoration: none; transition: 0.2s ease; }
+			ul li:first-child { width: 100%; margin-bottom: 1rem; text-align: center; }
+			ul li:first-child img { width: 100%; }
+			ul li:first-child .title { font-size: 2.369rem; }
+			ul li img { margin-bottom: 0.5rem; border-radius: 12px; }
+			ul li a { display: block; }
+			.title { margin: 0; color: rgb(var(--black)); line-height: 1; }
+			.date { margin: 0; color: rgb(var(--gray)); }
+			ul li a:hover h4, ul li a:hover .date { color: rgb(var(--accent)); }
+			ul a:hover img { box-shadow: var(--box-shadow); }
+			.empty-state { text-align: center; padding: 4rem 2rem; background: linear-gradient(135deg, rgba(var(--accent-light), 0.1) 0%, rgba(var(--accent), 0.1) 100%); border-radius: 12px; margin: 2rem 0; }
+			.empty-state-icon { font-size: 5rem; margin-bottom: 1.5rem; opacity: 0.7; }
+			.empty-state h2 { font-size: 1.8rem; margin-bottom: 1rem; color: rgb(var(--black)); }
+			.empty-state p { font-size: 1.1rem; color: rgb(var(--gray)); max-width: 500px; margin: 0 auto 1.5rem; line-height: 1.6; }
 			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
+				ul { gap: 0.5em; }
+				ul li { width: 100%; text-align: center; }
+				ul li:first-child { margin-bottom: 0; }
+				ul li:first-child .title { font-size: 1.563em; }
 			}
 		</style>
 	</head>
@@ -127,10 +59,16 @@ const hasPosts = posts.length > 0;
 				<h1>📚 Blog de IA y Productividad</h1>
 				{hasPosts ? (
 					<ul>
-						{posts.map((post) => (
+						{posts.map((post, idx) => (
 							<li>
 								<a href={`/blog/${post.id}/`}>
-									<img width={720} height={360} src={post.data.heroImage} alt="" />
+									<img
+										width={720}
+										height={360}
+										src={post.data.heroImage ?? fallbackImage}
+										alt={post.data.title}
+										loading={idx === 0 ? "eager" : "lazy"}
+									/>
 									<h4 class="title">{post.data.title}</h4>
 									<p class="date">
 										<FormattedDate date={post.data.pubDate} />
@@ -144,7 +82,7 @@ const hasPosts = posts.length > 0;
 						<div class="empty-state-icon">📝</div>
 						<h2>Próximamente...</h2>
 						<p>
-							Los artículos se están generando con inteligencia artificial. 
+							Los artículos se están generando con inteligencia artificial.
 							¡Vuelve pronto para descubrir contenido sobre herramientas de IA y productividad!
 						</p>
 					</div>
