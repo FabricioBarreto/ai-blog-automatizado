@@ -2,20 +2,30 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import AmazonAffiliate from '../../components/AmazonAffiliate.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
+import NewsletterCTA from '../../components/NewsletterCTA.astro';
 
+// Obtener posts de forma segura
 let posts = [];
+const categories = new Set<string>();
+
 try {
 	const allPosts = await getCollection('blog');
 	if (allPosts && allPosts.length > 0) {
 		posts = allPosts.sort(
 			(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 		);
+		
+		// Extraer categorías únicas
+		posts.forEach(post => {
+			if (post.data.category) {
+				categories.add(post.data.category);
+			}
+		});
 	}
-} catch {
+} catch (error) {
 	console.log('ℹ️ No hay posts disponibles aún');
 }
 
@@ -26,100 +36,448 @@ const fallbackImage = "/images/default-hero.jpg";
 <!doctype html>
 <html lang="es">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead 
+			title={`Blog - ${SITE_TITLE}`} 
+			description={SITE_DESCRIPTION} 
+		/>
 		<style>
-			main { width: 960px; }
-			ul { display: flex; flex-wrap: wrap; gap: 2rem; list-style-type: none; margin: 0; padding: 0; }
-			ul li { width: calc(50% - 1rem); }
-			ul li * { text-decoration: none; transition: 0.2s ease; }
-			ul li:first-child { width: 100%; margin-bottom: 1rem; text-align: center; }
-			ul li:first-child img { width: 100%; }
-			ul li:first-child .title { font-size: 2.369rem; }
-			ul li img { margin-bottom: 0.5rem; border-radius: 12px; }
-			ul li a { display: block; }
-			.title { margin: 0; color: rgb(var(--black)); line-height: 1; }
-			.date { margin: 0; color: rgb(var(--gray)); }
-			ul li a:hover h4, ul li a:hover .date { color: rgb(var(--accent)); }
-			ul a:hover img { box-shadow: var(--box-shadow); }
-			.empty-state { text-align: center; padding: 4rem 2rem; background: linear-gradient(135deg, rgba(var(--accent-light), 0.1) 0%, rgba(var(--accent), 0.1) 100%); border-radius: 12px; margin: 2rem 0; }
-			.empty-state-icon { font-size: 5rem; margin-bottom: 1.5rem; opacity: 0.7; }
-			.empty-state h2 { font-size: 1.8rem; margin-bottom: 1rem; color: rgb(var(--black)); }
-			.empty-state p { font-size: 1.1rem; color: rgb(var(--gray)); max-width: 500px; margin: 0 auto 1.5rem; line-height: 1.6; }
-			@media (max-width: 720px) {
-				ul { gap: 0.5em; }
-				ul li { width: 100%; text-align: center; }
-				ul li:first-child { margin-bottom: 0; }
-				ul li:first-child .title { font-size: 1.563em; }
+			:root {
+				--gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			}
+
+			main {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 0 2rem;
+			}
+
+			/* Hero Section */
+			.blog-hero {
+				text-align: center;
+				padding: 4rem 2rem 3rem;
+				margin-bottom: 4rem;
+			}
+
+			.blog-hero h1 {
+				font-size: clamp(2.5rem, 5vw, 3.5rem);
+				margin-bottom: 1rem;
+				background: var(--gradient-primary);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				font-weight: 800;
+			}
+
+			.blog-hero p {
+				font-size: 1.2rem;
+				color: #64748b;
+				max-width: 600px;
+				margin: 0 auto 2rem;
+			}
+
+			.blog-stats {
+				display: flex;
+				gap: 2rem;
+				justify-content: center;
+				flex-wrap: wrap;
+			}
+
+			.stat-badge {
+				background: rgba(102, 126, 234, 0.1);
+				color: #667eea;
+				padding: 0.5rem 1.5rem;
+				border-radius: 50px;
+				font-weight: 600;
+				font-size: 0.95rem;
+				border: 1px solid rgba(102, 126, 234, 0.2);
+			}
+
+			/* Filters */
+			.filters {
+				display: flex;
+				gap: 1rem;
+				justify-content: center;
+				flex-wrap: wrap;
+				margin-bottom: 3rem;
+			}
+
+			.filter-btn {
+				padding: 0.75rem 1.5rem;
+				background: white;
+				color: #64748b;
+				border: 2px solid #e2e8f0;
+				border-radius: 50px;
+				font-weight: 600;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				font-size: 0.95rem;
+			}
+
+			.filter-btn:hover,
+			.filter-btn.active {
+				background: var(--gradient-primary);
+				color: white;
+				border-color: transparent;
+				transform: translateY(-2px);
+			}
+
+			/* Posts Grid */
+			.posts-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+				gap: 2.5rem;
+				list-style: none;
+				padding: 0;
+				margin: 0 0 4rem;
+			}
+
+			.post-card {
+				background: white;
+				border-radius: 20px;
+				overflow: hidden;
+				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+				transition: all 0.3s ease;
+			}
+
+			.post-card:hover {
+				transform: translateY(-8px);
+				box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+			}
+
+			.post-card a {
+				text-decoration: none;
+				color: inherit;
+				display: block;
+			}
+
+			.post-image {
+				position: relative;
+				width: 100%;
+				height: 220px;
+				overflow: hidden;
+				background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+			}
+
+			.post-card img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				transition: transform 0.5s ease;
+			}
+
+			.post-card:hover img {
+				transform: scale(1.1);
+			}
+
+			.post-category {
+				position: absolute;
+				top: 1rem;
+				left: 1rem;
+				background: rgba(255, 255, 255, 0.95);
+				backdrop-filter: blur(10px);
+				padding: 0.4rem 1rem;
+				border-radius: 20px;
+				font-size: 0.8rem;
+				font-weight: 700;
+				color: #667eea;
+				text-transform: uppercase;
+				letter-spacing: 0.5px;
+			}
+
+			.post-content {
+				padding: 1.75rem;
+			}
+
+			.post-meta {
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				margin-bottom: 1rem;
+				font-size: 0.85rem;
+				color: #94a3b8;
+			}
+
+			.post-reading-time {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+			}
+
+			.post-title {
+				font-size: 1.35rem;
+				font-weight: 700;
+				margin: 0 0 0.75rem;
+				color: #1e293b;
+				line-height: 1.4;
+			}
+
+			.post-description {
+				color: #64748b;
+				line-height: 1.6;
+				margin: 0 0 1rem;
+				font-size: 0.95rem;
+			}
+
+			.post-tags {
+				display: flex;
+				gap: 0.5rem;
+				flex-wrap: wrap;
+			}
+
+			.tag {
+				background: rgba(102, 126, 234, 0.08);
+				color: #667eea;
+				padding: 0.3rem 0.75rem;
+				border-radius: 12px;
+				font-size: 0.8rem;
+				font-weight: 600;
+			}
+
+			/* Empty State */
+			.empty-state {
+				text-align: center;
+				padding: 6rem 2rem;
+				background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+				border-radius: 24px;
+				margin: 2rem 0;
+			}
+
+			.empty-state-icon {
+				font-size: 6rem;
+				margin-bottom: 2rem;
+				animation: float 3s ease-in-out infinite;
+			}
+
+			@keyframes float {
+				0%, 100% { transform: translateY(0); }
+				50% { transform: translateY(-20px); }
+			}
+
+			.empty-state h2 {
+				font-size: 2rem;
+				margin-bottom: 1rem;
+				color: #1e293b;
+				font-weight: 700;
+			}
+
+			.empty-state p {
+				font-size: 1.1rem;
+				color: #64748b;
+				max-width: 500px;
+				margin: 0 auto 2rem;
+				line-height: 1.6;
+			}
+
+			/* Newsletter CTA */
+			.newsletter-cta {
+				background: var(--gradient-primary);
+				padding: 4rem 2rem;
+				border-radius: 24px;
+				text-align: center;
+				color: white;
+				margin: 4rem 0;
+			}
+
+			.newsletter-cta h2 {
+				font-size: 2rem;
+				margin-bottom: 1rem;
+				color: white;
+			}
+
+			.newsletter-cta p {
+				font-size: 1.1rem;
+				margin-bottom: 2rem;
+				opacity: 0.95;
+			}
+
+			.newsletter-form {
+				display: flex;
+				gap: 0.75rem;
+				max-width: 500px;
+				margin: 0 auto;
+				flex-wrap: wrap;
+			}
+
+			.newsletter-form input {
+				flex: 1;
+				min-width: 250px;
+				padding: 1rem 1.5rem;
+				border: none;
+				border-radius: 50px;
+				font-size: 1rem;
+			}
+
+			.newsletter-form button {
+				padding: 1rem 2rem;
+				background: white;
+				color: #667eea;
+				border: none;
+				border-radius: 50px;
+				font-weight: 700;
+				cursor: pointer;
+				transition: all 0.3s ease;
+			}
+
+			.newsletter-form button:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+			}
+
+			@media (max-width: 768px) {
+				main {
+					padding: 0 1.5rem;
+				}
+
+				.blog-hero {
+					padding: 3rem 1rem 2rem;
+					margin-bottom: 2rem;
+				}
+
+				.posts-grid {
+					grid-template-columns: 1fr;
+					gap: 1.5rem;
+				}
+
+				.newsletter-form {
+					flex-direction: column;
+				}
+
+				.newsletter-form input {
+					min-width: 100%;
+				}
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<section>
-				<h1>📚 Blog de IA y Productividad</h1>
-				{hasPosts ? (
-					<ul>
-						{posts.map((post, idx) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									<img
-										width={720}
-										height={360}
-										src={post.data.heroImage ?? fallbackImage}
-										alt={post.data.title}
-										loading={idx === 0 ? "eager" : "lazy"}
-									/>
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))}
-					</ul>
-				) : (
-					<div class="empty-state">
-						<div class="empty-state-icon">📝</div>
-						<h2>Próximamente...</h2>
-						<p>
-							Los artículos se están generando con inteligencia artificial.
-							¡Vuelve pronto para descubrir contenido sobre herramientas de IA y productividad!
-						</p>
+			<!-- Hero -->
+			<section class="blog-hero">
+				<h1>📚 Blog de IA & Productividad</h1>
+				<p>
+					Descubre las mejores herramientas, tutoriales y estrategias para trabajar más inteligente
+				</p>
+				{hasPosts && (
+					<div class="blog-stats">
+						<span class="stat-badge">📝 {posts.length} Artículos</span>
+						<span class="stat-badge">🔥 Actualizado Semanalmente</span>
+						<span class="stat-badge">💯 100% Gratis</span>
 					</div>
 				)}
 			</section>
 
-			{hasPosts && (
-				<section style="margin: 4rem 0;">
-					<h2 style="text-align: center; font-size: 2rem; margin-bottom: 2rem;">
-						🛠️ Herramientas Recomendadas
-					</h2>
+			{hasPosts ? (
+				<>
+					<!-- Filters -->
+					{categories.size > 0 && (
+						<div class="filters">
+							<button class="filter-btn active" data-filter="all">
+								Todos
+							</button>
+							{Array.from(categories).map(cat => (
+								<button class="filter-btn" data-filter={cat}>
+									{cat}
+								</button>
+							))}
+						</div>
+					)}
 
-					<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;">
-						<AmazonAffiliate
-							productName="Logitech MX Keys - Teclado Inalámbrico"
-							amazonUrl="https://www.amazon.com/dp/B07S92QBCM"
-							price="$119"
-							rating={4.6}
-							description="Teclas perfectas, multi-dispositivo, batería recargable."
-							buttonText="Ver Precio"
-							ctaStyle="secondary"
-						/>
-
-						<AmazonAffiliate
-							productName="Sony WH-1000XM5 - Auriculares ANC"
-							amazonUrl="https://www.amazon.com/dp/B09XS7JWHH"
-							price="$398"
-							rating={4.7}
-							description="Mejor cancelación de ruido. 30h batería, audio Hi-Res."
-							buttonText="Ver Precio"
-							ctaStyle="secondary"
-						/>
-					</div>
-				</section>
+					<!-- Posts Grid -->
+					<ul class="posts-grid">
+						{posts.map((post, idx) => {
+							const postCategory = post.data.category || 'all';
+							const postTags = post.data.tags || [];
+							
+							return (
+								<li 
+									class="post-card" 
+									data-category={postCategory}
+								>
+									<a href={`/blog/${post.id}/`}>
+										<div class="post-image">
+											<img
+												width={350}
+												height={220}
+												src={post.data.heroImage ?? fallbackImage}
+												alt={post.data.title}
+												loading={idx === 0 ? "eager" : "lazy"}
+											/>
+											{post.data.category && (
+												<span class="post-category">{post.data.category}</span>
+											)}
+										</div>
+										<div class="post-content">
+											<div class="post-meta">
+												<FormattedDate date={post.data.pubDate} />
+												{post.data.readingTime && (
+													<span class="post-reading-time">
+														⏱️ {post.data.readingTime}
+													</span>
+												)}
+											</div>
+											<h2 class="post-title">{post.data.title}</h2>
+											<p class="post-description">{post.data.description}</p>
+											{postTags.length > 0 && (
+												<div class="post-tags">
+													{postTags.slice(0, 3).map((tag) => (
+														<span class="tag">#{tag}</span>
+													))}
+												</div>
+											)}
+										</div>
+									</a>
+								</li>
+							);
+						})}
+					</ul>
+				</>
+			) : (
+				<div class="empty-state">
+					<div class="empty-state-icon">🚀</div>
+					<h2>Contenido en Camino</h2>
+					<p>
+						Estamos preparando artículos increíbles sobre IA y productividad.
+						Suscribite abajo para ser el primero en leerlos.
+					</p>
+				</div>
 			)}
+
+			<!-- Newsletter CTA -->
+			<NewsletterCTA 
+				source="blog-page"
+				variant="primary"
+			/>
+
+			
 		</main>
 		<Footer />
+
+		<script is:inline>
+			// Filter functionality
+			document.addEventListener('DOMContentLoaded', () => {
+				const filterBtns = document.querySelectorAll('.filter-btn');
+				const posts = document.querySelectorAll('[data-category]');
+
+				filterBtns.forEach(btn => {
+					btn.addEventListener('click', () => {
+						const filter = btn.getAttribute('data-filter');
+						
+						// Update active state
+						filterBtns.forEach(b => b.classList.remove('active'));
+						btn.classList.add('active');
+
+						// Filter posts
+						posts.forEach(post => {
+							const postCategory = post.getAttribute('data-category');
+							if (filter === 'all' || postCategory === filter) {
+								post.style.display = '';
+							} else {
+								post.style.display = 'none';
+							}
+						});
+					});
+				});
+			});
+		</script>
 	</body>
 </html>

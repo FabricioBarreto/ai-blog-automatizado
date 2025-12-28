@@ -1,122 +1,179 @@
-name: Generate Monetized Article
+name: 🤖 Generate Smart Article
 
 on:
+  # 1 artículo por día a las 09:00 ARG (12:00 UTC)
   schedule:
-    - cron: "0 10 * * *"
+    - cron: "0 12 * * *"
+  
+  # Trigger manual con opciones
   workflow_dispatch:
+    inputs:
+      quantity:
+        description: "Cantidad de artículos"
+        required: false
+        default: "1"
+        type: choice
+        options:
+          - "1"
+          - "2"
+          - "3"
+      force_topic:
+        description: "Tema específico (opcional)"
+        required: false
+        type: string
 
 permissions:
   contents: write
-  pull-requests: write
 
 concurrency:
-  group: generate-monetized-article
+  group: generate-article
   cancel-in-progress: false
 
 jobs:
-  generate-monetized-article:
+  generate:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
+
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+      SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
 
     steps:
-      - name: Checkout repository
+      - name: 📥 Checkout repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.PAT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Setup Node.js
+      - name: 🟢 Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
 
-      - name: Install dependencies
+      - name: 📦 Install dependencies
         run: npm ci --legacy-peer-deps
 
-      - name: Generate monetized article
-        run: node scripts/generate-monetized-articles.js
-
-      - name: Debug - Check generated files
+      - name: 🔍 Check existing articles
+        id: check
         run: |
-          echo "📁 Archivos en src/content/blog:"
-          ls -la src/content/blog/ || echo "❌ Directorio no existe"
+          ARTICLE_COUNT=$(ls src/content/blog/*.mdx 2>/dev/null | wc -l)
+          echo "current_count=$ARTICLE_COUNT" >> $GITHUB_OUTPUT
+          echo "📊 Artículos actuales: $ARTICLE_COUNT"
 
+      - name: 📝 Generate article(s)
+        run: |
+          QUANTITY=${{ github.event.inputs.quantity || '1' }}
+          
+          echo "🚀 Iniciando generación de $QUANTITY artículo(s)..."
+          
+          for i in $(seq 1 $QUANTITY); do
+            echo ""
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo "📝 Generando artículo $i/$QUANTITY..."
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            
+            # Ejecutar script de generación
+            if node scripts/generate-smart-article.js; then
+              echo "✅ Artículo $i generado exitosamente"
+            else
+              echo "❌ Error generando artículo $i"
+              exit 1
+            fi
+            
+            # Delay entre artículos para evitar rate limits
+            if [ $i -lt $QUANTITY ]; then
+              echo "⏳ Esperando 45 segundos antes del siguiente..."
+              sleep 45
+            fi
+          done
+          
           echo ""
-          echo "🔍 Git status:"
-          git status
+          echo "✅ Todos los artículos generados exitosamente"
 
-          echo ""
-          echo "📊 Cambios detectados:"
-          git diff --stat
+      - name: 📊 Generate summary
+        id: summary
+        run: |
+          # Contar nuevos archivos
+          NEW_FILES=$(git status --short | grep "\.mdx$" | wc -l)
+          echo "new_count=$NEW_FILES" >> $GITHUB_OUTPUT
+          
+          # Obtener títulos
+          if [ $NEW_FILES -gt 0 ]; then
+            echo "titles<<EOF" >> $GITHUB_OUTPUT
+            git status --short | grep "\.mdx$" | while read status file; do
+              title=$(grep "^title:" "$file" | sed 's/title: //g' | tr -d '"' | head -1)
+              echo "- $title" >> $GITHUB_OUTPUT
+            done
+            echo "EOF" >> $GITHUB_OUTPUT
+          fi
 
-      - name: Configure Git
+      - name: ⚙️ Configure Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Check for changes
-        id: check_changes
+      - name: ✅ Commit and push
+        id: commit
         run: |
-          if [[ -n $(git status --porcelain) ]]; then
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-            echo "✅ Cambios detectados"
-          else
-            echo "has_changes=false" >> $GITHUB_OUTPUT
+          # Agregar archivos
+          git add src/content/blog/*.mdx 2>/dev/null || true
+          git add public/images/*.jpg 2>/dev/null || true
+          git add .article-history.json 2>/dev/null || true
+          # Verificar cambios
+          if git diff --staged --quiet; then
             echo "⚠️ No hay cambios para commitear"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            exit 0
           fi
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+          # Crear commit message detallado
+          NEW_COUNT=${{ steps.summary.outputs.new_count }}
+          git commit -m "🤖 Auto: ${NEW_COUNT} new article(s)\n\nGenerated at: $(date -u +'%Y-%m-%d %H:%M UTC')\nRun ID: ${{ github.run_id }}\nTrigger: ${{ github.event_name }}"
 
-      - name: Get articles info
-        if: steps.check_changes.outputs.has_changes == 'true'
-        id: articles_info
-        run: |
-          ARTICLE_COUNT=$(git status --porcelain | grep -c "src/content/blog/.*\.mdx" || echo "0")
-          echo "article_count=$ARTICLE_COUNT" >> $GITHUB_OUTPUT
-
-          TITLES=$(git diff --name-only | grep "src/content/blog/.*\.mdx" | while read file; do
-            grep "^title:" "$file" | sed 's/title: //g' | tr -d '"'
-          done | head -5 | paste -sd "," -)
-
-          echo "article_titles=$TITLES" >> $GITHUB_OUTPUT
-          echo "📝 Artículos generados: $ARTICLE_COUNT"
-
-      - name: Commit and push changes
-        if: steps.check_changes.outputs.has_changes == 'true'
-        run: |
-          git add src/content/blog/*.mdx
-          git commit -m "🤖 Add ${{ steps.articles_info.outputs.article_count }} monetized articles
-
-          Articles:
-          - ${{ steps.articles_info.outputs.article_titles }}
-
-          Generated automatically by GitHub Actions
-          Run: ${{ github.run_id }}"
-
-          git push origin main
-
-      - name: Workflow Summary
-        if: steps.check_changes.outputs.has_changes == 'true'
-        run: |
-          echo "## 📊 Monetized Articles Generated" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "✅ **${{ steps.articles_info.outputs.article_count }} artículos monetizados creados**" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 📝 Artículos:" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-
-          IFS=',' read -ra TITLES <<< "${{ steps.articles_info.outputs.article_titles }}"
-          for title in "${TITLES[@]}"; do
-            echo "- $title" >> $GITHUB_STEP_SUMMARY
+          # Push con retry
+          for i in {1..3}; do
+            if git push; then
+              echo "✅ Push exitoso"
+              break
+            else
+              echo "⚠️ Push falló, reintentando ($i/3)..."
+              sleep 5
+              git pull --rebase
+            fi
           done
 
+      - name: 📋 Job Summary
+        if: always()
+        run: |
+          echo "## 📊 Article Generation Report" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "🚀 Los artículos se desplegarán automáticamente en Vercel" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ steps.commit.outputs.has_changes }}" == "true" ]; then
+            echo "### ✅ Success" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "**Articles Generated:** ${{ steps.summary.outputs.new_count }}" >> $GITHUB_STEP_SUMMARY
+            echo "**Total Articles:** ${{ steps.check.outputs.current_count }}" >> $GITHUB_STEP_SUMMARY
+            echo "**Timestamp:** $(date -u +'%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### 📝 New Articles:" >> $GITHUB_STEP_SUMMARY
+            echo "${{ steps.summary.outputs.titles }}" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "🚀 **Deployment:** Articles will be live in ~2 minutes via Vercel" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### ⚠️ No Changes" >> $GITHUB_STEP_SUMMARY
+            echo "No new articles were generated." >> $GITHUB_STEP_SUMMARY
+          fi
 
-      - name: Notify on failure
+      - name: "Error Report"
         if: failure()
         run: |
           echo "## ❌ Workflow Failed" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "El workflow falló. Revisa los logs para más detalles." >> $GITHUB_STEP_SUMMARY
+          echo "**Error Details:**" >> $GITHUB_STEP_SUMMARY
+          echo "- Check the logs above for specific error messages" >> $GITHUB_STEP_SUMMARY
+          echo "- Verify API keys are configured correctly" >> $GITHUB_STEP_SUMMARY
+          echo "- Ensure rate limits haven't been exceeded" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Run URL**: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Logs:** [${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY

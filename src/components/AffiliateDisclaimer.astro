@@ -1,62 +1,110 @@
+
 ---
 interface Props {
-  placement?: 'top' | 'bottom' | 'sidebar';
-  compact?: boolean;
+  placement?: 'top' | 'bottom';
 }
 
-const { placement = 'bottom', compact = false } = Astro.props;
+const { placement = 'bottom' } = Astro.props;
 ---
 
-{compact ? (
-  <div class="affiliate-disclaimer-compact bg-amber-50 dark:bg-amber-900/20 border-l-4 border-amber-500 p-3 my-4 text-sm">
-    <p class="text-gray-700 dark:text-gray-300">
-      <strong>🔗 Aviso:</strong> Este artículo contiene enlaces de afiliados de Amazon.
-      Si comprás a través de estos enlaces, recibo una pequeña comisión sin costo adicional para vos.
+<div class={`affiliate-disclaimer ${placement}`}>
+  <div class="disclaimer-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="16" x2="12" y2="12"></line>
+      <line x1="12" y1="8" x2="12.01" y2="8"></line>
+    </svg>
+  </div>
+  
+  <div class="disclaimer-content">
+    <h3 class="disclaimer-title">📢 Transparencia Total</h3>
+    <p class="disclaimer-text">
+      Este artículo contiene enlaces de afiliados de Amazon. Si comprás a través de estos links, 
+      ganamos una pequeña comisión <strong>sin costo extra para vos</strong>. Esto nos ayuda a seguir 
+      creando contenido de calidad y testear productos. Solo recomendamos productos que genuinamente 
+      consideramos útiles. <a href="/politica-afiliados" class="disclaimer-link">Leer más</a>
     </p>
   </div>
-) : (
-  <div class="affiliate-disclaimer bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 my-8 border border-blue-200 dark:border-gray-700 shadow-md">
-    <div class="flex items-start gap-4">
-      <div class="flex-shrink-0 w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white text-2xl">
-        ℹ️
-      </div>
-      <div class="flex-1">
-        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
-          Aviso de Transparencia sobre Enlaces de Afiliados
-        </h3>
-        <div class="text-gray-700 dark:text-gray-300 space-y-2 text-sm leading-relaxed">
-          <p>
-            <strong>Productivity Lab</strong> participa en el Programa de Afiliados de Amazon Services LLC,
-            un programa de publicidad diseñado para proporcionar a los sitios un medio para ganar
-            tarifas de publicidad mediante publicidad y enlaces a Amazon.com.
-          </p>
-          <p>
-            Cuando hacés clic en enlaces de Amazon en este sitio y realizás una compra, <strong>recibimos
-            una pequeña comisión sin ningún costo adicional para vos</strong>. Esta comisión nos ayuda a:
-          </p>
-          <ul class="list-disc list-inside space-y-1 ml-4">
-            <li>Mantener el sitio funcionando</li>
-            <li>Crear contenido de calidad gratuito</li>
-            <li>Probar nuevos productos y herramientas</li>
-            <li>Mejorar constantemente nuestras guías</li>
-          </ul>
-          <p>
-            <strong>Importante:</strong> Solo recomendamos productos que genuinamente creemos que pueden
-            ayudarte. Nuestras opiniones son honestas y basadas en experiencia real con las herramientas.
-          </p>
-          <p class="text-xs text-gray-600 dark:text-gray-400 mt-4 pt-4 border-t border-gray-300 dark:border-gray-600">
-            Los precios y disponibilidad pueden cambiar sin previo aviso.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-)}
+</div>
 
 <style>
-  .affiliate-disclaimer { animation: fadeIn 0.5s ease-in; }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+  .affiliate-disclaimer {
+    display: flex;
+    gap: 20px;
+    padding: 24px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-left: 4px solid #f59e0b;
+    border-radius: 12px;
+    margin: 32px 0;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2);
+  }
+  
+  .affiliate-disclaimer.top {
+    margin-top: 0;
+    margin-bottom: 32px;
+  }
+  
+  .disclaimer-icon {
+    flex-shrink: 0;
+    color: #f59e0b;
+  }
+  
+  .disclaimer-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .disclaimer-content {
+    flex: 1;
+  }
+  
+  .disclaimer-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #92400e;
+    margin: 0 0 8px 0;
+  }
+  
+  .disclaimer-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #78350f;
+    margin: 0;
+  }
+  
+  .disclaimer-text strong {
+    color: #92400e;
+  }
+  
+  .disclaimer-link {
+    color: #d97706;
+    font-weight: 600;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+  
+  .disclaimer-link:hover {
+    color: #b45309;
+  }
+  
+  @media (max-width: 640px) {
+    .affiliate-disclaimer {
+      flex-direction: column;
+      gap: 12px;
+      padding: 20px;
+    }
+    
+    .disclaimer-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .disclaimer-title {
+      font-size: 1rem;
+    }
+    
+    .disclaimer-text {
+      font-size: 0.9rem;
+    }
   }
 </style>

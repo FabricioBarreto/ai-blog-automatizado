@@ -1,0 +1,319 @@
+---
+// src/components/TableOfContents.astro
+// Índice de contenidos sticky y moderno con smooth scroll
+
+interface Props {
+  headings?: Array<{
+    depth: number;
+    slug: string;
+    text: string;
+  }>;
+}
+
+const { headings = [] } = Astro.props;
+
+// Filtrar solo H2 y H3 para no saturar
+const filteredHeadings = headings.filter(h => h.depth === 2 || h.depth === 3);
+---
+
+{filteredHeadings.length > 0 && (
+  <aside class="toc-container" id="table-of-contents">
+    <div class="toc-header">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="8" y1="6" x2="21" y2="6"></line>
+        <line x1="8" y1="12" x2="21" y2="12"></line>
+        <line x1="8" y1="18" x2="21" y2="18"></line>
+        <line x1="3" y1="6" x2="3.01" y2="6"></line>
+        <line x1="3" y1="12" x2="3.01" y2="12"></line>
+        <line x1="3" y1="18" x2="3.01" y2="18"></line>
+      </svg>
+      <h2>Contenido</h2>
+    </div>
+    
+    <nav class="toc-nav">
+      <ul class="toc-list">
+        {filteredHeadings.map((heading) => (
+          <li class={`toc-item depth-${heading.depth}`}>
+            <a href={`#${heading.slug}`} class="toc-link" data-heading-id={heading.slug}>
+              <span class="toc-indicator"></span>
+              <span class="toc-text">{heading.text}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    
+    <div class="reading-progress">
+      <div class="progress-bar" id="reading-progress-bar"></div>
+    </div>
+  </aside>
+)}
+
+<style>
+  .toc-container {
+    position: sticky;
+    top: 100px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
+    margin-bottom: 32px;
+  }
+  
+  .toc-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #f3f4f6;
+  }
+  
+  .toc-header svg {
+    color: #667eea;
+    flex-shrink: 0;
+  }
+  
+  .toc-header h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .toc-nav {
+    margin-bottom: 16px;
+  }
+  
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .toc-item {
+    margin-bottom: 8px;
+  }
+  
+  .toc-item.depth-3 {
+    margin-left: 20px;
+  }
+  
+  .toc-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    color: #64748b;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    position: relative;
+  }
+  
+  .toc-link:hover {
+    background: #f8fafc;
+    color: #667eea;
+    transform: translateX(4px);
+  }
+  
+  .toc-link.active {
+    background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+    color: #667eea;
+    font-weight: 600;
+  }
+  
+  .toc-indicator {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #cbd5e1;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+  
+  .toc-link:hover .toc-indicator {
+    background: #667eea;
+    transform: scale(1.5);
+  }
+  
+  .toc-link.active .toc-indicator {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transform: scale(1.8);
+    box-shadow: 0 0 12px rgba(102, 126, 234, 0.5);
+  }
+  
+  .toc-text {
+    flex: 1;
+  }
+  
+  .reading-progress {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid #f3f4f6;
+  }
+  
+  .reading-progress::before {
+    content: "Progreso de lectura";
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  
+  .progress-bar {
+    height: 6px;
+    background: #e5e7eb;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .progress-bar::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+  }
+  
+  /* Scrollbar personalizado */
+  .toc-container::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .toc-container::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 3px;
+  }
+  
+  .toc-container::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+    transition: background 0.3s ease;
+  }
+  
+  .toc-container::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+  
+  /* Mobile: ocultar por default, mostrar en collapse */
+  @media (max-width: 1024px) {
+    .toc-container {
+      position: static;
+      max-height: none;
+      margin-top: 32px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .toc-container {
+      padding: 20px;
+    }
+    
+    .toc-header h2 {
+      font-size: 1.1rem;
+    }
+    
+    .toc-link {
+      font-size: 0.9rem;
+      padding: 8px 10px;
+    }
+  }
+</style>
+
+<script>
+  // Intersection Observer para marcar sección activa
+  function initTableOfContents() {
+    const links = document.querySelectorAll('.toc-link');
+    const progressBar = document.getElementById('reading-progress-bar');
+    
+    if (!links.length) return;
+    
+    // Mapear headings del DOM
+    const headings = Array.from(links).map(link => {
+      const id = link.getAttribute('data-heading-id');
+      return id ? document.getElementById(id) : null;
+    }).filter((heading): heading is HTMLElement => heading !== null);
+    
+    // Observer para secciones activas
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.id;
+          const link = document.querySelector(`.toc-link[data-heading-id="${id}"]`);
+          
+          if (entry.isIntersecting) {
+            // Remover active de todos
+            links.forEach(l => l.classList.remove('active'));
+            // Agregar active al actual
+            link?.classList.add('active');
+          }
+        });
+      },
+      {
+        rootMargin: '-100px 0px -66%',
+        threshold: 0
+      }
+    );
+    
+    // Observar todos los headings
+    headings.forEach(heading => observer.observe(heading));
+    
+    // Progress bar de lectura
+    function updateReadingProgress() {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight - windowHeight;
+      const scrolled = window.scrollY;
+      const progress = (scrolled / documentHeight) * 100;
+      
+      if (progressBar) {
+        progressBar.style.width = `${Math.min(progress, 100)}%`;
+      }
+    }
+    
+    window.addEventListener('scroll', updateReadingProgress, { passive: true });
+    updateReadingProgress();
+    
+    // Smooth scroll al hacer click
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = link.getAttribute('data-heading-id');
+        const target = id ? document.getElementById(id) : null;
+        
+        if (target) {
+          const offset = 80; // Ajustar según altura del header
+          const targetPosition = target.getBoundingClientRect().top + window.scrollY - offset;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  }
+  
+  // Ejecutar cuando el DOM esté listo
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTableOfContents);
+  } else {
+    initTableOfContents();
+  }
+</script>

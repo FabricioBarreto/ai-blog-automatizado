@@ -8,10 +8,15 @@ import { SITE_TITLE } from '../consts';
 		position: sticky;
 		top: 0;
 		z-index: 100;
-		background: rgba(255, 255, 255, 0.95);
-		backdrop-filter: blur(10px);
-		border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+		background: rgba(255, 255, 255, 0.98);
+		backdrop-filter: blur(20px);
+		border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+		transition: all 0.3s ease;
+	}
+
+	header.scrolled {
+		box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 	}
 
 	.header-content {
@@ -29,26 +34,29 @@ import { SITE_TITLE } from '../consts';
 		align-items: center;
 		gap: 0.75rem;
 		text-decoration: none;
-		color: rgb(var(--black));
 		font-weight: 800;
 		font-size: 1.3rem;
 		transition: all 0.3s ease;
+		position: relative;
 	}
 
 	.logo-icon {
-		font-size: 1.8rem;
-		filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+		font-size: 2rem;
+		filter: drop-shadow(0 2px 8px rgba(102, 126, 234, 0.3));
+		transition: transform 0.3s ease;
 	}
 
-	.logo:hover {
-		transform: translateY(-2px);
+	.logo:hover .logo-icon {
+		transform: rotate(10deg) scale(1.1);
 	}
 
-	.logo span {
+	.logo-text {
 		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 		background-clip: text;
+		font-weight: 800;
+		letter-spacing: -0.5px;
 	}
 
 	nav {
@@ -60,11 +68,38 @@ import { SITE_TITLE } from '../consts';
 	.nav-links {
 		display: flex;
 		align-items: center;
-		gap: 1.5rem;
+		gap: 2rem;
+	}
+
+	.nav-links a:not(.cta-button) {
+		position: relative;
+		color: #475569;
+		font-weight: 600;
+		font-size: 0.95rem;
+		transition: color 0.3s ease;
+	}
+
+	.nav-links a:not(.cta-button)::after {
+		content: '';
+		position: absolute;
+		bottom: -4px;
+		left: 0;
+		width: 0;
+		height: 2px;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		transition: width 0.3s ease;
+	}
+
+	.nav-links a:not(.cta-button):hover {
+		color: #667eea;
+	}
+
+	.nav-links a:not(.cta-button):hover::after {
+		width: 100%;
 	}
 
 	.cta-button {
-		padding: 0.6rem 1.5rem;
+		padding: 0.75rem 1.75rem;
 		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 		color: white;
 		border-radius: 50px;
@@ -76,24 +111,38 @@ import { SITE_TITLE } from '../consts';
 		display: inline-flex;
 		align-items: center;
 		gap: 0.5rem;
+		white-space: nowrap;
 	}
 
 	.cta-button:hover {
 		transform: translateY(-2px);
-		box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+		box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
 	}
 
 	.mobile-menu-toggle {
 		display: none;
 		background: none;
 		border: none;
-		font-size: 1.5rem;
+		font-size: 1.8rem;
 		cursor: pointer;
 		padding: 0.5rem;
-		color: rgb(var(--black));
+		color: #667eea;
+		transition: transform 0.3s ease;
+	}
+
+	.mobile-menu-toggle:hover {
+		transform: scale(1.1);
 	}
 
 	@media (max-width: 768px) {
+		.header-content {
+			padding: 1rem 1.5rem;
+		}
+
+		.logo-text {
+			font-size: 1.1rem;
+		}
+
 		.nav-links {
 			position: fixed;
 			top: 70px;
@@ -102,10 +151,11 @@ import { SITE_TITLE } from '../consts';
 			background: white;
 			flex-direction: column;
 			padding: 2rem;
-			gap: 1rem;
-			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+			gap: 1.5rem;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 			transform: translateY(-150%);
-			transition: transform 0.3s ease;
+			transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			border-top: 2px solid rgba(102, 126, 234, 0.1);
 		}
 
 		.nav-links.active {
@@ -119,46 +169,86 @@ import { SITE_TITLE } from '../consts';
 		.cta-button {
 			width: 100%;
 			justify-content: center;
+			padding: 1rem 2rem;
+		}
+
+		.nav-links a:not(.cta-button)::after {
+			display: none;
 		}
 	}
 </style>
 
-<header>
+<header id="main-header">
 	<div class="header-content">
 		<a href="/" class="logo">
 			<span class="logo-icon">🤖</span>
-			<span>{SITE_TITLE}</span>
+			<span class="logo-text">{SITE_TITLE}</span>
 		</a>
 		
 		<nav>
-			<button class="mobile-menu-toggle" aria-label="Toggle menu" id="mobile-toggle">
+			<button 
+				class="mobile-menu-toggle" 
+				aria-label="Toggle menu" 
+				id="mobile-toggle"
+				aria-expanded="false"
+			>
 				☰
 			</button>
 			
-			<div class="nav-links" id="nav-links">
+			<div class="nav-links" id="nav-links" role="navigation">
 				<HeaderLink href="/">Inicio</HeaderLink>
 				<HeaderLink href="/blog">Blog</HeaderLink>
 				<HeaderLink href="/about">Acerca de</HeaderLink>
 				<a href="/#newsletter" class="cta-button">
-						✉️ Newsletter Gratis
-					</a>
+					📬 Newsletter
+				</a>
 			</div>
 		</nav>
 	</div>
 </header>
 
 <script>
+	// Header scroll effect
+	const header = document.getElementById('main-header');
+	let lastScroll = 0;
+
+	window.addEventListener('scroll', () => {
+		const currentScroll = window.pageYOffset;
+		
+		if (currentScroll > 100) {
+			header?.classList.add('scrolled');
+		} else {
+			header?.classList.remove('scrolled');
+		}
+
+		lastScroll = currentScroll;
+	}, { passive: true });
+
+	// Mobile menu toggle
 	const toggle = document.getElementById('mobile-toggle');
 	const navLinks = document.getElementById('nav-links');
 	
 	toggle?.addEventListener('click', () => {
-		navLinks?.classList.toggle('active');
+		const isActive = navLinks?.classList.toggle('active');
+		toggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+		toggle.textContent = isActive ? '✕' : '☰';
 	});
 
-	// Cerrar menú al hacer click en un link
+	// Close menu when clicking a link
 	navLinks?.addEventListener('click', (e) => {
 		if (e.target instanceof HTMLElement && e.target.tagName === 'A') {
 			navLinks.classList.remove('active');
+			toggle?.setAttribute('aria-expanded', 'false');
+			if (toggle) toggle.textContent = '☰';
+		}
+	});
+
+	// Close menu when clicking outside
+	document.addEventListener('click', (e) => {
+		if (!header?.contains(e.target as Node)) {
+			navLinks?.classList.remove('active');
+			toggle?.setAttribute('aria-expanded', 'false');
+			if (toggle) toggle.textContent = '☰';
 		}
 	});
 </script>

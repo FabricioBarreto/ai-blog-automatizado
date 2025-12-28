@@ -2,36 +2,142 @@
 import AffiliateDisclaimer from "./AffiliateDisclaimer.astro";
 
 const currentYear = new Date().getFullYear();
+
+const footerLinks = {
+	resources: [
+		{ label: 'Todos los Artículos', href: '/blog' },
+		{ label: 'Acerca de Nosotros', href: '/about' },
+		{ label: 'Newsletter', href: '#newsletter' },
+		{ label: 'RSS Feed', href: '/rss.xml' },
+	],
+	categories: [
+		{ label: 'Herramientas de IA', href: '/blog?category=ia' },
+		{ label: 'Productividad', href: '/blog?category=productividad' },
+		{ label: 'Tutoriales', href: '/blog?category=tutoriales' },
+		{ label: 'Reviews', href: '/blog?category=reviews' },
+	],
+	legal: [
+		{ label: 'Política de Privacidad', href: '/privacy' },
+		{ label: 'Términos de Uso', href: '/terms' },
+		{ label: 'Política de Afiliados', href: '/affiliate-policy' },
+		{ label: 'Contacto', href: '/contact' },
+	]
+};
+
+const socialLinks = [
+	{ icon: '𝕏', label: 'Twitter', href: 'https://twitter.com' },
+	{ icon: 'in', label: 'LinkedIn', href: 'https://linkedin.com' },
+	{ icon: '▶', label: 'YouTube', href: 'https://youtube.com' },
+	{ icon: 'RSS', label: 'RSS Feed', href: '/rss.xml' },
+];
 ---
 
 <style>
 	footer {
-		background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+		background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
 		color: rgba(255, 255, 255, 0.9);
-		margin-top: 5rem;
-		padding: 3rem 2rem 2rem;
+		margin-top: 6rem;
+		position: relative;
+		overflow: hidden;
+	}
+
+	footer::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 1px;
+		background: linear-gradient(90deg, 
+			transparent 0%, 
+			rgba(102, 126, 234, 0.5) 50%, 
+			transparent 100%
+		);
 	}
 
 	.footer-content {
 		max-width: 1200px;
 		margin: 0 auto;
+		padding: 4rem 2rem 2rem;
+		position: relative;
 	}
 
-	.footer-grid {
+	.footer-top {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		grid-template-columns: 1.5fr 1fr 1fr 1fr;
 		gap: 3rem;
 		margin-bottom: 3rem;
+		padding-bottom: 3rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.footer-about {
+		max-width: 320px;
+	}
+
+	.footer-logo {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin-bottom: 1.5rem;
+		font-size: 1.5rem;
+		font-weight: 800;
+	}
+
+	.footer-logo-icon {
+		font-size: 2rem;
+		filter: drop-shadow(0 2px 8px rgba(102, 126, 234, 0.5));
+	}
+
+	.footer-logo-text {
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.footer-about p {
+		line-height: 1.7;
+		margin-bottom: 1.5rem;
+		color: rgba(255, 255, 255, 0.7);
+		font-size: 0.95rem;
+	}
+
+	.social-links {
+		display: flex;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+	}
+
+	.social-link {
+		width: 44px;
+		height: 44px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: rgba(255, 255, 255, 0.08);
+		border-radius: 12px;
+		color: white;
+		text-decoration: none;
+		font-size: 1.1rem;
+		font-weight: 700;
+		transition: all 0.3s ease;
+		backdrop-filter: blur(10px);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.social-link:hover {
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		transform: translateY(-3px);
+		box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 	}
 
 	.footer-section h3 {
 		color: white;
-		font-size: 1.2rem;
+		font-size: 1.1rem;
 		margin-bottom: 1.5rem;
 		font-weight: 700;
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
+		letter-spacing: -0.3px;
 	}
 
 	.footer-section ul {
@@ -45,222 +151,240 @@ const currentYear = new Date().getFullYear();
 	}
 
 	.footer-section a {
-		color: rgba(255, 255, 255, 0.7);
+		color: rgba(255, 255, 255, 0.65);
 		text-decoration: none;
 		transition: all 0.3s ease;
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
+		display: inline-block;
+		font-size: 0.95rem;
 	}
 
 	.footer-section a:hover {
 		color: white;
-		transform: translateX(5px);
-	}
-
-	.footer-about {
-		max-width: 300px;
-	}
-
-	.footer-about p {
-		line-height: 1.6;
-		margin-bottom: 1rem;
-		color: rgba(255, 255, 255, 0.7);
-	}
-
-	.social-links {
-		display: flex;
-		gap: 1rem;
-		margin-top: 1.5rem;
-	}
-
-	.social-link {
-		width: 40px;
-		height: 40px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		background: rgba(255, 255, 255, 0.1);
-		border-radius: 50%;
-		color: white;
-		text-decoration: none;
-		font-size: 1.2rem;
-		transition: all 0.3s ease;
-		backdrop-filter: blur(10px);
-	}
-
-	.social-link:hover {
-		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-		transform: translateY(-3px);
-	}
-
-	.footer-newsletter {
-		background: rgba(255, 255, 255, 0.05);
-		padding: 2rem;
-		border-radius: 12px;
-		backdrop-filter: blur(10px);
-	}
-
-	.footer-newsletter h3 {
-		margin-bottom: 1rem;
-	}
-
-	.footer-newsletter p {
-		color: rgba(255, 255, 255, 0.7);
-		margin-bottom: 1.5rem;
-		line-height: 1.6;
-	}
-
-	.newsletter-form {
-		display: flex;
-		gap: 0.5rem;
-	}
-
-	.newsletter-form input {
-		flex: 1;
-		padding: 0.75rem 1rem;
-		border: 1px solid rgba(255, 255, 255, 0.2);
-		background: rgba(255, 255, 255, 0.1);
-		border-radius: 8px;
-		color: white;
-		font-size: 0.95rem;
-	}
-
-	.newsletter-form input::placeholder {
-		color: rgba(255, 255, 255, 0.5);
-	}
-
-	.newsletter-form button {
-		padding: 0.75rem 1.5rem;
-		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-		color: white;
-		border: none;
-		border-radius: 8px;
-		font-weight: 700;
-		cursor: pointer;
-		transition: all 0.3s ease;
-	}
-
-	.newsletter-form button:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+		transform: translateX(4px);
 	}
 
 	.footer-bottom {
-		border-top: 1px solid rgba(255, 255, 255, 0.1);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 2rem;
 		padding-top: 2rem;
-		text-align: center;
-		color: rgba(255, 255, 255, 0.6);
+		color: rgba(255, 255, 255, 0.5);
 		font-size: 0.9rem;
 	}
 
-	.footer-bottom a {
-		color: rgba(255, 255, 255, 0.8);
+	.footer-copy {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.footer-legal {
+		display: flex;
+		gap: 1.5rem;
+		flex-wrap: wrap;
+	}
+
+	.footer-legal a {
+		color: rgba(255, 255, 255, 0.6);
 		text-decoration: none;
 		transition: color 0.3s ease;
 	}
 
-	.footer-bottom a:hover {
+	.footer-legal a:hover {
 		color: white;
 	}
 
-	.badge {
-		display: inline-block;
+	.footer-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		background: rgba(102, 126, 234, 0.15);
+		color: #a5b4fc;
+		padding: 0.4rem 1rem;
+		border-radius: 50px;
+		font-size: 0.85rem;
+		font-weight: 600;
+		border: 1px solid rgba(102, 126, 234, 0.3);
+	}
+
+	.back-to-top {
+		align-items: center;
+		position: fixed;
+		bottom: 2rem;
+		right: 2rem;
+		width: 50px;
+		height: 50px;
 		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 		color: white;
-		padding: 0.25rem 0.75rem;
-		border-radius: 50px;
-		font-size: 0.75rem;
-		font-weight: 700;
-		margin-left: 0.5rem;
+		border: none;
+		border-radius: 50%;
+		font-size: 1.5rem;
+		cursor: pointer;
+		box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+		opacity: 0;
+		visibility: hidden;
+		transition: all 0.3s ease;
+		z-index: 99;
 	}
 
-	@media (max-width: 768px) {
-		.footer-grid {
-			grid-template-columns: 1fr;
-			gap: 2rem;
-		}
+	.back-to-top.visible {
+		opacity: 1;
+		visibility: visible;
+	}
 
-		.newsletter-form {
-			flex-direction: column;
+	.back-to-top:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+	}
+
+	@media (max-width: 1024px) {
+		.footer-top {
+			grid-template-columns: 1fr 1fr;
 		}
 
 		.footer-about {
+			grid-column: 1 / -1;
 			max-width: 100%;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.footer-content {
+			padding: 3rem 1.5rem 2rem;
+		}
+
+		.footer-top {
+			grid-template-columns: 1fr;
+			gap: 2.5rem;
+		}
+
+		.footer-bottom {
+			flex-direction: column;
+			text-align: center;
+		}
+
+		.footer-legal {
+			justify-content: center;
+		}
+
+		.back-to-top {
+			bottom: 1.5rem;
+			right: 1.5rem;
+			width: 45px;
+			height: 45px;
 		}
 	}
 </style>
 
 <footer>
 	<div class="footer-content">
-		<div class="footer-grid">
+		<div class="footer-top">
 			<!-- About Section -->
-			<div class="footer-section footer-about">
-				<h3>🤖 AI Tools Hub</h3>
+			<div class="footer-about">
+				<div class="footer-logo">
+					<span class="footer-logo-icon">🤖</span>
+					<span class="footer-logo-text">AI Tools Hub</span>
+				</div>
 				<p>
-					Tu fuente confiable de reviews, tutoriales y comparativas de las mejores 
-					herramientas de inteligencia artificial para maximizar tu productividad.
+					Reviews honestas, tutoriales prácticos y comparativas profundas de las mejores 
+					herramientas de IA para impulsar tu productividad en 2025.
 				</p>
 				<div class="social-links">
-					<a href="#" class="social-link" aria-label="Twitter">𝕏</a>
-					<a href="#" class="social-link" aria-label="LinkedIn">in</a>
-					<a href="#" class="social-link" aria-label="YouTube">▶</a>
-					<a href="/rss.xml" class="social-link" aria-label="RSS">RSS</a>
+					{socialLinks.map(link => (
+						<a 
+							href={link.href} 
+							class="social-link" 
+							aria-label={link.label}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							{link.icon}
+						</a>
+					))}
 				</div>
 			</div>
 
-			<!-- Quick Links -->
+			<!-- Resources -->
 			<div class="footer-section">
-				<h3>🔗 Enlaces Rápidos</h3>
+				<h3>Recursos</h3>
 				<ul>
-					<li><a href="/blog">→ Todos los Artículos</a></li>
-					<li><a href="/about">→ Acerca de Nosotros</a></li>
-					<li><a href="#newsletter">→ Newsletter</a></li>
-					<li>
-						<a href="/blog">
-							→ Herramientas Recomendadas
-							<span class="badge">Popular</span>
-						</a>
-					</li>
+					{footerLinks.resources.map(link => (
+						<li>
+							<a href={link.href}>{link.label}</a>
+						</li>
+					))}
 				</ul>
 			</div>
 
 			<!-- Categories -->
 			<div class="footer-section">
-				<h3>📂 Categorías</h3>
+				<h3>Categorías</h3>
 				<ul>
-					<li><a href="/blog">→ Herramientas de IA</a></li>
-					<li><a href="/blog">→ Productividad</a></li>
-					<li><a href="/blog">→ Tutoriales</a></li>
-					<li><a href="/blog">→ Reviews</a></li>
-					<li><a href="/blog">→ Comparativas</a></li>
+					{footerLinks.categories.map(link => (
+						<li>
+							<a href={link.href}>{link.label}</a>
+						</li>
+					))}
 				</ul>
 			</div>
 
-			<!-- Newsletter -->
-			<div class="footer-newsletter" id="newsletter">
-				<h3>📬 Newsletter Semanal</h3>
-				<p>Recibe las mejores novedades en tu inbox</p>
-				<form class="newsletter-form" action="#" method="post">
-					<input 
-						type="email" 
-						placeholder="tu@email.com" 
-						required
-					/>
-					<button type="submit">Suscribir</button>
-				</form>
+			<!-- Legal -->
+			<div class="footer-section">
+				<h3>Legal</h3>
+				<ul>
+					{footerLinks.legal.map(link => (
+						<li>
+							<a href={link.href}>{link.label}</a>
+						</li>
+					))}
+				</ul>
 			</div>
 		</div>
 
 		<div class="footer-bottom">
-			<p>
-				&copy; {currentYear} AI Tools & Productivity Hub. Hecho con ❤️ y AI.<br>
-				<a href="#">Política de Privacidad</a> • 
-				<a href="#">Términos de Uso</a> • 
-				<a href="#">Contacto</a>
-			</p>
+			<div class="footer-copy">
+				<span>&copy; {currentYear} AI Tools & Productivity Hub</span>
+				<span class="footer-badge">
+					🤖 Powered by AI
+				</span>
+			</div>
+			<div class="footer-legal">
+				<span>Hecho con ❤️ en Argentina</span>
+			</div>
 		</div>
-		    <AffiliateDisclaimer placement="bottom" compact={true} />
- 
+
+		<AffiliateDisclaimer placement="bottom" />
 	</div>
 </footer>
+
+<!-- Back to Top Button -->
+<button 
+	class="back-to-top" 
+	id="back-to-top" 
+	aria-label="Volver arriba"
+	title="Volver arriba"
+>
+	↑
+</button>
+
+<script>
+	// Back to top functionality
+	const backToTopButton = document.getElementById('back-to-top');
+	
+	window.addEventListener('scroll', () => {
+		if (window.pageYOffset > 500) {
+			backToTopButton?.classList.add('visible');
+		} else {
+			backToTopButton?.classList.remove('visible');
+		}
+	}, { passive: true });
+
+	backToTopButton?.addEventListener('click', () => {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth'
+		});
+	});
+</script>

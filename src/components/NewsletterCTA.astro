@@ -1,0 +1,237 @@
+---
+interface Props {
+	source: 'homepage' | 'blog-page';
+	title?: string;
+	description?: string;
+	variant?: 'gradient' | 'primary';
+}
+
+const { 
+	source,
+	title = '📬 No Te Pierdas Ningún Artículo',
+	description = 'Recibe nuestras mejores guías directo en tu inbox. Sin spam, solo valor.',
+	variant = 'primary'
+} = Astro.props;
+
+const formId = `newsletter-${source}`;
+---
+
+<section class={`newsletter-cta ${variant}`}>
+	<div class="newsletter-content">
+		<h2>{title}</h2>
+		<p>{description}</p>
+		<form class="newsletter-form" id={formId} data-source={source}>
+			<input 
+				type="email" 
+				placeholder="tu@email.com" 
+				required
+				name="email"
+				aria-label="Email para newsletter"
+			/>
+			<button type="submit">Suscribirme Gratis</button>
+		</form>
+		{variant === 'gradient' && (
+			<p class="newsletter-stats">
+				✨ Únete a 1,500+ profesionales que ya reciben nuestras guías
+			</p>
+		)}
+	</div>
+</section>
+
+<style>
+	.newsletter-cta {
+		padding: 4rem 2rem;
+		border-radius: 24px;
+		text-align: center;
+		color: white;
+		margin: 4rem 0;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.newsletter-cta.primary {
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+	}
+
+	.newsletter-cta.gradient {
+		background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+		box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+	}
+
+	.newsletter-cta.gradient::before {
+		content: '📬';
+		position: absolute;
+		font-size: 15rem;
+		opacity: 0.1;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		pointer-events: none;
+	}
+
+	.newsletter-content {
+		position: relative;
+		z-index: 1;
+	}
+
+	.newsletter-cta h2 {
+		font-size: clamp(1.75rem, 3vw, 2.25rem);
+		margin-bottom: 1rem;
+		color: white;
+		font-weight: 800;
+	}
+
+	.newsletter-cta p {
+		font-size: 1.1rem;
+		margin-bottom: 2rem;
+		opacity: 0.95;
+		max-width: 600px;
+		margin-left: auto;
+		margin-right: auto;
+		line-height: 1.6;
+	}
+
+	.newsletter-form {
+		display: flex;
+		gap: 0.75rem;
+		max-width: 500px;
+		margin: 0 auto;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.newsletter-form input {
+		flex: 1;
+		min-width: 250px;
+		padding: 1rem 1.5rem;
+		border: none;
+		border-radius: 50px;
+		font-size: 1rem;
+		transition: box-shadow 0.3s ease;
+	}
+
+	.newsletter-form input:focus {
+		outline: none;
+		box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+	}
+
+	.newsletter-form button {
+		padding: 1rem 2rem;
+		background: white;
+		color: #667eea;
+		border: none;
+		border-radius: 50px;
+		font-weight: 700;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		white-space: nowrap;
+	}
+
+	.newsletter-cta.gradient button {
+		color: #4facfe;
+	}
+
+	.newsletter-form button:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+	}
+
+	.newsletter-form button:disabled {
+		cursor: not-allowed;
+		opacity: 0.7;
+	}
+
+	.newsletter-stats {
+		margin-top: 1.5rem;
+		color: rgba(255, 255, 255, 0.85);
+		font-size: 0.9rem;
+		margin-bottom: 0;
+	}
+
+	@media (max-width: 768px) {
+		.newsletter-cta {
+			padding: 3rem 1.5rem;
+		}
+
+		.newsletter-form {
+			flex-direction: column;
+		}
+
+		.newsletter-form input {
+			min-width: 100%;
+		}
+	}
+</style>
+
+<script>
+	// Newsletter signup handler
+	document.addEventListener('DOMContentLoaded', () => {
+		const forms = document.querySelectorAll('.newsletter-form');
+		
+		forms.forEach(form => {
+			form.addEventListener('submit', async (e) => {
+				e.preventDefault();
+				
+				const input = form.querySelector('input[name="email"]') as HTMLInputElement;
+				const button = form.querySelector('button') as HTMLButtonElement;
+				const source = form.getAttribute('data-source');
+				
+				if (!input || !button || !source) return;
+
+				const email = input.value;
+
+				// Update button state
+				button.textContent = 'Suscribiendo...';
+				button.disabled = true;
+				button.style.opacity = '0.7';
+
+				try {
+					const res = await fetch('/api/subscribe', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({ email, source })
+					});
+
+					if (res.ok) {
+						// Track en Google Analytics
+						if (typeof (window as any).gtag !== 'undefined') {
+							(window as any).gtag('event', 'newsletter_signup', {
+								event_category: 'engagement',
+								event_label: source
+							});
+						}
+
+						// Success state
+						button.textContent = '✅ ¡Listo! Revisa tu email';
+						button.style.background = '#10b981';
+						button.style.opacity = '1';
+						input.value = '';
+
+						// Confetti effect (opcional)
+						if (typeof (window as any).confetti !== 'undefined') {
+							(window as any).confetti({
+								particleCount: 100,
+								spread: 70,
+								origin: { y: 0.6 }
+							});
+						}
+					} else {
+						throw new Error('Signup failed');
+					}
+				} catch (error) {
+					// Error state
+					button.textContent = '❌ Error, intenta de nuevo';
+					button.style.background = '#ef4444';
+					button.style.opacity = '1';
+					
+					setTimeout(() => {
+						button.textContent = 'Suscribirme Gratis';
+						button.disabled = false;
+						button.style.background = '';
+					}, 3000);
+				}
+			});
+		});
+	});
+</script>

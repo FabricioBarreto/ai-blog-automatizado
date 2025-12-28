@@ -1,139 +1,72 @@
 ---
-// components/MonetizationHub.astro
-// ✅ Componente unificado: Amazon + AdSense + Newsletter + Productos Digitales
-
-import { MONETIZATION_CONFIG } from '../config/monetization.config';
-
 interface Props {
-  placement: 'top' | 'middle' | 'bottom';
-  category?: string;
   postTitle: string;
-  showAmazon?: boolean;
-  showAds?: boolean;
-  showNewsletter?: boolean;
-  showDigitalProducts?: boolean;
+  category?: string;
+  hasProducts?: boolean; // Si el artículo tiene productos Amazon
 }
 
-const {
-  placement,
-  category = 'general',
-  postTitle,
-  showAmazon = true,
-  showAds = true,
-  showNewsletter = true,
-  showDigitalProducts = true,
-} = Astro.props;
-
-const config = MONETIZATION_CONFIG;
-
-// Lógica de qué mostrar según placement
-const shouldShowAd = showAds && (placement === 'top' || placement === 'middle');
-const shouldShowNewsletter = showNewsletter && (placement === 'middle' || placement === 'bottom');
-const shouldShowDigital = showDigitalProducts && placement === 'bottom';
+const { postTitle, category = 'general', hasProducts = false } = Astro.props;
 ---
 
-<div class="monetization-hub" data-placement={placement}>
+<div class="monetization-section">
   
-  <!-- Google AdSense -->
-  {shouldShowAd && (
-    <div class="ad-container" data-ad-placement={placement}>
-      <ins
-        class="adsbygoogle"
-        style="display:block"
-        data-ad-client={config.google.adsenseId}
-        data-ad-slot={config.google.adsenseSlots[placement === 'top' ? 'topBanner' : 'inArticle']}
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      ></ins>
-    </div>
-  )}
-
-  <!-- Newsletter CTA -->
-  {shouldShowNewsletter && (
-    <div class="newsletter-box">
-      <div class="newsletter-content">
-        <div class="newsletter-icon">📬</div>
-        <div>
-          <h3>¿Te sirvió esta guía?</h3>
-          <p>Recibí artículos como este directo en tu inbox + descuentos exclusivos</p>
-        </div>
+  <!-- Newsletter (SIEMPRE, es lo menos invasivo) -->
+  <div class="newsletter-card">
+    <div class="newsletter-header">
+      <span class="newsletter-icon">📬</span>
+      <div>
+        <h3>¿Te gustó este artículo?</h3>
+        <p>Recibí guías exclusivas y tips de productividad directo en tu inbox</p>
       </div>
-      
-      <form class="newsletter-form" data-post-title={postTitle}>
-        <input
-          type="email"
-          name="email"
-          placeholder="tu@email.com"
-          required
-          class="newsletter-input"
-        />
-        <button type="submit" class="newsletter-btn">
-          Suscribirme Gratis
-        </button>
-      </form>
-      
-      <p class="newsletter-privacy">
-        🔒 Sin spam. Cancelá cuando quieras.
-      </p>
+    </div>
+    
+    <form class="newsletter-form" data-post-title={postTitle}>
+      <input
+        type="email"
+        name="email"
+        placeholder="tu@email.com"
+        required
+      />
+      <button type="submit">Suscribirme Gratis</button>
+    </form>
+    
+    <p class="privacy-note">🔒 Sin spam. Cancelá cuando quieras.</p>
+  </div>
+
+  <!-- SOLO si el artículo NO tiene productos Amazon -->
+  {!hasProducts && (
+    <div class="value-add-cta">
+      <div class="cta-badge">💎 Recurso Premium</div>
+      <h3>Guía Completa: Automatización con IA</h3>
+      <p>Aprende a automatizar tu flujo de trabajo con las mejores herramientas de IA.</p>
+      <div class="cta-footer">
+        <span class="cta-price">Gratis por tiempo limitado</span>
+        <a href="/recursos" class="cta-button">
+          Descargar Guía →
+        </a>
+      </div>
     </div>
   )}
-
-  <!-- Productos Digitales Propios -->
-  {shouldShowDigital && config.digitalProducts.enabled && (
-    <div class="digital-product-promo">
-      {config.digitalProducts.products.map((product) => (
-        <div class="product-card">
-          <div class="product-badge">🎁 Recurso Premium</div>
-          <h3>{product.name}</h3>
-          <p>{product.description}</p>
-          <div class="product-footer">
-            <span class="product-price">${product.price}</span>
-            <a
-              href={product.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="product-cta"
-              data-product-id={product.id}
-            >
-              {product.cta} →
-            </a>
-          </div>
-        </div>
-      ))}
-    </div>
-  )}
-
 </div>
 
 <style>
-  .monetization-hub {
-    max-width: 760px;
-    margin: 2rem auto;
-  }
-
-  /* AdSense */
-  .ad-container {
-    min-height: 250px;
-    background: linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(118,75,162,0.05) 100%);
-    border-radius: 12px;
+  .monetization-section {
+    max-width: 720px;
+    margin: 4rem auto 2rem;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 2rem 0;
-    border: 1px dashed rgba(102,126,234,0.2);
+    flex-direction: column;
+    gap: 2rem;
   }
 
-  /* Newsletter */
-  .newsletter-box {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 2rem;
+  /* Newsletter - Diseño minimalista */
+  .newsletter-card {
+    background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+    border: 2px solid #667eea30;
     border-radius: 16px;
-    box-shadow: 0 20px 60px rgba(102,126,234,0.3);
-    margin: 3rem 0;
+    padding: 2rem;
   }
 
-  .newsletter-content {
+  .newsletter-header {
     display: flex;
     gap: 1rem;
     align-items: start;
@@ -141,18 +74,20 @@ const shouldShowDigital = showDigitalProducts && placement === 'bottom';
   }
 
   .newsletter-icon {
-    font-size: 3rem;
+    font-size: 2.5rem;
     line-height: 1;
   }
 
-  .newsletter-box h3 {
+  .newsletter-card h3 {
     margin: 0 0 0.5rem;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+    color: #1e293b;
   }
 
-  .newsletter-box p {
+  .newsletter-card p {
     margin: 0;
-    opacity: 0.95;
+    color: #64748b;
+    font-size: 0.95rem;
   }
 
   .newsletter-form {
@@ -161,18 +96,24 @@ const shouldShowDigital = showDigitalProducts && placement === 'bottom';
     flex-wrap: wrap;
   }
 
-  .newsletter-input {
+  .newsletter-form input {
     flex: 1;
-    min-width: 250px;
+    min-width: 200px;
     padding: 0.875rem 1rem;
-    border: none;
+    border: 2px solid #e2e8f0;
     border-radius: 10px;
     font-size: 1rem;
+    transition: border-color 0.2s;
   }
 
-  .newsletter-btn {
-    background: white;
-    color: #667eea;
+  .newsletter-form input:focus {
+    outline: none;
+    border-color: #667eea;
+  }
+
+  .newsletter-form button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
     border: none;
     padding: 0.875rem 2rem;
     border-radius: 10px;
@@ -181,91 +122,114 @@ const shouldShowDigital = showDigitalProducts && placement === 'bottom';
     transition: transform 0.2s, box-shadow 0.2s;
   }
 
-  .newsletter-btn:hover {
+  .newsletter-form button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
   }
 
-  .newsletter-privacy {
+  .privacy-note {
     margin-top: 0.75rem;
     font-size: 0.85rem;
-    opacity: 0.85;
+    color: #64748b;
+    text-align: center;
   }
 
-  /* Productos Digitales */
-  .digital-product-promo {
-    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  /* CTA Recurso Premium - Solo si NO hay productos */
+  .value-add-cta {
+    background: white;
+    border: 2px solid #f59e0b;
     border-radius: 16px;
     padding: 2rem;
-    border-left: 4px solid #f59e0b;
-    margin: 3rem 0;
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.15);
   }
 
-  .product-card {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  }
-
-  .product-badge {
+  .cta-badge {
     display: inline-block;
-    background: #f59e0b;
-    color: white;
-    padding: 0.25rem 0.75rem;
-    border-radius: 999px;
+    background: #fef3c7;
+    color: #92400e;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 700;
     margin-bottom: 1rem;
   }
 
-  .product-card h3 {
-    margin: 0 0 0.5rem;
-    color: #1f2937;
+  .value-add-cta h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1.4rem;
+    color: #1e293b;
   }
 
-  .product-card p {
-    margin: 0 0 1rem;
-    color: #6b7280;
+  .value-add-cta p {
+    margin: 0 0 1.5rem;
+    color: #64748b;
+    line-height: 1.6;
   }
 
-  .product-footer {
+  .cta-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
   }
 
-  .product-price {
-    font-size: 1.75rem;
-    font-weight: 800;
+  .cta-price {
+    font-size: 1.1rem;
+    font-weight: 700;
     color: #f59e0b;
   }
 
-  .product-cta {
-    background: #1f2937;
+  .cta-button {
+    background: #1e293b;
     color: white;
     padding: 0.75rem 1.5rem;
-    border-radius: 8px;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: 700;
     transition: background 0.2s;
   }
 
-  .product-cta:hover {
-    background: #111827;
+  .cta-button:hover {
+    background: #0f172a;
   }
 
   @media (max-width: 640px) {
+    .monetization-section {
+      margin: 3rem auto 1.5rem;
+    }
+
+    .newsletter-card {
+      padding: 1.5rem;
+    }
+
     .newsletter-form {
       flex-direction: column;
     }
-    .newsletter-input {
+
+    .newsletter-form input {
       width: 100%;
+    }
+
+    .cta-footer {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .cta-button {
+      text-align: center;
     }
   }
 </style>
 
 <script>
+  // Declare gtag on window object
+  declare global {
+    interface Window {
+      gtag?: (command: string, eventName: string, eventParams?: Record<string, unknown>) => void;
+    }
+  }
+
   // Newsletter submission
   document.querySelectorAll('.newsletter-form').forEach((form) => {
     form.addEventListener('submit', async (e) => {
@@ -273,30 +237,33 @@ const shouldShowDigital = showDigitalProducts && placement === 'bottom';
       
       const formElement = e.target as HTMLFormElement;
       const input = formElement.querySelector('input[name="email"]') as HTMLInputElement;
+      const button = formElement.querySelector('button') as HTMLButtonElement;
       const email = input?.value;
-      const postTitle = formElement.dataset.postTitle;
 
       if (!email) return;
 
-      const button = formElement.querySelector('button') as HTMLButtonElement;
       const originalText = button.textContent;
       button.textContent = 'Suscribiendo...';
       button.disabled = true;
 
       try {
-        // Enviar a ConvertKit (o tu ESP)
         const response = await fetch('/api/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, source: postTitle }),
+          body: JSON.stringify({
+            email,
+            source: formElement.dataset.postTitle,
+          }),
         });
 
         if (response.ok) {
-          // Track en GA
-          window.gtag?.('event', 'newsletter_signup', {
-            event_category: 'engagement',
-            event_label: postTitle,
-          });
+          // Track en Google Analytics
+          if (window.gtag) {
+            window.gtag('event', 'newsletter_signup', {
+              event_category: 'engagement',
+              event_label: formElement.dataset.postTitle,
+            });
+          }
 
           button.textContent = '✅ ¡Listo! Revisa tu email';
           button.style.background = '#10b981';
@@ -315,32 +282,4 @@ const shouldShowDigital = showDigitalProducts && placement === 'bottom';
       }
     });
   });
-
-  // Digital product clicks
-  document.querySelectorAll('.product-cta').forEach((link) => {
-    link.addEventListener('click', (e) => {
-      const productId = (e.target as HTMLElement).dataset.productId;
-      
-      window.gtag?.('event', 'product_click', {
-        event_category: 'monetization',
-        event_label: productId,
-        destination: 'gumroad',
-      });
-    });
-  });
-
-  // AdSense init (solo una vez)
-  if (!window.adsenseLoaded) {
-    const script = document.createElement('script');
-    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
-    script.async = true;
-    script.setAttribute('data-ad-client', 'ca-pub-XXXXXXXXXXXXXXXX'); // Tu ID real
-    document.head.appendChild(script);
-    
-    script.onload = () => {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    };
-    
-    window.adsenseLoaded = true;
-  }
 </script>
