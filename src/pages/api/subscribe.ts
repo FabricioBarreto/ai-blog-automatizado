@@ -1,57 +1,50 @@
-import type { APIRoute } from 'astro';
+import type { APIRoute } from "astro";
 
 export const prerender = false;
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const body = await request.json();
-    const { email, source } = body;
+    const { email, source } = await request.json();
 
-    // Basic validation
-    if (!email || !email.includes('@')) {
-      return new Response(JSON.stringify({ error: 'Invalid email' }), {
+    if (!email || !email.includes("@")) {
+      return new Response(JSON.stringify({ error: "Invalid email" }), {
         status: 400,
-        headers: { 'Content-Type': 'application/json' }
       });
     }
 
-    // Integración ConvertKit (opcional)
-    const CONVERTKIT_API_KEY = import.meta.env.CONVERTKIT_API_KEY;
-    const CONVERTKIT_FORM_ID = import.meta.env.CONVERTKIT_FORM_ID;
+    const API_SECRET = import.meta.env.CONVERTKIT_API_SECRET;
+    const FORM_ID = import.meta.env.CONVERTKIT_FORM_ID;
 
-    if (CONVERTKIT_API_KEY && CONVERTKIT_FORM_ID) {
-      const response = await fetch(`https://api.convertkit.com/v3/forms/${CONVERTKIT_FORM_ID}/subscribe`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+    if (!API_SECRET || !FORM_ID) {
+      throw new Error("ConvertKit env vars missing");
+    }
+
+    const res = await fetch(
+      `https://api.convertkit.com/v3/forms/${FORM_ID}/subscribe`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
-          api_key: CONVERTKIT_API_KEY,
+          api_secret: API_SECRET,
           email,
-          tags: [source || 'website']
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('ConvertKit subscription failed');
+          tags: [source || "website"],
+        }),
       }
-    } else {
-      // Fallback: just log (so form doesn't break)
-      console.log('[NEWSLETTER SIGNUP]', {
-        email,
-        source,
-        timestamp: new Date().toISOString()
-      });
-      // TODO: Save to your own database or CSV
+    );
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`ConvertKit error: ${text}`);
     }
 
-    return new Response(JSON.stringify({ success: true }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
-  } catch (error) {
-    console.error('[SUBSCRIBE ERROR]', error);
-    return new Response(JSON.stringify({ error: 'Subscription failed' }), {
+    return new Response(JSON.stringify({ success: true }), { status: 200 });
+  } catch (err) {
+    console.error("[NEWSLETTER ERROR]", err);
+
+    return new Response(JSON.stringify({ error: "Subscription failed" }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' }
     });
   }
 };
