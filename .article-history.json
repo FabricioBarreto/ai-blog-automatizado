@@ -67,11 +67,17 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2025-12-28T16:39:12.628Z"
+    },
+    {
+      "keyword": "how to use ChatGPT for content creation",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2025-12-28T21:30:44.430Z"
     }
   ],
-  "lastUpdate": "2025-12-28T16:39:12.628Z",
+  "lastUpdate": "2025-12-28T21:30:44.430Z",
   "categories": {
-    "ai_tools": 2,
+    "ai_tools": 3,
     "productivity_systems": 2,
     "ai_automation": 2,
     "developer_productivity": 1,
