@@ -1,206 +1,516 @@
 ---
 interface Props {
-  productName: string;
-  amazonUrl: string;
-  price: string;
-  rating: number;
-  description: string;
-  features?: string[]; // Nuevo: características clave
-  imageUrl?: string; // Nuevo: imagen del producto
+  asin: string;
+  variant?: 'card' | 'button' | 'full'; // full = card + specs + CTA
+  position?: string; // Para tracking: "top", "middle", "bottom"
 }
 
-const {
-  productName,
-  amazonUrl,
-  price,
-  rating,
-  description,
-  features = [],
-  imageUrl,
-} = Astro.props;
+const { asin, variant = 'card', position = 'middle' } = Astro.props;
 
-const stars = '⭐'.repeat(Math.floor(rating));
+// Configuración de productos (hardcodeado o desde config)
+import { AFFILIATE_PRODUCTS } from '../config/products';
+
+const product = AFFILIATE_PRODUCTS[asin];
+if (!product) {
+  console.warn(`⚠️ Producto no encontrado: ${asin}`);
+}
+
+const affiliateTag = 'productivi0d7-20'; // Cambiá esto por tu tag de Amazon Associates
+const amazonUrl = `https://www.amazon.com/dp/${asin}?tag=${affiliateTag}`;
+
+// Para tracking
+const trackingId = `amazon-${asin}-${position}`;
 ---
 
-<div class="amazon-product">
-  {imageUrl && (
-    <div class="product-image">
-      <img src={imageUrl} alt={productName} loading="lazy" />
-    </div>
-  )}
-  
-  <div class="product-info">
-    <div class="product-header">
-      <h3>{productName}</h3>
-      <div class="product-meta">
-        <span class="rating">{stars} {rating}/5</span>
-        <span class="price">{price}</span>
-      </div>
-    </div>
+{product && (
+  <div class="amazon-affiliate" data-product-id={asin} data-position={position}>
     
-    <p class="description">{description}</p>
-    
-    {features.length > 0 && (
-      <ul class="features">
-        {features.map((feature) => (
-          <li>✓ {feature}</li>
-        ))}
-      </ul>
+    {variant === 'button' && (
+      <a 
+        href={amazonUrl} 
+        target="_blank" 
+        rel="noopener noreferrer sponsored"
+        class="amazon-btn"
+        data-track-click={trackingId}
+      >
+        🛒 Ver en Amazon - {product.price}
+      </a>
     )}
-    
-    <a
-      href={amazonUrl}
-      class="amazon-cta"
-      target="_blank"
-      rel="nofollow noopener sponsored"
-      data-product={productName}
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M3 3h18l-2 13H5L3 3z"></path>
-        <circle cx="9" cy="21" r="1"></circle>
-        <circle cx="18" cy="21" r="1"></circle>
-      </svg>
-      Ver en Amazon
-    </a>
-    
-    <small class="affiliate-note">
-      Como Asociado de Amazon, ganamos por compras elegibles
-    </small>
+
+    {variant === 'card' && (
+      <div class="product-card">
+        <div class="product-header">
+          <h4>{product.name}</h4>
+          <div class="rating">
+            {'⭐'.repeat(Math.floor(product.rating))} {product.rating}
+          </div>
+        </div>
+        <p class="price">{product.price}</p>
+        <a 
+          href={amazonUrl} 
+          target="_blank" 
+          rel="noopener noreferrer sponsored"
+          class="amazon-btn"
+          data-track-click={trackingId}
+        >
+          Ver en Amazon →
+        </a>
+      </div>
+    )}
+
+    {variant === 'full' && (
+      <div class="product-full">
+        <div class="product-header">
+          <h4>{product.name}</h4>
+          <div class="rating">
+            {'⭐'.repeat(Math.floor(product.rating))} {product.rating}/5
+          </div>
+        </div>
+        
+        <div class="product-grid">
+          <div class="specs">
+            <p class="price-large">{product.price}</p>
+            <ul class="features">
+              {product.features.map((f: string) => (
+                <li>✓ {f}</li>
+              ))}
+            </ul>
+            <p class="best-for"><strong>Mejor para:</strong> {product.bestFor}</p>
+          </div>
+          
+          <div class="cta-section">
+            <a 
+              href={amazonUrl} 
+              target="_blank" 
+              rel="noopener noreferrer sponsored"
+              class="amazon-btn primary"
+              data-track-click={trackingId}
+            >
+              🛒 Ver en Amazon
+            </a>
+            <p class="small-disclaimer">
+              Precio y disponibilidad sujetos a cambios
+            </p>
+          </div>
+        </div>
+      </div>
+    )}
   </div>
-</div>
+)}
 
 <style>
-  .amazon-product {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 1.5rem;
+  .amazon-affiliate {
+    margin: 2rem 0;
+  }
+
+  /* Botón simple */
+  .amazon-btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #FF9900 0%, #FF7A00 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 153, 0, 0.3);
+  }
+
+  .amazon-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 153, 0, 0.4);
+  }
+
+  .amazon-btn.primary {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+  }
+
+  /* Card */
+  .product-card {
     background: white;
-    border: 2px solid #e2e8f0;
+    border: 2px solid #e5e7eb;
     border-radius: 12px;
     padding: 1.5rem;
-    margin: 2rem 0;
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   }
 
-  .amazon-product:hover {
-    border-color: #667eea;
-    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
-  }
-
-  .product-image {
-    border-radius: 8px;
-    overflow: hidden;
-    background: #f8fafc;
-  }
-
-  .product-image img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-
-  .product-info {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .product-header h3 {
-    margin: 0 0 0.75rem;
-    font-size: 1.25rem;
-    color: #1e293b;
-  }
-
-  .product-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
+  .product-header h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.15rem;
+    color: rgb(var(--black));
   }
 
   .rating {
-    font-size: 0.95rem;
-    color: #64748b;
+    color: #FF9900;
+    font-size: 0.9rem;
+    font-weight: 600;
   }
 
   .price {
     font-size: 1.5rem;
     font-weight: 800;
-    color: #667eea;
+    color: #B12704;
+    margin: 0.75rem 0;
   }
 
-  .description {
-    margin: 0 0 1rem;
-    color: #64748b;
-    line-height: 1.6;
+  /* Full variant */
+  .product-full {
+    background: linear-gradient(135deg, rgba(255,153,0,0.05) 0%, rgba(255,122,0,0.05) 100%);
+    border: 2px solid #FF9900;
+    border-radius: 16px;
+    padding: 2rem;
+    margin: 2.5rem 0;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .product-grid {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
+  .price-large {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #B12704;
+    margin: 0 0 1rem 0;
   }
 
   .features {
     list-style: none;
     padding: 0;
-    margin: 0 0 1.5rem;
+    margin: 0 0 1rem 0;
   }
 
   .features li {
-    padding: 0.5rem 0;
-    color: #475569;
-    border-bottom: 1px solid #f1f5f9;
+    padding: 0.4rem 0;
+    color: rgb(var(--gray-dark));
   }
 
-  .features li:last-child {
-    border-bottom: none;
+  .best-for {
+    color: rgb(var(--gray));
+    font-size: 0.95rem;
+    margin: 0;
   }
 
-  .amazon-cta {
-    display: inline-flex;
-    align-items: center;
+  .cta-section {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.875rem 2rem;
-    background: linear-gradient(135deg, #ff9900 0%, #ff7700 100%);
-    color: white;
-    font-weight: 700;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: all 0.2s;
-    margin-bottom: 0.75rem;
+    align-items: center;
   }
 
-  .amazon-cta:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 153, 0, 0.4);
-  }
-
-  .affiliate-note {
-    display: block;
+  .small-disclaimer {
+    margin-top: 0.75rem;
     font-size: 0.8rem;
-    color: #94a3b8;
+    color: rgb(var(--gray));
     text-align: center;
-  }
-
-  @media (max-width: 768px) {
-    .amazon-product {
-      grid-template-columns: 1fr;
-    }
-
-    .product-image {
-      max-width: 200px;
-      margin: 0 auto;
-    }
   }
 </style>
 
 <script>
-  // Track clicks en Amazon
-  document.querySelectorAll('.amazon-cta').forEach((link) => {
-    link.addEventListener('click', (e) => {
-      const productName = (e.currentTarget as HTMLElement).dataset.product;
+  // Tracking de clicks en afiliados
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const link = target.closest('[data-track-click]') as HTMLAnchorElement;
+    
+    if (link) {
+      const trackingId = link.dataset.trackClick;
       
-      if (window.gtag) {
-        window.gtag('event', 'amazon_click', {
-          event_category: 'affiliate',
-          event_label: productName,
-        });
-      }
-    });
+      // Enviar a analytics
+      fetch('/api/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event: 'affiliate_click',
+          data: {
+            productId: trackingId,
+            url: link.href,
+            timestamp: new Date().toISOString(),
+          }
+        })
+      }).catch(err => console.warn('Analytics error:', err));
+
+      console.log('📊 Affiliate click:', trackingId);
+    }
   });
 </script>
+
+---
+
+// src/components/ComparisonTable.astro
+---
+interface Product {
+  asin: string;
+  name: string;
+  price: string;
+  rating: number;
+  features: string[];
+  pros: string[];
+  cons: string[];
+  bestFor: string;
+}
+
+interface Props {
+  products: Product[];
+  highlightWinner?: number; // Index del producto ganador (0-based)
+}
+
+const { products, highlightWinner } = Astro.props;
+const affiliateTag = 'productivi0d7-20';
+---
+
+<div class="comparison-table-wrapper">
+  <div class="comparison-grid">
+    {products.map((product, index) => (
+      <div 
+        class={`comparison-card ${index === highlightWinner ? 'winner' : ''}`}
+        data-product-index={index}
+      >
+        {index === highlightWinner && (
+          <div class="winner-badge">🏆 Mejor Opción</div>
+        )}
+        
+        <div class="product-info">
+          <h3>{product.name}</h3>
+          <div class="rating">
+            {'⭐'.repeat(Math.floor(product.rating))} {product.rating}/5
+          </div>
+          <p class="price">{product.price}</p>
+        </div>
+
+        <div class="features-list">
+          <h4>Características:</h4>
+          <ul>
+            {product.features.map((f) => <li>✓ {f}</li>)}
+          </ul>
+        </div>
+
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>✅ Pros:</h4>
+            <ul>
+              {product.pros.map((p) => <li>{p}</li>)}
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>❌ Contras:</h4>
+            <ul>
+              {product.cons.map((c) => <li>{c}</li>)}
+            </ul>
+          </div>
+        </div>
+
+        <div class="best-for-section">
+          <strong>Mejor para:</strong> {product.bestFor}
+        </div>
+
+        <a 
+          href={`https://www.amazon.com/dp/${product.asin}?tag=${affiliateTag}`}
+          target="_blank"
+          rel="noopener noreferrer sponsored"
+          class="cta-button"
+          data-track-click={`comparison-${product.asin}`}
+        >
+          Ver en Amazon →
+        </a>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .comparison-table-wrapper {
+    margin: 2.5rem 0;
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .comparison-grid {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+  }
+
+  .comparison-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .comparison-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+  }
+
+  .comparison-card.winner {
+    border-color: #FF9900;
+    background: linear-gradient(135deg, rgba(255,153,0,0.03) 0%, rgba(255,122,0,0.03) 100%);
+  }
+
+  .winner-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #FF9900 0%, #FF7A00 100%);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(255,153,0,0.3);
+  }
+
+  .product-info h3 {
+    margin: 0.5rem 0 0.5rem 0;
+    font-size: 1.25rem;
+    color: rgb(var(--black));
+  }
+
+  .rating {
+    color: #FF9900;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .price {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #B12704;
+    margin: 0;
+  }
+
+  .features-list h4,
+  .pros h4,
+  .cons h4 {
+    font-size: 0.95rem;
+    margin: 0 0 0.5rem 0;
+    color: rgb(var(--gray-dark));
+  }
+
+  .features-list ul,
+  .pros ul,
+  .cons ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .features-list li,
+  .pros li,
+  .cons li {
+    padding: 0.25rem 0;
+    font-size: 0.9rem;
+    color: rgb(var(--gray-dark));
+  }
+
+  .pros-cons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .best-for-section {
+    background: rgba(102,126,234,0.08);
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: rgb(var(--gray-dark));
+  }
+
+  .cta-button {
+    display: block;
+    text-align: center;
+    padding: 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    margin-top: auto;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102,126,234,0.4);
+  }
+
+  .comparison-card.winner .cta-button {
+    background: linear-gradient(135deg, #FF9900 0%, #FF7A00 100%);
+  }
+</style>
+
+---
+
+// src/components/AffiliateDisclaimer.astro
+---
+interface Props {
+  placement?: 'top' | 'bottom' | 'inline';
+}
+
+const { placement = 'bottom' } = Astro.props;
+---
+
+<div class={`affiliate-disclaimer ${placement}`}>
+  <p>
+    <strong>🔗 Transparencia Total:</strong> Algunos links de este artículo son enlaces de afiliados de Amazon. 
+    Si comprás a través de ellos, recibo una pequeña comisión sin costo adicional para vos. 
+    Esto me ayuda a mantener el blog y seguir creando contenido útil. 
+    <strong>Solo recomiendo productos que realmente usaría o he probado.</strong>
+  </p>
+</div>
+
+<style>
+  .affiliate-disclaimer {
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 153, 0, 0.08);
+    border-left: 4px solid #FF9900;
+    border-radius: 8px;
+  }
+
+  .affiliate-disclaimer.top {
+    margin-top: 0;
+    margin-bottom: 2.5rem;
+  }
+
+  .affiliate-disclaimer.bottom {
+    margin-top: 3rem;
+    margin-bottom: 0;
+  }
+
+  .affiliate-disclaimer.inline {
+    margin: 1.5rem 0;
+  }
+
+  .affiliate-disclaimer p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgb(var(--gray-dark));
+  }
+
+  .affiliate-disclaimer strong {
+    color: #FF7A00;
+  }
+</style>

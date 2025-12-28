@@ -73,13 +73,43 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2025-12-28T21:30:44.430Z"
+    },
+    {
+      "keyword": "zettelkasten note-taking method",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2025-12-28T23:19:18.950Z"
+    },
+    {
+      "keyword": "AI for debugging and error fixing",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2025-12-28T23:38:58.432Z"
+    },
+    {
+      "keyword": "eisenhower matrix prioritization",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2025-12-28T23:47:55.876Z"
+    },
+    {
+      "keyword": "building custom GPTs for business",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2025-12-28T23:49:43.274Z"
+    },
+    {
+      "keyword": "GitHub Copilot vs Cursor AI",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2025-12-28T23:50:00.794Z"
     }
   ],
-  "lastUpdate": "2025-12-28T21:30:44.430Z",
+  "lastUpdate": "2025-12-28T23:50:00.794Z",
   "categories": {
-    "ai_tools": 3,
-    "productivity_systems": 2,
-    "ai_automation": 2,
+    "ai_tools": 5,
+    "productivity_systems": 4,
+    "ai_automation": 3,
     "developer_productivity": 1,
     "monetized_hardware": 1
   }

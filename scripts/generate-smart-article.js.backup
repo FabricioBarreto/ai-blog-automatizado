@@ -380,9 +380,7 @@ async function generateArticle(keyword, category, isMonetized) {
 **Competencia:**
 ${competitorContext}
 
-Escribí un artículo 100% EDUCATIVO Y TÁCTICO en formato MDX para Astro.
-
-IMPORTANTE: NO uses bloques de código markdown (\`\`\`markdown). Escribí directamente el contenido MDX sin ningún wrapper.
+Escribí un artículo 100% EDUCATIVO Y TÁCTICO:
 
 Estructura:
 1. Hook: Problema + impacto real
@@ -409,7 +407,7 @@ NO links de afiliados.
 - Meta: 150-155 con CTA
 - 4+ H2 con variaciones de keyword
 
-**FORMATO DE OUTPUT - ESCRIBE EXACTAMENTE ASÍ (sin bloques de código):**
+**Output:**
 
 ---
 title: "[Título SEO]"
@@ -422,15 +420,7 @@ featured: true
 readingTime: "X min"
 ---
 
-## [Título de sección]
-
-[Contenido en Markdown...]
-
-## [Siguiente sección]
-
-[Más contenido...]
-
-RECUERDA: Escribe el contenido directamente, SIN envolverlo en \`\`\`markdown o cualquier otro bloque de código.`;
+[Contenido completo en Markdown con la estructura pedida]`;
   }
 
   console.log("📝 Generando artículo con GPT-4o...");
@@ -441,7 +431,7 @@ RECUERDA: Escribe el contenido directamente, SIN envolverlo en \`\`\`markdown o 
       {
         role: "system",
         content:
-          "Sos un redactor experto en IA y productividad. Escribís en español argentino con voseo. Priorizás valor educativo sobre venta. NUNCA uses bloques de código markdown para envolver el contenido MDX. Escribís el contenido directamente.",
+          "Sos un redactor experto en IA y productividad. Escribís en español argentino con voseo. Priorizás valor educativo sobre venta.",
       },
       { role: "user", content: prompt },
     ],
@@ -450,10 +440,6 @@ RECUERDA: Escribe el contenido directamente, SIN envolverlo en \`\`\`markdown o 
   });
 
   let articleContent = completion.choices[0].message.content || "";
-  
-  // NUEVO: Limpiar bloques de código markdown si GPT-4o los agrega
-  articleContent = cleanMarkdownWrapper(articleContent);
-  
   articleContent = fixYamlFrontmatter(articleContent);
 
   // Validar monetización
@@ -522,20 +508,6 @@ function slugify(input) {
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
-}
-
-// NUEVA FUNCIÓN: Limpia bloques de código markdown
-function cleanMarkdownWrapper(content) {
-  // Elimina ```markdown al inicio y ``` al final
-  content = content.replace(/^```markdown\s*\n/i, "");
-  content = content.replace(/^```md\s*\n/i, "");
-  content = content.replace(/\n```\s*$/, "");
-  
-  // Elimina ``` solitarios al inicio o final
-  content = content.replace(/^```\s*\n/, "");
-  content = content.replace(/\n```\s*$/, "");
-  
-  return content.trim();
 }
 
 function fixYamlFrontmatter(content) {

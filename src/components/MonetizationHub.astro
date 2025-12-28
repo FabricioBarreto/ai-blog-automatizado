@@ -1,285 +1,441 @@
 ---
 interface Props {
-  postTitle: string;
+  placement: 'top' | 'middle' | 'bottom';
   category?: string;
-  hasProducts?: boolean; // Si el artículo tiene productos Amazon
+  postTitle?: string;
+  products?: string[]; // ASINs opcionales
 }
 
-const { postTitle, category = 'general', hasProducts = false } = Astro.props;
+const { placement, category = '', postTitle = '', products = [] } = Astro.props;
+
+import { getRelevantProducts } from '../config/products';
+
+// Detectar productos si no se pasaron explícitamente
+let relevantProducts = [];
+if (products.length > 0) {
+  // Usar productos pasados
+  import { AFFILIATE_PRODUCTS } from '../config/products';
+  relevantProducts = products.map(asin => AFFILIATE_PRODUCTS[asin]).filter(Boolean);
+} else if (postTitle) {
+  // Auto-detectar según título del post
+  relevantProducts = getRelevantProducts(postTitle, 2);
+}
+
+const hasProducts = relevantProducts.length > 0;
+
+// CTAs según placement
+const ctaConfig = {
+  top: {
+    title: "🚀 Herramientas Recomendadas",
+    subtitle: "Probadas y aprobadas para este tutorial",
+    style: "compact",
+  },
+  middle: {
+    title: "💡 Lo que Uso Personalmente",
+    subtitle: "Estas son las herramientas que realmente me funcionan",
+    style: "cards",
+  },
+  bottom: {
+    title: "🎯 Próximos Pasos",
+    subtitle: "Si querés implementar esto hoy, estas herramientas te van a ayudar",
+    style: "featured",
+  },
+};
+
+const config = ctaConfig[placement];
+const affiliateTag = 'productivi0d7-20'; // Cambiá por tu tag real
 ---
 
-<div class="monetization-section">
-  
-  <!-- Newsletter (SIEMPRE, es lo menos invasivo) -->
-  <div class="newsletter-card">
-    <div class="newsletter-header">
-      <span class="newsletter-icon">📬</span>
-      <div>
-        <h3>¿Te gustó este artículo?</h3>
-        <p>Recibí guías exclusivas y tips de productividad directo en tu inbox</p>
-      </div>
+{hasProducts && (
+  <section class={`monetization-hub ${placement} ${config.style}`}>
+    <div class="hub-header">
+      <h3>{config.title}</h3>
+      <p>{config.subtitle}</p>
     </div>
-    
-    <form class="newsletter-form" data-post-title={postTitle}>
-      <input
-        type="email"
-        name="email"
-        placeholder="tu@email.com"
-        required
-      />
-      <button type="submit">Suscribirme Gratis</button>
-    </form>
-    
-    <p class="privacy-note">🔒 Sin spam. Cancelá cuando quieras.</p>
-  </div>
 
-  <!-- SOLO si el artículo NO tiene productos Amazon -->
-  {!hasProducts && (
-    <div class="value-add-cta">
-      <div class="cta-badge">💎 Recurso Premium</div>
-      <h3>Guía Completa: Automatización con IA</h3>
-      <p>Aprende a automatizar tu flujo de trabajo con las mejores herramientas de IA.</p>
-      <div class="cta-footer">
-        <span class="cta-price">Gratis por tiempo limitado</span>
-        <a href="/recursos" class="cta-button">
-          Descargar Guía →
-        </a>
+    {config.style === 'compact' && (
+      <div class="compact-products">
+        {relevantProducts.map((product) => (
+          <a 
+            href={`https://www.amazon.com/dp/${product.asin}?tag=${affiliateTag}`}
+            target="_blank"
+            rel="noopener noreferrer sponsored"
+            class="compact-card"
+            data-track-click={`hub-${placement}-${product.asin}`}
+          >
+            <div class="product-info">
+              <h4>{product.name}</h4>
+              <div class="rating">
+                {'⭐'.repeat(Math.floor(product.rating))} {product.rating}
+              </div>
+            </div>
+            <div class="cta-section">
+              <span class="price">{product.price}</span>
+              <span class="cta-text">Ver →</span>
+            </div>
+          </a>
+        ))}
       </div>
+    )}
+
+    {config.style === 'cards' && (
+      <div class="card-grid">
+        {relevantProducts.map((product) => (
+          <div class="product-card">
+            <div class="card-header">
+              <h4>{product.name}</h4>
+              <div class="rating">
+                {'⭐'.repeat(Math.floor(product.rating))} {product.rating}/5
+              </div>
+            </div>
+            <p class="price-large">{product.price}</p>
+            <ul class="features-short">
+              {product.features.slice(0, 3).map((f) => (
+                <li>✓ {f}</li>
+              ))}
+            </ul>
+            <a 
+              href={`https://www.amazon.com/dp/${product.asin}?tag=${affiliateTag}`}
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              class="amazon-cta"
+              data-track-click={`hub-${placement}-${product.asin}`}
+            >
+              Ver en Amazon →
+            </a>
+          </div>
+        ))}
+      </div>
+    )}
+
+    {config.style === 'featured' && (
+      <div class="featured-section">
+        {relevantProducts.map((product, index) => (
+          <div class={`featured-product ${index === 0 ? 'primary' : 'secondary'}`}>
+            {index === 0 && <span class="badge">🏆 Top Pick</span>}
+            <div class="featured-content">
+              <h4>{product.name}</h4>
+              <p class="tagline">{product.bestFor}</p>
+              <div class="specs">
+                <span class="price">{product.price}</span>
+                <span class="rating">{'⭐'.repeat(Math.floor(product.rating))} {product.rating}</span>
+              </div>
+              <ul class="key-features">
+                {product.features.slice(0, 4).map((f) => (
+                  <li>{f}</li>
+                ))}
+              </ul>
+              <a 
+                href={`https://www.amazon.com/dp/${product.asin}?tag=${affiliateTag}`}
+                target="_blank"
+                rel="noopener noreferrer sponsored"
+                class="featured-cta"
+                data-track-click={`hub-${placement}-${product.asin}`}
+              >
+                🛒 Ver en Amazon
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+
+    <div class="hub-footer">
+      <p class="disclosure">
+        💡 <strong>Transparencia:</strong> Los links de arriba son enlaces de afiliados de Amazon. 
+        Si comprás, recibo una comisión sin costo extra para vos.
+      </p>
     </div>
-  )}
-</div>
+  </section>
+)}
 
 <style>
-  .monetization-section {
-    max-width: 720px;
-    margin: 4rem auto 2rem;
+  .monetization-hub {
+    margin: 3rem 0;
+    padding: 2rem;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(255,153,0,0.05) 0%, rgba(255,122,0,0.05) 100%);
+    border: 2px solid rgba(255,153,0,0.2);
+  }
+
+  .hub-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .hub-header h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.75rem;
+    color: rgb(var(--black));
+  }
+
+  .hub-header p {
+    margin: 0;
+    color: rgb(var(--gray));
+    font-size: 1.05rem;
+  }
+
+  /* COMPACT STYLE (top) */
+  .compact-products {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-  }
-
-  /* Newsletter - Diseño minimalista */
-  .newsletter-card {
-    background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
-    border: 2px solid #667eea30;
-    border-radius: 16px;
-    padding: 2rem;
-  }
-
-  .newsletter-header {
-    display: flex;
     gap: 1rem;
-    align-items: start;
-    margin-bottom: 1.5rem;
   }
 
-  .newsletter-icon {
-    font-size: 2.5rem;
-    line-height: 1;
-  }
-
-  .newsletter-card h3 {
-    margin: 0 0 0.5rem;
-    font-size: 1.3rem;
-    color: #1e293b;
-  }
-
-  .newsletter-card p {
-    margin: 0;
-    color: #64748b;
-    font-size: 0.95rem;
-  }
-
-  .newsletter-form {
+  .compact-card {
     display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
-
-  .newsletter-form input {
-    flex: 1;
-    min-width: 200px;
-    padding: 0.875rem 1rem;
-    border: 2px solid #e2e8f0;
-    border-radius: 10px;
-    font-size: 1rem;
-    transition: border-color 0.2s;
-  }
-
-  .newsletter-form input:focus {
-    outline: none;
-    border-color: #667eea;
-  }
-
-  .newsletter-form button {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 0.875rem 2rem;
-    border-radius: 10px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-
-  .newsletter-form button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
-  }
-
-  .privacy-note {
-    margin-top: 0.75rem;
-    font-size: 0.85rem;
-    color: #64748b;
-    text-align: center;
-  }
-
-  /* CTA Recurso Premium - Solo si NO hay productos */
-  .value-add-cta {
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
     background: white;
-    border: 2px solid #f59e0b;
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    border: 1px solid #e5e7eb;
+  }
+
+  .compact-card:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .compact-card .product-info h4 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.1rem;
+    color: rgb(var(--black));
+  }
+
+  .compact-card .rating {
+    font-size: 0.85rem;
+    color: #FF9900;
+  }
+
+  .compact-card .cta-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+  }
+
+  .compact-card .price {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #B12704;
+  }
+
+  .compact-card .cta-text {
+    font-size: 0.9rem;
+    color: #667eea;
+    font-weight: 700;
+  }
+
+  /* CARDS STYLE (middle) */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .card-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .product-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  }
+
+  .card-header h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.15rem;
+    color: rgb(var(--black));
+  }
+
+  .card-header .rating {
+    font-size: 0.85rem;
+    color: #FF9900;
+    font-weight: 600;
+  }
+
+  .price-large {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #B12704;
+    margin: 0.75rem 0;
+  }
+
+  .features-short {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+  }
+
+  .features-short li {
+    padding: 0.25rem 0;
+    font-size: 0.9rem;
+    color: rgb(var(--gray-dark));
+  }
+
+  .amazon-cta {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #FF9900 0%, #FF7A00 100%);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+  }
+
+  .amazon-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255,153,0,0.4);
+  }
+
+  /* FEATURED STYLE (bottom) */
+  .featured-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .featured-product {
+    background: white;
     border-radius: 16px;
     padding: 2rem;
-    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.15);
+    position: relative;
+    border: 2px solid #e5e7eb;
   }
 
-  .cta-badge {
-    display: inline-block;
-    background: #fef3c7;
-    color: #92400e;
+  .featured-product.primary {
+    border-color: #FF9900;
+    background: linear-gradient(135deg, rgba(255,153,0,0.03) 0%, white 100%);
+  }
+
+  .featured-product .badge {
+    position: absolute;
+    top: -12px;
+    left: 1.5rem;
+    background: linear-gradient(135deg, #FF9900 0%, #FF7A00 100%);
+    color: white;
     padding: 0.4rem 1rem;
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 700;
+  }
+
+  .featured-content h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+    color: rgb(var(--black));
+  }
+
+  .featured-content .tagline {
+    margin: 0 0 1rem 0;
+    color: rgb(var(--gray));
+    font-size: 1rem;
+  }
+
+  .featured-content .specs {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
     margin-bottom: 1rem;
   }
 
-  .value-add-cta h3 {
-    margin: 0 0 0.75rem;
-    font-size: 1.4rem;
-    color: #1e293b;
+  .featured-content .specs .price {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #B12704;
   }
 
-  .value-add-cta p {
-    margin: 0 0 1.5rem;
-    color: #64748b;
-    line-height: 1.6;
+  .featured-content .specs .rating {
+    font-size: 0.95rem;
+    color: #FF9900;
+    font-weight: 600;
   }
 
-  .cta-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
+  .key-features {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.5rem;
   }
 
-  .cta-price {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #f59e0b;
+  .key-features li {
+    padding: 0.5rem;
+    background: rgba(102,126,234,0.05);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: rgb(var(--gray-dark));
   }
 
-  .cta-button {
-    background: #1e293b;
+  .featured-cta {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, #FF9900 0%, #FF7A00 100%);
     color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 10px;
     text-decoration: none;
+    border-radius: 50px;
     font-weight: 700;
-    transition: background 0.2s;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
   }
 
-  .cta-button:hover {
-    background: #0f172a;
+  .featured-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255,153,0,0.4);
   }
 
-  @media (max-width: 640px) {
-    .monetization-section {
-      margin: 3rem auto 1.5rem;
+  /* FOOTER */
+  .hub-footer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0,0,0,0.1);
+  }
+
+  .disclosure {
+    margin: 0;
+    font-size: 0.85rem;
+    color: rgb(var(--gray));
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .disclosure strong {
+    color: #FF7A00;
+  }
+
+  @media (max-width: 768px) {
+    .monetization-hub {
+      padding: 1.5rem 1rem;
     }
 
-    .newsletter-card {
-      padding: 1.5rem;
+    .hub-header h3 {
+      font-size: 1.4rem;
     }
 
-    .newsletter-form {
+    .featured-content .specs {
       flex-direction: column;
-    }
-
-    .newsletter-form input {
-      width: 100%;
-    }
-
-    .cta-footer {
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    .cta-button {
-      text-align: center;
+      align-items: flex-start;
+      gap: 0.5rem;
     }
   }
 </style>
-
-<script>
-  // Declare gtag on window object
-  declare global {
-    interface Window {
-      gtag?: (command: string, eventName: string, eventParams?: Record<string, unknown>) => void;
-    }
-  }
-
-  // Newsletter submission
-  document.querySelectorAll('.newsletter-form').forEach((form) => {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const formElement = e.target as HTMLFormElement;
-      const input = formElement.querySelector('input[name="email"]') as HTMLInputElement;
-      const button = formElement.querySelector('button') as HTMLButtonElement;
-      const email = input?.value;
-
-      if (!email) return;
-
-      const originalText = button.textContent;
-      button.textContent = 'Suscribiendo...';
-      button.disabled = true;
-
-      try {
-        const response = await fetch('/api/subscribe', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email,
-            source: formElement.dataset.postTitle,
-          }),
-        });
-
-        if (response.ok) {
-          // Track en Google Analytics
-          if (window.gtag) {
-            window.gtag('event', 'newsletter_signup', {
-              event_category: 'engagement',
-              event_label: formElement.dataset.postTitle,
-            });
-          }
-
-          button.textContent = '✅ ¡Listo! Revisa tu email';
-          button.style.background = '#10b981';
-          input.value = '';
-        } else {
-          throw new Error('Signup failed');
-        }
-      } catch (error) {
-        button.textContent = '❌ Error, intenta de nuevo';
-        button.style.background = '#ef4444';
-        setTimeout(() => {
-          button.textContent = originalText;
-          button.style.background = '';
-          button.disabled = false;
-        }, 3000);
-      }
-    });
-  });
-</script>
