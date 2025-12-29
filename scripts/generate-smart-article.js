@@ -342,7 +342,6 @@ async function generateArticle(keyword, category, isMonetized) {
           .join("\n\n")
       : "No hay competencia directa";
 
-  // Cargar productos si es monetizado
   let template = null;
   let products = [];
   let prompt;
@@ -450,10 +449,10 @@ RECUERDA: Escribe el contenido directamente, SIN envolverlo en \`\`\`markdown o 
   });
 
   let articleContent = completion.choices[0].message.content || "";
-  
+
   // NUEVO: Limpiar bloques de código markdown si GPT-4o los agrega
   articleContent = cleanMarkdownWrapper(articleContent);
-  
+
   articleContent = fixYamlFrontmatter(articleContent);
 
   // Validar monetización
@@ -530,11 +529,11 @@ function cleanMarkdownWrapper(content) {
   content = content.replace(/^```markdown\s*\n/i, "");
   content = content.replace(/^```md\s*\n/i, "");
   content = content.replace(/\n```\s*$/, "");
-  
+
   // Elimina ``` solitarios al inicio o final
   content = content.replace(/^```\s*\n/, "");
   content = content.replace(/\n```\s*$/, "");
-  
+
   return content.trim();
 }
 
