@@ -109,12 +109,18 @@
       "type": "value",
       "category": "developer_productivity",
       "date": "2025-12-29T12:44:02.769Z"
+    },
+    {
+      "keyword": "habit stacking techniques",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2025-12-29T15:06:15.895Z"
     }
   ],
-  "lastUpdate": "2025-12-29T12:44:02.769Z",
+  "lastUpdate": "2025-12-29T15:06:15.895Z",
   "categories": {
     "ai_tools": 5,
-    "productivity_systems": 4,
+    "productivity_systems": 5,
     "ai_automation": 3,
     "developer_productivity": 2,
     "monetized_hardware": 1
