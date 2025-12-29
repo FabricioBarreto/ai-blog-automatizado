@@ -9,12 +9,12 @@ interface Props {
 const { placement, category = '', postTitle = '', products = [] } = Astro.props;
 
 import { getRelevantProducts } from '../config/products';
+import type { Product } from '../config/products';
 
 // Detectar productos si no se pasaron explícitamente
-let relevantProducts = [];
+let relevantProducts: Product[] = [];
 if (products.length > 0) {
   // Usar productos pasados
-  import { AFFILIATE_PRODUCTS } from '../config/products';
   relevantProducts = products.map(asin => AFFILIATE_PRODUCTS[asin]).filter(Boolean);
 } else if (postTitle) {
   // Auto-detectar según título del post
@@ -90,7 +90,7 @@ const affiliateTag = 'productivi0d7-20'; // Cambiá por tu tag real
             </div>
             <p class="price-large">{product.price}</p>
             <ul class="features-short">
-              {product.features.slice(0, 3).map((f) => (
+              {product.features.slice(0, 3).map((f: string) => (
                 <li>✓ {f}</li>
               ))}
             </ul>
@@ -121,7 +121,7 @@ const affiliateTag = 'productivi0d7-20'; // Cambiá por tu tag real
                 <span class="rating">{'⭐'.repeat(Math.floor(product.rating))} {product.rating}</span>
               </div>
               <ul class="key-features">
-                {product.features.slice(0, 4).map((f) => (
+                {product.features.slice(0, 4).map((f: string) => (
                   <li>{f}</li>
                 ))}
               </ul>
