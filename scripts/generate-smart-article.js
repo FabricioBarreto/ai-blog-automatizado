@@ -408,18 +408,20 @@ NO links de afiliados.
 - Meta: 150-155 con CTA
 - 4+ H2 con variaciones de keyword
 
-**FORMATO DE OUTPUT - ESCRIBE EXACTAMENTE ASÍ (sin bloques de código):**
+**FORMATO DE OUTPUT - COPIA ESTE FRONTMATTER EXACTO (reemplaza solo los valores entre comillas):**
 
 ---
-title: "[Título SEO]"
-description: "[Meta description]"
+title: "Tu título aquí (50-60 caracteres)"
+description: "Tu descripción aquí (150-155 caracteres)"
 pubDate: ${today}
 heroImage: "/images/default-hero.jpg"
 category: "${getCategoryLabel(category)}"
 tags: ["tag1", "tag2", "tag3"]
 featured: true
-readingTime: "X min"
+readingTime: "8 min"
 ---
+
+IMPORTANTE: NO uses negritas (**) en el frontmatter. Escribe los valores directamente entre comillas.
 
 ## [Título de sección]
 

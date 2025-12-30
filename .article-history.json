@@ -121,13 +121,19 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2025-12-30T02:10:03.593Z"
+    },
+    {
+      "keyword": "AI data entry and extraction",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2025-12-30T12:38:31.713Z"
     }
   ],
-  "lastUpdate": "2025-12-30T02:10:03.593Z",
+  "lastUpdate": "2025-12-30T12:38:31.713Z",
   "categories": {
     "ai_tools": 6,
     "productivity_systems": 5,
-    "ai_automation": 3,
+    "ai_automation": 4,
     "developer_productivity": 2,
     "monetized_hardware": 1
   }
