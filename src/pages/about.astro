@@ -7,653 +7,651 @@ import { SITE_TITLE } from '../consts';
 
 <!doctype html>
 <html lang="es">
-	<head>
-		<BaseHead 
-			title={`Acerca de - ${SITE_TITLE}`} 
-			description="Conoce nuestra misión de democratizar el acceso a herramientas de IA y ayudar a profesionales a maximizar su productividad con reviews honestas y tutoriales prácticos."
-		/>
-		<style>
-			:root {
-				--gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-				--gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-			}
-
-			/* Hero Section */
-			.hero-about {
-				position: relative;
-				text-align: center;
-				padding: 6rem 2rem 4rem;
-				background: var(--gradient-primary);
-				border-radius: 24px;
-				margin-bottom: 5rem;
-				overflow: hidden;
-			}
-
-			.hero-about::before {
-				content: '';
-				position: absolute;
-				top: 0;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z' fill='%23fff' fill-opacity='0.05'/%3E%3C/svg%3E");
-				animation: float 20s ease-in-out infinite;
-			}
-
-			@keyframes float {
-				0%, 100% { transform: translateY(0); }
-				50% { transform: translateY(-20px); }
-			}
-
-			.hero-content {
-				position: relative;
-				z-index: 1;
-			}
-
-			.hero-badge {
-				display: inline-block;
-				background: rgba(255, 255, 255, 0.2);
-				backdrop-filter: blur(10px);
-				color: white;
-				padding: 0.5rem 1.5rem;
-				border-radius: 50px;
-				font-size: 0.9rem;
-				font-weight: 600;
-				margin-bottom: 2rem;
-				border: 1px solid rgba(255, 255, 255, 0.3);
-			}
-
-			.hero-about h1 {
-				font-size: clamp(2.5rem, 5vw, 3.5rem);
-				margin-bottom: 1.5rem;
-				color: white;
-				font-weight: 800;
-				line-height: 1.2;
-			}
-
-			.hero-about p {
-				font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-				color: rgba(255, 255, 255, 0.95);
-				max-width: 800px;
-				margin: 0 auto;
-				line-height: 1.7;
-			}
-
-			/* Story Section */
-			.story-section {
-				max-width: 800px;
-				margin: 5rem auto;
-				padding: 0 2rem;
-			}
-
-			.story-section h2 {
-				font-size: 2.5rem;
-				margin-bottom: 1.5rem;
-				text-align: center;
-				background: var(--gradient-primary);
-				-webkit-background-clip: text;
-				-webkit-text-fill-color: transparent;
-				background-clip: text;
-				font-weight: 800;
-			}
-
-			.story-content {
-				background: white;
-				padding: 3rem;
-				border-radius: 20px;
-				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-				line-height: 1.8;
-				color: #475569;
-				font-size: 1.1rem;
-			}
-
-			.story-content p {
-				margin-bottom: 1.5rem;
-			}
-
-			.story-content p:last-child {
-				margin-bottom: 0;
-			}
-
-			.story-highlight {
-				background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-				padding: 2rem;
-				border-radius: 16px;
-				border-left: 4px solid #667eea;
-				margin: 2rem 0;
-			}
-
-			/* Values Section */
-			.values-section {
-				margin: 6rem 0;
-				padding: 0 2rem;
-			}
-
-			.section-header {
-				text-align: center;
-				margin-bottom: 4rem;
-			}
-
-			.section-title {
-				font-size: 2.5rem;
-				margin-bottom: 1rem;
-				font-weight: 800;
-				background: var(--gradient-primary);
-				-webkit-background-clip: text;
-				-webkit-text-fill-color: transparent;
-				background-clip: text;
-			}
-
-			.section-subtitle {
-				color: #64748b;
-				font-size: 1.2rem;
-			}
-
-			.values-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-				gap: 2rem;
-				max-width: 1200px;
-				margin: 0 auto;
-			}
-
-			.value-card {
-				background: white;
-				padding: 2.5rem;
-				border-radius: 20px;
-				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-				transition: all 0.3s ease;
-				border: 2px solid transparent;
-			}
-
-			.value-card:hover {
-				transform: translateY(-8px);
-				box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-				border-color: rgba(102, 126, 234, 0.3);
-			}
-
-			.value-icon {
-				font-size: 3.5rem;
-				margin-bottom: 1.5rem;
-				display: block;
-			}
-
-			.value-card h3 {
-				font-size: 1.5rem;
-				margin-bottom: 1rem;
-				color: #1e293b;
-				font-weight: 700;
-			}
-
-			.value-card p {
-				color: #64748b;
-				line-height: 1.7;
-				font-size: 1rem;
-			}
-
-			/* Stats Section */
-			.stats-section {
-				background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-				padding: 5rem 2rem;
-				border-radius: 24px;
-				margin: 6rem 0;
-			}
-
-			.stats-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-				gap: 3rem;
-				max-width: 1000px;
-				margin: 3rem auto 0;
-			}
-
-			.stat-item {
-				text-align: center;
-			}
-
-			.stat-number {
-				font-size: 3.5rem;
-				font-weight: 800;
-				background: var(--gradient-primary);
-				-webkit-background-clip: text;
-				-webkit-text-fill-color: transparent;
-				background-clip: text;
-				margin-bottom: 0.75rem;
-				display: block;
-			}
-
-			.stat-label {
-				color: #64748b;
-				font-weight: 600;
-				font-size: 1.1rem;
-			}
-
-			/* Process Section */
-			.process-section {
-				margin: 6rem 0;
-				padding: 0 2rem;
-			}
-
-			.process-steps {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-				gap: 2rem;
-				max-width: 1200px;
-				margin: 3rem auto 0;
-			}
-
-			.process-step {
-				background: white;
-				padding: 2.5rem;
-				border-radius: 20px;
-				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-				position: relative;
-				transition: all 0.3s ease;
-			}
-
-			.process-step:hover {
-				transform: translateY(-5px);
-				box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-			}
-
-			.step-number {
-				width: 60px;
-				height: 60px;
-				background: var(--gradient-primary);
-				color: white;
-				border-radius: 50%;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				font-weight: 800;
-				font-size: 1.75rem;
-				margin: 0 auto 1.5rem;
-			}
-
-			.process-step h3 {
-				font-size: 1.4rem;
-				margin-bottom: 1rem;
-				color: #1e293b;
-				font-weight: 700;
-				text-align: center;
-			}
-
-			.process-step p {
-				color: #64748b;
-				line-height: 1.7;
-				text-align: center;
-			}
-
-			/* Team Section */
-			.team-section {
-				background: white;
-				padding: 5rem 2rem;
-				border-radius: 24px;
-				margin: 6rem 0;
-				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-			}
-
-			.team-content {
-				max-width: 700px;
-				margin: 0 auto;
-				text-align: center;
-			}
-
-			.team-avatar {
-				width: 120px;
-				height: 120px;
-				background: var(--gradient-primary);
-				border-radius: 50%;
-				margin: 0 auto 2rem;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				font-size: 4rem;
-			}
-
-			.team-content h3 {
-				font-size: 1.8rem;
-				margin-bottom: 0.5rem;
-				color: #1e293b;
-			}
-
-			.team-role {
-				color: #667eea;
-				font-weight: 600;
-				margin-bottom: 2rem;
-				font-size: 1.1rem;
-			}
-
-			.team-bio {
-				color: #64748b;
-				line-height: 1.8;
-				font-size: 1.1rem;
-			}
-
-			/* CTA Section */
-			.cta-section {
-				text-align: center;
-				padding: 5rem 2rem;
-				background: var(--gradient-accent);
-				border-radius: 24px;
-				margin: 6rem 0;
-				color: white;
-				position: relative;
-				overflow: hidden;
-			}
-
-			.cta-section::before {
-				content: '🚀';
-				position: absolute;
-				font-size: 20rem;
-				opacity: 0.1;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-			}
-
-			.cta-content {
-				position: relative;
-				z-index: 1;
-			}
-
-			.cta-section h2 {
-				font-size: clamp(2rem, 4vw, 2.75rem);
-				margin-bottom: 1.5rem;
-				color: white;
-				font-weight: 800;
-			}
-
-			.cta-section p {
-				font-size: 1.3rem;
-				margin-bottom: 2.5rem;
-				color: rgba(255, 255, 255, 0.95);
-				max-width: 700px;
-				margin-left: auto;
-				margin-right: auto;
-			}
-
-			.cta-buttons {
-				display: flex;
-				gap: 1rem;
-				justify-content: center;
-				flex-wrap: wrap;
-			}
-
-			.btn {
-				padding: 1rem 2.5rem;
-				border-radius: 50px;
-				font-weight: 700;
-				text-decoration: none;
-				transition: all 0.3s ease;
-				font-size: 1.1rem;
-				display: inline-flex;
-				align-items: center;
-				gap: 0.5rem;
-			}
-
-			.btn-white {
-				background: white;
-				color: #4facfe;
-				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-			}
-
-			.btn-white:hover {
-				transform: translateY(-3px);
-				box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
-			}
-
-			.btn-outline {
-				background: transparent;
-				color: white;
-				border: 2px solid white;
-			}
-
-			.btn-outline:hover {
-				background: white;
-				color: #4facfe;
-			}
-
-			@media (max-width: 768px) {
-				.hero-about {
-					padding: 4rem 1.5rem 3rem;
-					margin-bottom: 3rem;
-				}
-
-				.story-section {
-					margin: 3rem auto;
-				}
-
-				.story-content {
-					padding: 2rem;
-				}
-
-				.values-grid {
-					grid-template-columns: 1fr;
-				}
-
-				.stats-grid {
-					grid-template-columns: 1fr;
-					gap: 2rem;
-				}
-
-				.process-steps {
-					grid-template-columns: 1fr;
-				}
-
-				.cta-buttons {
-					flex-direction: column;
-				}
-
-				.btn {
-					width: 100%;
-					justify-content: center;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<!-- Hero -->
-			<section class="hero-about">
-				<div class="hero-content">
-					<span class="hero-badge">🚀 Desde 2024</span>
-					<h1>Democratizamos el Acceso a la IA</h1>
-					<p>
-						Ayudamos a profesionales de todo el mundo a descubrir, entender y dominar 
-						las mejores herramientas de inteligencia artificial para potenciar su productividad.
-					</p>
-				</div>
-			</section>
-
-			<!-- Story -->
-			<section class="story-section">
-				<h2>📖 Nuestra Historia</h2>
-				<div class="story-content">
-					<p>
-						Todo comenzó con una simple frustración: había cientos de herramientas de IA prometiendo 
-						revolucionar la productividad, pero muy poca información honesta sobre cuáles realmente 
-						funcionaban y cuáles eran puro marketing.
-					</p>
-					
-					<div class="story-highlight">
-						<strong>💡 La idea:</strong> Crear un espacio donde cada herramienta sea probada en profundidad, 
-						con casos de uso reales, pros y contras honestos, y comparaciones útiles.
-					</div>
-
-					<p>
-						Hoy, miles de profesionales confían en nuestras reviews para tomar decisiones informadas 
-						sobre qué herramientas de IA valen realmente la pena. Y lo mejor: utilizamos IA para generar 
-						contenido de calidad, lo que nos permite estar siempre actualizados con las últimas novedades.
-					</p>
-
-					<p>
-						<strong>Nuestro compromiso:</strong> Transparencia total, educación práctica y contenido que 
-						puedas aplicar hoy mismo.
-					</p>
-				</div>
-			</section>
-
-			<!-- Process -->
-			<section class="process-section">
-				<div class="section-header">
-					<h2 class="section-title">🔬 Nuestro Proceso</h2>
-					<p class="section-subtitle">
-						Cómo garantizamos la calidad de cada artículo
-					</p>
-				</div>
-
-				<div class="process-steps">
-					<div class="process-step">
-						<div class="step-number">1</div>
-						<h3>Probamos Todo</h3>
-						<p>
-							Cada herramienta es testeada en proyectos reales durante semanas. 
-							Nada de teoría, solo experiencia práctica.
-						</p>
-					</div>
-
-					<div class="process-step">
-						<div class="step-number">2</div>
-						<h3>Analizamos en Profundidad</h3>
-						<p>
-							Documentamos pros, contras, casos de uso, precios y alternativas. 
-							Sin sesgos, con transparencia total.
-						</p>
-					</div>
-
-					<div class="process-step">
-						<div class="step-number">3</div>
-						<h3>Creamos Tutoriales</h3>
-						<p>
-							Guías paso a paso para que implementes las herramientas desde el día 1. 
-							Educación práctica, no solo reviews.
-						</p>
-					</div>
-
-					<div class="process-step">
-						<div class="step-number">4</div>
-						<h3>Actualizamos Constantemente</h3>
-						<p>
-							El mundo de la IA cambia rápido. Revisamos y actualizamos nuestro contenido 
-							para mantenerte siempre informado.
-						</p>
-					</div>
-				</div>
-			</section>
-
-			<!-- Values -->
-			<section class="values-section">
-				<div class="section-header">
-					<h2 class="section-title">✨ Nuestros Valores</h2>
-					<p class="section-subtitle">
-						Los principios que guían cada artículo que publicamos
-					</p>
-				</div>
-				
-				<div class="values-grid">
-					<div class="value-card">
-						<span class="value-icon">🔍</span>
-						<h3>Transparencia</h3>
-						<p>
-							Si una herramienta tiene limitaciones, te las decimos. Sin letra chica, 
-							sin promesas vacías. Honestidad antes que todo.
-						</p>
-					</div>
-
-					<div class="value-card">
-						<span class="value-icon">🎓</span>
-						<h3>Educación</h3>
-						<p>
-							No solo recomendamos herramientas. Te enseñamos a dominarlas con 
-							tutoriales prácticos y casos de uso reales.
-						</p>
-					</div>
-
-					<div class="value-card">
-						<span class="value-icon">⚡</span>
-						<h3>Practicidad</h3>
-						<p>
-							Cada artículo incluye consejos accionables que puedes implementar 
-							hoy mismo. Nada de teoría abstracta.
-						</p>
-					</div>
-
-					<div class="value-card">
-						<span class="value-icon">🚀</span>
-						<h3>Innovación</h3>
-						<p>
-							Usamos IA para crear contenido de calidad rápido, lo que nos permite 
-							cubrir las últimas novedades antes que nadie.
-						</p>
-					</div>
-				</div>
-			</section>
-
-			<!-- Stats -->
-			<section class="stats-section">
-				<div class="section-header">
-					<h2 class="section-title">📊 Nuestro Impacto</h2>
-					<p class="section-subtitle">
-						Números que reflejan nuestro compromiso
-					</p>
-				</div>
-
-				<div class="stats-grid">
-					<div class="stat-item">
-						<span class="stat-number">100+</span>
-						<div class="stat-label">Herramientas Revisadas</div>
-					</div>
-					<div class="stat-item">
-						<span class="stat-number">50K+</span>
-						<div class="stat-label">Lectores Mensuales</div>
-					</div>
-					<div class="stat-item">
-						<span class="stat-number">100%</span>
-						<div class="stat-label">Reviews Honestas</div>
-					</div>
-					<div class="stat-item">
-						<span class="stat-number">24/7</span>
-						<div class="stat-label">Contenido Actualizado</div>
-					</div>
-				</div>
-			</section>
-
-			<!-- Team -->
-			<section class="team-section">
-				<div class="team-content">
-					<div class="team-avatar">🤖</div>
-					<h3>El Equipo</h3>
-					<p class="team-role">Creadores de Contenido & Testers de IA</p>
-					<p class="team-bio">
-						Somos un equipo de profesionales apasionados por la tecnología y la productividad. 
-						Combinamos experiencia en desarrollo, marketing y diseño para crear las reviews más 
-						completas del mercado. Cada herramienta que recomendamos la usamos nosotros mismos 
-						en nuestro día a día.
-					</p>
-				</div>
-			</section>
-
-			<!-- CTA -->
-			<section class="cta-section">
-				<div class="cta-content">
-					<h2>¿Listo para Dominar la IA?</h2>
-					<p>
-						Únete a miles de profesionales que ya están aprovechando el poder de la 
-						inteligencia artificial para trabajar más inteligente, no más duro.
-					</p>
-					<div class="cta-buttons">
-						<a href="/blog" class="btn btn-white">
-							📚 Explorar Guías
-						</a>
-						<a href="/#newsletter" class="btn btn-outline">
-							📬 Newsletter Gratis
-						</a>
-					</div>
-				</div>
-			</section>
-		</main>
-		<Footer />
-	</body>
+<head>
+<BaseHead
+title={`Acerca de - ${SITE_TITLE}`}
+description="Tutoriales prácticos sobre automatización con IA, sistemas de productividad y herramientas para developers. Aprende Building a Second Brain, Habit Stacking y más."
+/>
+<style>
+:root {
+--gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+--gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+/* Hero Section */
+.hero-about {
+position: relative;
+text-align: center;
+padding: 6rem 2rem 4rem;
+background: var(--gradient-primary);
+border-radius: 24px;
+margin-bottom: 5rem;
+overflow: hidden;
+}
+
+.hero-about::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z' fill='%23fff' fill-opacity='0.05'/%3E%3C/svg%3E");
+animation: float 20s ease-in-out infinite;
+}
+
+@keyframes float {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-20px); }
+}
+
+.hero-content {
+position: relative;
+z-index: 1;
+}
+
+.hero-badge {
+display: inline-block;
+background: rgba(255, 255, 255, 0.2);
+backdrop-filter: blur(10px);
+color: white;
+padding: 0.5rem 1.5rem;
+border-radius: 50px;
+font-size: 0.9rem;
+font-weight: 600;
+margin-bottom: 2rem;
+border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.hero-about h1 {
+font-size: clamp(2.5rem, 5vw, 3.5rem);
+margin-bottom: 1.5rem;
+color: white;
+font-weight: 800;
+line-height: 1.2;
+}
+
+.hero-about p {
+font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+color: rgba(255, 255, 255, 0.95);
+max-width: 800px;
+margin: 0 auto;
+line-height: 1.7;
+}
+
+/* Story Section */
+.story-section {
+max-width: 800px;
+margin: 5rem auto;
+padding: 0 2rem;
+}
+
+.story-section h2 {
+font-size: 2.5rem;
+margin-bottom: 1.5rem;
+text-align: center;
+background: var(--gradient-primary);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+font-weight: 800;
+}
+
+.story-content {
+background: white;
+padding: 3rem;
+border-radius: 20px;
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+line-height: 1.8;
+color: #475569;
+font-size: 1.1rem;
+}
+
+.story-content p {
+margin-bottom: 1.5rem;
+}
+
+.story-content p:last-child {
+margin-bottom: 0;
+}
+
+.story-highlight {
+background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+padding: 2rem;
+border-radius: 16px;
+border-left: 4px solid #667eea;
+margin: 2rem 0;
+}
+
+/* Values Section */
+.values-section {
+margin: 6rem 0;
+padding: 0 2rem;
+}
+
+.section-header {
+text-align: center;
+margin-bottom: 4rem;
+}
+
+.section-title {
+font-size: 2.5rem;
+margin-bottom: 1rem;
+font-weight: 800;
+background: var(--gradient-primary);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+
+.section-subtitle {
+color: #64748b;
+font-size: 1.2rem;
+}
+
+.values-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 2rem;
+max-width: 1200px;
+margin: 0 auto;
+}
+
+.value-card {
+background: white;
+padding: 2.5rem;
+border-radius: 20px;
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+transition: all 0.3s ease;
+border: 2px solid transparent;
+}
+
+.value-card:hover {
+transform: translateY(-8px);
+box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+border-color: rgba(102, 126, 234, 0.3);
+}
+
+.value-icon {
+font-size: 3.5rem;
+margin-bottom: 1.5rem;
+display: block;
+}
+
+.value-card h3 {
+font-size: 1.5rem;
+margin-bottom: 1rem;
+color: #1e293b;
+font-weight: 700;
+}
+
+.value-card p {
+color: #64748b;
+line-height: 1.7;
+font-size: 1rem;
+}
+
+/* Stats Section */
+.stats-section {
+background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+padding: 5rem 2rem;
+border-radius: 24px;
+margin: 6rem 0;
+}
+
+.stats-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 3rem;
+max-width: 1000px;
+margin: 3rem auto 0;
+}
+
+.stat-item {
+text-align: center;
+}
+
+.stat-number {
+font-size: 3.5rem;
+font-weight: 800;
+background: var(--gradient-primary);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+margin-bottom: 0.75rem;
+display: block;
+}
+
+.stat-label {
+color: #64748b;
+font-weight: 600;
+font-size: 1.1rem;
+}
+
+/* Process Section */
+.process-section {
+margin: 6rem 0;
+padding: 0 2rem;
+}
+
+.process-steps {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 2rem;
+max-width: 1200px;
+margin: 3rem auto 0;
+}
+
+.process-step {
+background: white;
+padding: 2.5rem;
+border-radius: 20px;
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+position: relative;
+transition: all 0.3s ease;
+}
+
+.process-step:hover {
+transform: translateY(-5px);
+box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.step-number {
+width: 60px;
+height: 60px;
+background: var(--gradient-primary);
+color: white;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: 800;
+font-size: 1.75rem;
+margin: 0 auto 1.5rem;
+}
+
+.process-step h3 {
+font-size: 1.4rem;
+margin-bottom: 1rem;
+color: #1e293b;
+font-weight: 700;
+text-align: center;
+}
+
+.process-step p {
+color: #64748b;
+line-height: 1.7;
+text-align: center;
+}
+
+/* Team Section */
+.team-section {
+background: white;
+padding: 5rem 2rem;
+border-radius: 24px;
+margin: 6rem 0;
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.team-content {
+max-width: 700px;
+margin: 0 auto;
+text-align: center;
+}
+
+.team-avatar {
+width: 120px;
+height: 120px;
+background: var(--gradient-primary);
+border-radius: 50%;
+margin: 0 auto 2rem;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 4rem;
+}
+
+.team-content h3 {
+font-size: 1.8rem;
+margin-bottom: 0.5rem;
+color: #1e293b;
+}
+
+.team-role {
+color: #667eea;
+font-weight: 600;
+margin-bottom: 2rem;
+font-size: 1.1rem;
+}
+
+.team-bio {
+color: #64748b;
+line-height: 1.8;
+font-size: 1.1rem;
+}
+
+/* CTA Section */
+.cta-section {
+text-align: center;
+padding: 5rem 2rem;
+background: var(--gradient-accent);
+border-radius: 24px;
+margin: 6rem 0;
+color: white;
+position: relative;
+overflow: hidden;
+}
+
+.cta-section::before {
+content: '🚀';
+position: absolute;
+font-size: 20rem;
+opacity: 0.1;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
+
+.cta-content {
+position: relative;
+z-index: 1;
+}
+
+.cta-section h2 {
+font-size: clamp(2rem, 4vw, 2.75rem);
+margin-bottom: 1.5rem;
+color: white;
+font-weight: 800;
+}
+
+.cta-section p {
+font-size: 1.3rem;
+margin-bottom: 2.5rem;
+color: rgba(255, 255, 255, 0.95);
+max-width: 700px;
+margin-left: auto;
+margin-right: auto;
+}
+
+.cta-buttons {
+display: flex;
+gap: 1rem;
+justify-content: center;
+flex-wrap: wrap;
+}
+
+.btn {
+padding: 1rem 2.5rem;
+border-radius: 50px;
+font-weight: 700;
+text-decoration: none;
+transition: all 0.3s ease;
+font-size: 1.1rem;
+display: inline-flex;
+align-items: center;
+gap: 0.5rem;
+}
+
+.btn-white {
+background: white;
+color: #4facfe;
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-white:hover {
+transform: translateY(-3px);
+box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
+}
+
+.btn-outline {
+background: transparent;
+color: white;
+border: 2px solid white;
+}
+
+.btn-outline:hover {
+background: white;
+color: #4facfe;
+}
+
+@media (max-width: 768px) {
+.hero-about {
+padding: 4rem 1.5rem 3rem;
+margin-bottom: 3rem;
+}
+
+.story-section {
+margin: 3rem auto;
+}
+
+.story-content {
+padding: 2rem;
+}
+
+.values-grid {
+grid-template-columns: 1fr;
+}
+
+.stats-grid {
+grid-template-columns: 1fr;
+gap: 2rem;
+}
+
+.process-steps {
+grid-template-columns: 1fr;
+}
+
+.cta-buttons {
+flex-direction: column;
+}
+
+.btn {
+width: 100%;
+justify-content: center;
+}
+}
+</style>
+</head>
+<body>
+<Header />
+<main>
+<!-- Hero -->
+<section class="hero-about">
+<div class="hero-content">
+<span class="hero-badge">🚀 Desde 2024</span>
+<h1>Tutoriales Prácticos de IA y Productividad</h1>
+<p>
+Te enseñamos a dominar herramientas de IA, implementar sistemas como Building a Second Brain,
+automatizar workflows y aplicar técnicas probadas de productividad en tu día a día.
+</p>
+</div>
+</section>
+
+<!-- Story -->
+<section class="story-section">
+<h2>📖 Nuestra Misión</h2>
+<div class="story-content">
+<p>
+El ecosistema de IA y productividad está en constante evolución. Nuevas herramientas, técnicas
+y frameworks aparecen cada semana, pero hay un problema: mucho ruido y poco contenido realmente
+práctico que podás implementar hoy mismo.
+</p>
+
+<div class="story-highlight">
+<strong>💡 Nuestra propuesta:</strong> Crear tutoriales profundos y aplicables sobre automatización
+con IA, sistemas de productividad como Building a Second Brain y Habit Stacking, y herramientas
+esenciales para developers. Todo con ejemplos reales y paso a paso.
+</div>
+
+<p>
+Cubrimos desde cómo extraer datos automáticamente con IA, hasta cómo implementar tu propio
+sistema de gestión de conocimiento. Desde CLI tools que todo dev necesita, hasta técnicas
+de reutilización de contenido con IA.
+</p>
+
+<p>
+<strong>Nuestro compromiso:</strong> Tutoriales detallados, casos de uso concretos y técnicas
+que podés aplicar inmediatamente en tu trabajo o proyectos personales.
+</p>
+</div>
+</section>
+
+<!-- Process -->
+<section class="process-section">
+<div class="section-header">
+<h2 class="section-title">🔬 Nuestro Enfoque</h2>
+<p class="section-subtitle">
+Cómo creamos contenido que realmente suma
+</p>
+</div>
+
+<div class="process-steps">
+<div class="process-step">
+<div class="step-number">1</div>
+<h3>Uso Real</h3>
+<p>
+Cada tutorial está basado en implementaciones reales. Compartimos workflows,
+técnicas y herramientas que usamos en proyectos concretos.
+</p>
+</div>
+
+<div class="process-step">
+<div class="step-number">2</div>
+<h3>Paso a Paso Detallado</h3>
+<p>
+Guías completas desde la instalación hasta el uso avanzado. Con ejemplos,
+casos de uso y mejores prácticas.
+</p>
+</div>
+
+<div class="process-step">
+<div class="step-number">3</div>
+<h3>Casos de Uso Múltiples</h3>
+<p>
+No solo "qué" sino "cuándo" y "cómo". Exploramos diferentes escenarios
+de aplicación para cada herramienta o técnica.
+</p>
+</div>
+
+<div class="process-step">
+<div class="step-number">4</div>
+<h3>Actualización Constante</h3>
+<p>
+Publicamos contenido nuevo semanalmente y actualizamos tutoriales
+existentes con las últimas novedades del ecosistema.
+</p>
+</div>
+</div>
+</section>
+
+<!-- Values -->
+<section class="values-section">
+<div class="section-header">
+<h2 class="section-title">✨ Qué Nos Define</h2>
+<p class="section-subtitle">
+Los principios detrás de cada tutorial
+</p>
+</div>
+
+<div class="values-grid">
+<div class="value-card">
+<span class="value-icon">🎓</span>
+<h3>Educación Profunda</h3>
+<p>
+No nos quedamos en lo superficial. Exploramos técnicas avanzadas,
+integraciones y casos de uso que realmente marcan diferencia.
+</p>
+</div>
+
+<div class="value-card">
+<span class="value-icon">⚡</span>
+<h3>100% Aplicable</h3>
+<p>
+Cada artículo incluye pasos concretos, ejemplos de código, configuraciones
+y técnicas que podés implementar hoy mismo.
+</p>
+</div>
+
+<div class="value-card">
+<span class="value-icon">🔍</span>
+<h3>Contexto Real</h3>
+<p>
+Compartimos workflows completos: desde la automatización de datos con IA
+hasta la implementación de sistemas de productividad personal.
+</p>
+</div>
+
+<div class="value-card">
+<span class="value-icon">🚀</span>
+<h3>Siempre Actualizado</h3>
+<p>
+Usamos IA para crear y mantener contenido actualizado, cubriendo las últimas
+herramientas, técnicas y mejores prácticas del ecosistema.
+</p>
+</div>
+</div>
+</section>
+
+<!-- Stats -->
+<section class="stats-section">
+<div class="section-header">
+<h2 class="section-title">📊 En Números</h2>
+<p class="section-subtitle">
+Nuestro compromiso con la educación práctica
+</p>
+</div>
+
+<div class="stats-grid">
+<div class="stat-item">
+<span class="stat-number">100+</span>
+<div class="stat-label">Tutoriales Publicados</div>
+</div>
+<div class="stat-item">
+<span class="stat-number">50K+</span>
+<div class="stat-label">Lectores Mensuales</div>
+</div>
+<div class="stat-item">
+<span class="stat-number">100%</span>
+<div class="stat-label">Contenido Aplicable</div>
+</div>
+<div class="stat-item">
+<span class="stat-number">24/7</span>
+<div class="stat-label">Actualización Continua</div>
+</div>
+</div>
+</section>
+
+<!-- Team -->
+<section class="team-section">
+<div class="team-content">
+<div class="team-avatar">🤖</div>
+<h3>Sobre Nosotros</h3>
+<p class="team-role">Creadores de Contenido Técnico</p>
+<p class="team-bio">
+Somos un equipo apasionado por la tecnología, la automatización y la productividad. Combinamos
+experiencia en desarrollo, IA y sistemas de productividad para crear los tutoriales más completos
+del mercado. Cada técnica que compartimos la aplicamos en proyectos reales, desde automatización
+de workflows hasta implementación de sistemas de gestión de conocimiento.
+</p>
+</div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+<div class="cta-content">
+<h2>¿Listo para Transformar tu Productividad?</h2>
+<p>
+Únete a miles de profesionales que ya están dominando la IA, automatizando workflows
+y aplicando sistemas de productividad probados.
+</p>
+<div class="cta-buttons">
+<a href="/blog" class="btn btn-white">
+📚 Ver Tutoriales
+</a>
+</div>
+</div>
+</section>
+</main>
+<Footer />
+</body>
 </html>
