@@ -139,11 +139,17 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2025-12-31T12:42:04.565Z"
+    },
+    {
+      "keyword": "natural language to SQL with AI",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-01-01T12:42:01.260Z"
     }
   ],
-  "lastUpdate": "2025-12-31T12:42:04.565Z",
+  "lastUpdate": "2026-01-01T12:42:01.260Z",
   "categories": {
-    "ai_tools": 7,
+    "ai_tools": 8,
     "productivity_systems": 6,
     "ai_automation": 4,
     "developer_productivity": 2,
