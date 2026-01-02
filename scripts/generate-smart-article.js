@@ -75,7 +75,6 @@ function getCategoryBalance() {
 }
 
 // ===== IMPORTAR PRODUCTOS =====
-// Función para importar productos dinámicamente
 async function loadProducts() {
   try {
     const module = await import("../src/config/products.js");
@@ -369,69 +368,224 @@ async function generateArticle(keyword, category, isMonetized) {
     }
   }
 
-  // Prompt educativo (fallback o por defecto)
+  // PROMPT EDUCATIVO MEJORADO
   if (!isMonetized) {
-    prompt = `Sos un experto en IA y productividad. Escribís en español argentino con voseo natural.
+    prompt = `Sos un experto reconocido en IA y productividad. Escribís en español argentino con voseo natural y auténtico.
 
-**Keyword:** "${keyword}"
+**Keyword principal:** "${keyword}"
 **Categoría:** ${category}
+**Fecha:** ${today}
 
-**Competencia:**
+**Contexto competitivo:**
 ${competitorContext}
 
-Escribí un artículo 100% EDUCATIVO Y TÁCTICO en formato MDX para Astro.
+**OBJETIVO:** Crear el artículo MÁS COMPLETO Y PRÁCTICO sobre este tema que existe en español.
 
-IMPORTANTE: NO uses bloques de código markdown (\`\`\`markdown). Escribí directamente el contenido MDX sin ningún wrapper.
+## ESTRUCTURA OBLIGATORIA (usa TODAS estas secciones en orden):
 
-Estructura:
-1. Hook: Problema + impacto real
-2. Explicación del concepto/técnica
-3. Framework/Sistema paso a paso (muy detallado)
-4. Ejemplos concretos con código/workflows/screenshots mentales
-5. Tips avanzados poco conocidos
-6. Errores comunes y cómo evitarlos
-7. Checklist de implementación
-8. Recursos gratuitos (apps, docs, communities)
+### 1. APERTURA MAGNÉTICA
+- Hook con estadística impactante o historia real
+- Problema específico que el lector experimenta HOY
+- Promesa clara: "En este artículo vas a aprender..."
+- 2-3 párrafos máximo
 
-NO menciones productos para comprar.
-NO links de afiliados.
-100% valor educativo.
+### 2. ¿QUÉ ES [CONCEPTO]? (Fundamentos)
+- Definición clara sin jerga innecesaria
+- Por qué importa AHORA (tendencias 2025-2026)
+- Quién debería usarlo (y quién no)
+- Ejemplo visual o analogía memorable
 
-**Tono:**
-- Voseo argentino: "vos tenés", "fijate", "podés"
-- Conversacional pero profesional
-- Emojis moderados (2-3 por sección)
-- Párrafos cortos (2-3 líneas máx)
+### 3. EL PROBLEMA QUE RESUELVE
+- 3-5 pain points específicos con bullet points
+- Impacto cuantificado cuando es posible
+- Casos de uso reales
+- Contraste: Sin esto vs Con esto
 
-**SEO:**
-- Title: 50-60 caracteres
-- Meta: 150-155 con CTA
-- 4+ H2 con variaciones de keyword
+### 4. CÓMO FUNCIONA: FRAMEWORK PASO A PASO
+Sistema detallado con 5-8 pasos numerados. Cada paso DEBE tener:
+- Título descriptivo
+- Explicación de 2-3 párrafos
+- Ejemplo concreto
+- Tips de implementación
+- Code snippets si es técnico
 
-**FORMATO DE OUTPUT - COPIA ESTE FRONTMATTER EXACTO (reemplaza solo los valores entre comillas):**
+### 5. IMPLEMENTACIÓN PRÁCTICA
+- Workflow completo de principio a fin
+- Herramientas específicas (con nombres reales)
+- Configuración paso a paso
+- Tiempo estimado de setup
+- Recursos necesarios
+
+### 6. EJEMPLOS REALES Y CASOS DE USO
+- 3-4 escenarios diferentes
+- Antes/Después con métricas
+- Errores comunes de cada escenario
+- "Si te pasa X, hacé Y"
+
+### 7. TÉCNICAS AVANZADAS Y HACKS
+- 5-7 tips que el 90% de la gente no conoce
+- Shortcuts y atajos
+- Optimizaciones de rendimiento
+- Integraciones con otras herramientas
+
+### 8. ERRORES FATALES Y CÓMO EVITARLOS
+Lista de 5-6 errores comunes:
+- ❌ Error específico
+- Por qué sucede
+- Cómo detectarlo
+- ✅ Solución específica
+
+### 9. RECURSOS Y HERRAMIENTAS GRATIS
+- Apps y servicios (mencionar nombres conocidos)
+- Documentación oficial
+- Comunidades y foros
+- Templates o boilerplates
+- Cursos gratuitos si existen
+
+### 10. CHECKLIST DE IMPLEMENTACIÓN
+Lista verificable de 8-12 items:
+- [ ] Paso 1 accionable y específico
+- [ ] Paso 2 accionable y específico
+- [ ] etc...
+Orden lógico de ejecución.
+
+### 11. PREGUNTAS FRECUENTES (FAQ)
+5-7 preguntas reales con formato:
+**¿Pregunta específica?**
+Respuesta de 2-3 párrafos con ejemplos.
+
+### 12. CONCLUSIÓN + PRÓXIMOS PASOS
+- Resumen de los 3 puntos más importantes
+- Call to action específico
+- Qué hacer HOY para empezar
+- Invitación a comentar/compartir experiencias
 
 ---
-title: "Tu título aquí (50-60 caracteres)"
-description: "Tu descripción aquí (150-155 caracteres)"
+
+## ESTILO DE ESCRITURA OBLIGATORIO:
+
+**VOSEO ARGENTINO (CRÍTICO):**
+✅ CORRECTO: "Vos podés configurarlo", "Fijate cómo funciona", "Asegurate de hacer backup", "Si tenés dudas, probá esto"
+❌ INCORRECTO: "Tú puedes", "Fíjate", "Asegúrate", "Si tienes dudas"
+
+**TONO:**
+- Conversacional como hablar con un colega experto
+- Directo y sin fluff innecesario
+- Empático con las dificultades del lector
+- Optimista sobre los resultados
+
+**PÁRRAFOS:**
+- Máximo 3-4 líneas por párrafo
+- Una idea principal por párrafo
+- Ocasionalmente párrafos de una sola línea para énfasis
+
+**EMOJIS (uso moderado):**
+- 2-3 por sección H2
+- Usar con propósito: ✅ ❌ 💡 🚀 ⚡ 🎯 📊 🔥
+- NO overload de emojis
+
+**FORMATEO:**
+- **Negritas** para términos clave (5-8 por sección)
+- \`código\` para comandos, variables, nombres técnicos
+- Listas con • o - (no mezclar estilos)
+- Tablas cuando sea apropiado para comparaciones
+- Blockquotes (>) para consejos MUY importantes
+
+**CODE SNIPPETS (cuando sea relevante):**
+\`\`\`javascript
+// Ejemplo con 5-15 líneas
+// Comentarios en español
+const ejemplo = "código funcional";
+\`\`\`
+Explicar qué hace el código antes y después.
+
+---
+
+## SEO Y METADATOS (CRÍTICO):
+
+**Title:**
+- Entre 50-60 caracteres EXACTOS (ni más ni menos)
+- Incluir keyword principal
+- Agregar número si es apropiado: "7 Técnicas..."
+- Incluir año: 2025 o 2026
+- Power words: Guía, Completa, Definitiva, Práctica, Tutorial
+
+**Description:**
+- Entre 150-155 caracteres EXACTOS
+- Incluir keyword principal
+- Mencionar beneficio específico
+- Call to action al final
+- Crear urgencia o curiosidad
+
+**Tags:**
+- Exactamente 4-6 tags relevantes
+- Mix de tags generales y específicos
+- Incluir variaciones de la keyword
+- Formato: lowercase con guiones ("ia-generativa", "productividad-2025")
+
+**H2 Headers (importante para SEO):**
+- Incluir variaciones de keyword en 3-4 H2 diferentes
+- Usar long-tail keywords naturalmente
+- 1-2 headers en formato de pregunta
+- NO hacer keyword stuffing
+
+---
+
+## FORMATO DE OUTPUT EXACTO:
+
+IMPORTANTE: Escribe el contenido MDX directamente. NO lo envuelvas en bloques de código markdown (\`\`\`markdown).
+
+---
+title: "Tu título aquí de 50-60 caracteres"
+description: "Tu descripción de 150-155 caracteres con CTA"
 pubDate: ${today}
 heroImage: "/images/default-hero.jpg"
 category: "${getCategoryLabel(category)}"
-tags: ["tag1", "tag2", "tag3"]
+tags: ["tag1", "tag2", "tag3", "tag4"]
 featured: true
-readingTime: "8 min"
+readingTime: "10 min"
 ---
 
-IMPORTANTE: NO uses negritas (**) en el frontmatter. Escribe los valores directamente entre comillas.
+## [Título H2 descriptivo con keyword]
 
-## [Título de sección]
+Primer párrafo del artículo...
 
-[Contenido en Markdown...]
+Segundo párrafo...
 
-## [Siguiente sección]
+### Subsección si es necesaria
 
-[Más contenido...]
+Más contenido...
 
-RECUERDA: Escribe el contenido directamente, SIN envolverlo en \`\`\`markdown o cualquier otro bloque de código.`;
+## [Segundo H2]
+
+Contenido de la segunda sección...
+
+---
+
+## VALIDACIONES ANTES DE ENTREGAR:
+
+Verificá que tu artículo cumpla con:
+- ✅ Longitud total: 2500-3500 palabras
+- ✅ Todos los H2 tienen contenido sustancial (mínimo 200 palabras cada uno)
+- ✅ Al menos 3 ejemplos concretos con detalles
+- ✅ Mínimo 1 lista por cada 300 palabras
+- ✅ Code snippets o comandos cuando el tema sea técnico
+- ✅ Referencias a otros artículos relacionados (sin URLs, solo menciones)
+- ✅ Valor inmediato: el lector puede implementar algo HOY
+- ✅ Sin promoción de productos (100% educativo)
+- ✅ Sin placeholder text tipo [AQUÍ VA...] o [COMPLETAR...]
+- ✅ Frontmatter YAML sin negritas ni formato especial
+- ✅ ReadingTime estimado correctamente (1 min por cada 200 palabras)
+- ✅ Voseo argentino en TODO el texto
+- ✅ Las 12 secciones estructurales están completas
+
+**MISIÓN:** Este artículo debe ser TAN BUENO que el lector:
+1. Lo guarde en sus marcadores
+2. Lo comparta con colegas
+3. Vuelva a tu blog por más contenido
+4. Implemente lo que aprendió HOY MISMO
+
+Priorizá VALOR REAL sobre volumen de palabras. Cada párrafo debe aportar algo útil.`;
   }
 
   console.log("📝 Generando artículo con GPT-4o...");
@@ -441,21 +595,33 @@ RECUERDA: Escribe el contenido directamente, SIN envolverlo en \`\`\`markdown o 
     messages: [
       {
         role: "system",
-        content:
-          "Sos un redactor experto en IA y productividad. Escribís en español argentino con voseo. Priorizás valor educativo sobre venta. NUNCA uses bloques de código markdown para envolver el contenido MDX. Escribís el contenido directamente.",
+        content: `Sos un redactor experto reconocido en IA y productividad. Escribís en español argentino REAL con voseo auténtico (vos tenés, fijate, podés, asegurate).
+
+Tus artículos son los MÁS COMPLETOS en español sobre cada tema. Priorizás VALOR PRÁCTICO sobre todo.
+
+Reglas estrictas que NUNCA violás:
+- NUNCA uses "tú", "tu", "fíjate", "asegúrate" - solo voseo argentino
+- NUNCA uses bloques de código markdown para envolver el contenido MDX
+- SIEMPRE incluís las 12 secciones estructurales completas
+- SIEMPRE das ejemplos concretos y accionables
+- NUNCA dejas placeholder text o secciones incompletas
+- NUNCA usas formato especial (negritas, código) en el frontmatter YAML
+- NUNCA haces keyword stuffing
+
+Tu misión: Crear artículos que la gente GUARDE, COMPARTA e IMPLEMENTE.`,
       },
       { role: "user", content: prompt },
     ],
-    temperature: 0.8,
-    max_tokens: 4500,
+    temperature: 0.75,
+    max_tokens: 5000,
   });
 
   let articleContent = completion.choices[0].message.content || "";
 
-  // NUEVO: Limpiar bloques de código markdown si GPT-4o los agrega
+  // Limpiar y validar
   articleContent = cleanMarkdownWrapper(articleContent);
-
   articleContent = fixYamlFrontmatter(articleContent);
+  articleContent = enhanceArticleContent(articleContent);
 
   // Validar monetización
   if (isMonetized && template) {
@@ -490,7 +656,7 @@ RECUERDA: Escribe el contenido directamente, SIN envolverlo en \`\`\`markdown o 
   savePublishedTopic(keyword, isMonetized ? "monetized" : "value", category);
 
   console.log(`✅ Artículo guardado: ${filename}`);
-  console.log(`💰 Costo: $${estimateCost(prompt, articleContent)}`);
+  console.log(`💰 Costo estimado: $${estimateCost(prompt, articleContent)}`);
 
   return {
     filename,
@@ -525,17 +691,12 @@ function slugify(input) {
     .replace(/(^-|-$)/g, "");
 }
 
-// NUEVA FUNCIÓN: Limpia bloques de código markdown
 function cleanMarkdownWrapper(content) {
-  // Elimina ```markdown al inicio y ``` al final
-  content = content.replace(/^```markdown\s*\n/i, "");
-  content = content.replace(/^```md\s*\n/i, "");
+  // Elimina ```markdown, ```md, o ``` al inicio y final
+  content = content.replace(/^```(?:markdown|md)?\s*\n/i, "");
   content = content.replace(/\n```\s*$/, "");
-
-  // Elimina ``` solitarios al inicio o final
   content = content.replace(/^```\s*\n/, "");
   content = content.replace(/\n```\s*$/, "");
-
   return content.trim();
 }
 
@@ -546,7 +707,10 @@ function fixYamlFrontmatter(content) {
   let frontmatter = frontmatterMatch[1];
   const bodyContent = content.replace(/^---\n[\s\S]*?\n---/, "");
 
+  // Convertir comillas simples a dobles
   frontmatter = frontmatter.replace(/'/g, '"');
+
+  // Asegurar que los valores estén entre comillas
   frontmatter = frontmatter.replace(
     /^(title|description|heroImage|category|readingTime):\s*(.+)$/gm,
     (match, key, value) => {
@@ -559,6 +723,64 @@ function fixYamlFrontmatter(content) {
   );
 
   return `---\n${frontmatter}\n---${bodyContent}`;
+}
+
+function enhanceArticleContent(content) {
+  console.log("\n🔍 Validando calidad del artículo...");
+
+  // Validar cantidad de H2
+  const h2Count = (content.match(/^## /gm) || []).length;
+  if (h2Count < 8) {
+    console.warn(`⚠️ Solo ${h2Count} secciones H2 (mínimo recomendado: 10)`);
+  } else {
+    console.log(`✅ Secciones H2: ${h2Count}`);
+  }
+
+  // Validar longitud
+  const wordCount = content.split(/\s+/).length;
+  if (wordCount < 2000) {
+    console.warn(`⚠️ Solo ~${wordCount} palabras (mínimo recomendado: 2500)`);
+  } else {
+    console.log(`✅ Palabras: ~${wordCount}`);
+  }
+
+  // Validar voseo (sample check)
+  const tuteoErrors = [];
+  if (content.includes("tú puedes") || content.includes("tu puedes")) {
+    tuteoErrors.push('Encontrado: "tú puedes" (debe ser "vos podés")');
+  }
+  if (content.includes("fíjate") || content.includes("Fíjate")) {
+    tuteoErrors.push('Encontrado: "fíjate" (debe ser "fijate")');
+  }
+  if (content.includes("asegúrate") || content.includes("Asegúrate")) {
+    tuteoErrors.push('Encontrado: "asegúrate" (debe ser "asegurate")');
+  }
+
+  if (tuteoErrors.length > 0) {
+    console.error("\n❌ ERRORES DE VOSEO DETECTADOS:");
+    tuteoErrors.forEach((err) => console.error(`   ${err}`));
+    console.error("   ⚠️ El artículo necesita corrección manual\n");
+  } else {
+    console.log("✅ Voseo argentino correcto");
+  }
+
+  // Validar listas
+  const listsCount = (content.match(/^[\-\*]\s/gm) || []).length;
+  const expectedLists = Math.floor(wordCount / 300);
+  if (listsCount < expectedLists) {
+    console.warn(
+      `⚠️ Solo ${listsCount} items de lista (recomendado: ~${expectedLists})`
+    );
+  } else {
+    console.log(`✅ Listas: ${listsCount} items`);
+  }
+
+  // Validar code blocks (solo si es categoría técnica)
+  const codeBlocks = (content.match(/```/g) || []).length / 2;
+  console.log(`📝 Code blocks: ${codeBlocks}`);
+
+  console.log("");
+  return content;
 }
 
 function estimateCost(prompt, output) {
