@@ -1,0 +1,807 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, GOOGLE_ANALYTICS_ID } from '../consts';
+
+const lastUpdated = "2 de Enero de 2026";
+---
+
+<!doctype html>
+<html lang="es">
+<head>
+<BaseHead
+title={`Política de Cookies - ${SITE_TITLE}`}
+description="Política de Cookies de AI Tools & Productivity Hub. Información sobre cómo usamos cookies y cómo puedes gestionarlas."
+/>
+<style>
+:root {
+--gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.legal-hero {
+text-align: center;
+padding: 4rem 2rem 3rem;
+background: var(--gradient-primary);
+border-radius: 24px;
+margin-bottom: 3rem;
+color: white;
+}
+
+.legal-hero h1 {
+font-size: clamp(2rem, 4vw, 2.8rem);
+margin-bottom: 1rem;
+font-weight: 800;
+}
+
+.legal-hero .last-updated {
+font-size: 1rem;
+opacity: 0.9;
+font-weight: 600;
+}
+
+.legal-content {
+max-width: 850px;
+margin: 0 auto;
+padding: 0 2rem 4rem;
+}
+
+.legal-content h2 {
+font-size: 1.8rem;
+margin: 2.5rem 0 1rem;
+color: #1e293b;
+font-weight: 800;
+}
+
+.legal-content h3 {
+font-size: 1.3rem;
+margin: 2rem 0 0.75rem;
+color: #334155;
+font-weight: 700;
+}
+
+.legal-content p {
+line-height: 1.8;
+color: #475569;
+margin-bottom: 1.2rem;
+font-size: 1.05rem;
+}
+
+.legal-content ul,
+.legal-content ol {
+margin: 1rem 0 1.5rem 1.5rem;
+line-height: 1.8;
+color: #475569;
+}
+
+.legal-content li {
+margin-bottom: 0.75rem;
+padding-left: 0.5rem;
+}
+
+.legal-content strong {
+color: #1e293b;
+font-weight: 700;
+}
+
+.highlight-box {
+background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+padding: 1.5rem;
+border-radius: 12px;
+border-left: 4px solid #667eea;
+margin: 1.5rem 0;
+}
+
+.highlight-box p:last-child {
+margin-bottom: 0;
+}
+
+.warning-box {
+background: rgba(239, 68, 68, 0.08);
+padding: 1.5rem;
+border-radius: 12px;
+border-left: 4px solid #ef4444;
+margin: 1.5rem 0;
+}
+
+.warning-box p:last-child {
+margin-bottom: 0;
+}
+
+.info-box {
+background: rgba(59, 130, 246, 0.08);
+padding: 1.5rem;
+border-radius: 12px;
+border-left: 4px solid #3b82f6;
+margin: 1.5rem 0;
+}
+
+.info-box p:last-child {
+margin-bottom: 0;
+}
+
+.table-of-contents {
+background: white;
+padding: 2rem;
+border-radius: 16px;
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+margin-bottom: 3rem;
+}
+
+.table-of-contents h2 {
+margin: 0 0 1rem;
+font-size: 1.3rem;
+color: #1e293b;
+}
+
+.table-of-contents ul {
+list-style: none;
+margin: 0;
+padding: 0;
+}
+
+.table-of-contents li {
+margin-bottom: 0.5rem;
+}
+
+.table-of-contents a {
+color: #667eea;
+text-decoration: none;
+font-weight: 600;
+transition: all 0.3s ease;
+}
+
+.table-of-contents a:hover {
+color: #764ba2;
+text-decoration: underline;
+}
+
+.cookie-table {
+width: 100%;
+border-collapse: collapse;
+margin: 1.5rem 0;
+background: white;
+border-radius: 12px;
+overflow: hidden;
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.cookie-table th,
+.cookie-table td {
+padding: 1rem;
+text-align: left;
+border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.cookie-table th {
+background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+color: #1e293b;
+font-weight: 700;
+}
+
+.cookie-table tr:last-child td {
+border-bottom: none;
+}
+
+.cookie-badge {
+display: inline-block;
+padding: 0.25rem 0.75rem;
+border-radius: 50px;
+font-size: 0.85rem;
+font-weight: 600;
+}
+
+.badge-essential {
+background: rgba(16, 185, 129, 0.1);
+color: #059669;
+}
+
+.badge-analytics {
+background: rgba(59, 130, 246, 0.1);
+color: #2563eb;
+}
+
+.badge-advertising {
+background: rgba(245, 158, 11, 0.1);
+color: #d97706;
+}
+
+.badge-functional {
+background: rgba(139, 92, 246, 0.1);
+color: #7c3aed;
+}
+
+.browser-instructions {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 1.5rem;
+margin: 2rem 0;
+}
+
+.browser-card {
+background: white;
+padding: 1.5rem;
+border-radius: 12px;
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+border: 2px solid rgba(102, 126, 234, 0.1);
+}
+
+.browser-card h4 {
+margin: 0 0 1rem;
+color: #1e293b;
+font-size: 1.1rem;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+
+.browser-card ol {
+margin: 0;
+padding-left: 1.25rem;
+}
+
+.browser-card li {
+font-size: 0.95rem;
+margin-bottom: 0.5rem;
+}
+
+.contact-box {
+background: white;
+padding: 2rem;
+border-radius: 16px;
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+margin: 3rem 0;
+text-align: center;
+}
+
+.contact-box h3 {
+margin: 0 0 1rem;
+color: #1e293b;
+}
+
+.contact-box a {
+color: #667eea;
+font-weight: 700;
+text-decoration: none;
+}
+
+.contact-box a:hover {
+text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+.legal-hero {
+padding: 3rem 1.5rem 2rem;
+}
+
+.legal-content {
+padding: 0 1.5rem 3rem;
+}
+
+.legal-content h2 {
+font-size: 1.5rem;
+}
+
+.cookie-table {
+font-size: 0.9rem;
+}
+
+.cookie-table th,
+.cookie-table td {
+padding: 0.75rem;
+}
+
+.browser-instructions {
+grid-template-columns: 1fr;
+}
+}
+</style>
+</head>
+<body>
+<Header />
+<main>
+<div class="legal-hero">
+<h1>🍪 Política de Cookies</h1>
+<p class="last-updated">Última actualización: {lastUpdated}</p>
+</div>
+
+<div class="legal-content">
+<div class="highlight-box">
+<p><strong>🎯 ¿Qué son las Cookies?</strong></p>
+<p>
+Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo cuando 
+visitas nuestro sitio web. Nos ayudan a mejorar tu experiencia, recordar tus preferencias 
+y entender cómo usas nuestro sitio.
+</p>
+</div>
+
+<div class="table-of-contents">
+<h2>📋 Índice de Contenidos</h2>
+<ul>
+<li><a href="#que-son-cookies">1. ¿Qué son las Cookies?</a></li>
+<li><a href="#como-usamos">2. Cómo Usamos las Cookies</a></li>
+<li><a href="#tipos-cookies">3. Tipos de Cookies que Usamos</a></li>
+<li><a href="#cookies-detalle">4. Detalle de Cookies Específicas</a></li>
+<li><a href="#cookies-terceros">5. Cookies de Terceros</a></li>
+<li><a href="#gestionar-cookies">6. Cómo Gestionar las Cookies</a></li>
+<li><a href="#consecuencias">7. Consecuencias de Desactivar Cookies</a></li>
+<li><a href="#actualizaciones">8. Actualizaciones de esta Política</a></li>
+<li><a href="#contacto">9. Contacto</a></li>
+</ul>
+</div>
+
+<section id="que-son-cookies">
+<h2>1. ¿Qué son las Cookies?</h2>
+
+<p>
+Las cookies son pequeños archivos de texto que los sitios web colocan en tu ordenador, 
+tableta o smartphone cuando los visitas. Contienen información que se utiliza para:
+</p>
+
+<ul>
+<li>Recordar tus preferencias y configuraciones</li>
+<li>Mejorar la velocidad y seguridad del sitio</li>
+<li>Proporcionar contenido personalizado</li>
+<li>Analizar cómo los usuarios utilizan el sitio</li>
+<li>Mostrar publicidad relevante</li>
+</ul>
+
+<h3>1.1. Cookies vs Otras Tecnologías</h3>
+<p>
+Además de cookies, también podemos usar tecnologías similares como:
+</p>
+<ul>
+<li><strong>Web Beacons:</strong> Pequeñas imágenes invisibles en páginas web o emails</li>
+<li><strong>Píxeles de Seguimiento:</strong> Código que registra tu interacción con el contenido</li>
+<li><strong>Local Storage:</strong> Almacenamiento local en tu navegador</li>
+<li><strong>Session Storage:</strong> Datos temporales durante tu sesión de navegación</li>
+</ul>
+</section>
+
+<section id="como-usamos">
+<h2>2. Cómo Usamos las Cookies</h2>
+
+<p>
+En {SITE_TITLE}, usamos cookies para varios propósitos:
+</p>
+
+<h3>2.1. Cookies Esenciales</h3>
+<p>
+Estas cookies son necesarias para que el sitio web funcione correctamente. No puedes 
+desactivarlas sin afectar la funcionalidad del sitio.
+</p>
+<ul>
+<li>Mantener tu sesión activa</li>
+<li>Recordar tus preferencias de privacidad</li>
+<li>Proteger contra ataques de seguridad</li>
+<li>Habilitar funciones básicas de navegación</li>
+</ul>
+
+<h3>2.2. Cookies Analíticas</h3>
+<p>
+Usamos Google Analytics (ID: {GOOGLE_ANALYTICS_ID}) para entender cómo los visitantes 
+usan nuestro sitio. Estas cookies nos ayudan a:
+</p>
+<ul>
+<li>Contar visitantes y páginas vistas</li>
+<li>Ver qué contenido es más popular</li>
+<li>Entender cómo navegas por el sitio</li>
+<li>Identificar problemas técnicos</li>
+<li>Mejorar la experiencia del usuario</li>
+</ul>
+
+<h3>2.3. Cookies de Publicidad</h3>
+<p>
+Usamos Google AdSense para mostrar anuncios. Estas cookies:
+</p>
+<ul>
+<li>Muestran anuncios relevantes según tus intereses</li>
+<li>Limitan cuántas veces ves un anuncio</li>
+<li>Miden la efectividad de las campañas</li>
+<li>Evitan mostrar anuncios que ya has visto muchas veces</li>
+</ul>
+
+<h3>2.4. Cookies de Afiliados</h3>
+<p>
+Cuando haces clic en enlaces de afiliados, se establecen cookies para:
+</p>
+<ul>
+<li>Rastrear si realizas una compra</li>
+<li>Atribuir correctamente las comisiones</li>
+<li>Recordar tu sesión de compra (típicamente 30-90 días)</li>
+</ul>
+</section>
+
+<section id="tipos-cookies">
+<h2>3. Tipos de Cookies que Usamos</h2>
+
+<h3>3.1. Según su Duración</h3>
+
+<table class="cookie-table">
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Descripción</th>
+<th>Duración</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cookies de Sesión</strong></td>
+<td>Se eliminan cuando cierras el navegador</td>
+<td>Hasta que cierres el navegador</td>
+</tr>
+<tr>
+<td><strong>Cookies Persistentes</strong></td>
+<td>Permanecen hasta que expiran o las eliminas</td>
+<td>Desde días hasta años</td>
+</tr>
+</tbody>
+</table>
+
+<h3>3.2. Según su Origen</h3>
+
+<table class="cookie-table">
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cookies Propias</strong></td>
+<td>Establecidas directamente por nuestro sitio</td>
+<td>Preferencias de usuario</td>
+</tr>
+<tr>
+<td><strong>Cookies de Terceros</strong></td>
+<td>Establecidas por servicios externos</td>
+<td>Google Analytics, AdSense</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="cookies-detalle">
+<h2>4. Detalle de Cookies Específicas</h2>
+
+<p>
+A continuación, se detallan las cookies específicas que usa nuestro sitio:
+</p>
+
+<h3>4.1. Cookies Esenciales</h3>
+
+<table class="cookie-table">
+<thead>
+<tr>
+<th>Nombre</th>
+<th>Propósito</th>
+<th>Duración</th>
+<th>Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>session_id</code></td>
+<td>Identificar tu sesión de navegación</td>
+<td>Sesión</td>
+<td><span class="cookie-badge badge-essential">Esencial</span></td>
+</tr>
+<tr>
+<td><code>cookie_consent</code></td>
+<td>Recordar tus preferencias de cookies</td>
+<td>1 año</td>
+<td><span class="cookie-badge badge-essential">Esencial</span></td>
+</tr>
+</tbody>
+</table>
+
+<h3>4.2. Cookies Analíticas (Google Analytics)</h3>
+
+<table class="cookie-table">
+<thead>
+<tr>
+<th>Nombre</th>
+<th>Propósito</th>
+<th>Duración</th>
+<th>Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_ga</code></td>
+<td>Distinguir usuarios únicos</td>
+<td>2 años</td>
+<td><span class="cookie-badge badge-analytics">Analítica</span></td>
+</tr>
+<tr>
+<td><code>_gid</code></td>
+<td>Distinguir usuarios únicos</td>
+<td>24 horas</td>
+<td><span class="cookie-badge badge-analytics">Analítica</span></td>
+</tr>
+<tr>
+<td><code>_gat</code></td>
+<td>Limitar la frecuencia de solicitudes</td>
+<td>1 minuto</td>
+<td><span class="cookie-badge badge-analytics">Analítica</span></td>
+</tr>
+<tr>
+<td><code>_ga_*</code></td>
+<td>Mantener el estado de la sesión</td>
+<td>2 años</td>
+<td><span class="cookie-badge badge-analytics">Analítica</span></td>
+</tr>
+</tbody>
+</table>
+
+<h3>4.3. Cookies de Publicidad (Google AdSense)</h3>
+
+<table class="cookie-table">
+<thead>
+<tr>
+<th>Nombre</th>
+<th>Propósito</th>
+<th>Duración</th>
+<th>Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>__gads</code></td>
+<td>Registrar interacciones con anuncios</td>
+<td>13 meses</td>
+<td><span class="cookie-badge badge-advertising">Publicidad</span></td>
+</tr>
+<tr>
+<td><code>__gpi</code></td>
+<td>Recopilar información sobre anuncios</td>
+<td>13 meses</td>
+<td><span class="cookie-badge badge-advertising">Publicidad</span></td>
+</tr>
+<tr>
+<td><code>DSID</code></td>
+<td>Identificar dispositivos del usuario</td>
+<td>2 semanas</td>
+<td><span class="cookie-badge badge-advertising">Publicidad</span></td>
+</tr>
+<tr>
+<td><code>IDE</code></td>
+<td>Medir conversiones de anuncios</td>
+<td>13 meses</td>
+<td><span class="cookie-badge badge-advertising">Publicidad</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="cookies-terceros">
+<h2>5. Cookies de Terceros</h2>
+
+<p>
+Usamos varios servicios de terceros que pueden establecer sus propias cookies:
+</p>
+
+<h3>5.1. Google (Analytics y AdSense)</h3>
+<p>
+Para más información sobre cómo Google usa las cookies, visita:
+</p>
+<ul>
+<li>
+<a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener">
+Políticas de cookies de Google
+</a>
+</li>
+<li>
+<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">
+Política de Privacidad de Google
+</a>
+</li>
+</ul>
+
+<h3>5.2. Programas de Afiliados</h3>
+<p>
+Los enlaces de afiliados pueden establecer cookies de:
+</p>
+<ul>
+<li><strong>Amazon Associates:</strong> Para rastrear compras (hasta 90 días)</li>
+<li><strong>Otros programas:</strong> Varias duraciones según el programa</li>
+</ul>
+
+<h3>5.3. Redes Sociales</h3>
+<p>
+Si compartimos botones de redes sociales, pueden establecer cookies para:
+</p>
+<ul>
+<li>Rastrear compartidos y "me gusta"</li>
+<li>Personalizar tu experiencia en sus plataformas</li>
+<li>Mostrar contenido relevante</li>
+</ul>
+</section>
+
+<section id="gestionar-cookies">
+<h2>6. Cómo Gestionar las Cookies</h2>
+
+<h3>6.1. Configuración del Navegador</h3>
+<p>
+Puedes controlar y eliminar cookies a través de la configuración de tu navegador:
+</p>
+
+<div class="browser-instructions">
+<div class="browser-card">
+<h4>🌐 Google Chrome</h4>
+<ol>
+<li>Haz clic en el menú (⋮) > Configuración</li>
+<li>Ve a "Privacidad y seguridad"</li>
+<li>Haz clic en "Cookies y otros datos de sitios"</li>
+<li>Configura tus preferencias</li>
+</ol>
+</div>
+
+<div class="browser-card">
+<h4>🦊 Mozilla Firefox</h4>
+<ol>
+<li>Haz clic en el menú (☰) > Preferencias</li>
+<li>Ve a "Privacidad y seguridad"</li>
+<li>En "Cookies y datos del sitio"</li>
+<li>Ajusta tus configuraciones</li>
+</ol>
+</div>
+
+<div class="browser-card">
+<h4>🧭 Safari</h4>
+<ol>
+<li>Safari > Preferencias</li>
+<li>Ve a la pestaña "Privacidad"</li>
+<li>Configura "Cookies y datos de sitios web"</li>
+<li>Elige tus preferencias</li>
+</ol>
+</div>
+
+<div class="browser-card">
+<h4>🔷 Microsoft Edge</h4>
+<ol>
+<li>Menú (⋯) > Configuración</li>
+<li>"Privacidad, búsqueda y servicios"</li>
+<li>"Cookies y permisos del sitio"</li>
+<li>Gestiona las cookies</li>
+</ol>
+</div>
+</div>
+
+<h3>6.2. Herramientas de Gestión de Cookies</h3>
+<p>
+También puedes usar herramientas especializadas:
+</p>
+<ul>
+<li>
+<strong>Extensiones de navegador:</strong> Cookie AutoDelete, Privacy Badger, uBlock Origin
+</li>
+<li>
+<strong>Configuración de privacidad del navegador:</strong> Modo incógnito/privado
+</li>
+<li>
+<strong>Herramientas de terceros:</strong> Ghostery, Disconnect
+</li>
+</ul>
+
+<h3>6.3. Opt-Out de Publicidad Personalizada</h3>
+<p>Puedes optar por no recibir publicidad personalizada:</p>
+<ul>
+<li>
+<a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">
+Configuración de anuncios de Google
+</a>
+</li>
+<li>
+<a href="https://www.networkadvertising.org/choices/" target="_blank" rel="noopener">
+Network Advertising Initiative
+</a>
+</li>
+<li>
+<a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener">
+Digital Advertising Alliance
+</a>
+</li>
+<li>
+<a href="https://youronlinechoices.eu/" target="_blank" rel="noopener">
+Your Online Choices (Europa)
+</a>
+</li>
+</ul>
+</section>
+
+<section id="consecuencias">
+<h2>7. Consecuencias de Desactivar Cookies</h2>
+
+<div class="warning-box">
+<p><strong>⚠️ Importante:</strong></p>
+<p>
+Si desactivas las cookies, algunas funcionalidades del sitio pueden no funcionar 
+correctamente o dejar de estar disponibles.
+</p>
+</div>
+
+<h3>7.1. Si Desactivas Cookies Esenciales</h3>
+<ul>
+<li>❌ El sitio puede no funcionar correctamente</li>
+<li>❌ No se recordarán tus preferencias</li>
+<li>❌ Problemas con la navegación y seguridad</li>
+</ul>
+
+<h3>7.2. Si Desactivas Cookies Analíticas</h3>
+<ul>
+<li>✅ El sitio seguirá funcionando normalmente</li>
+<li>❌ No podremos mejorar la experiencia basándonos en datos</li>
+<li>❌ Dificultad para identificar problemas técnicos</li>
+</ul>
+
+<h3>7.3. Si Desactivas Cookies de Publicidad</h3>
+<ul>
+<li>✅ Seguirás viendo anuncios</li>
+<li>❌ Los anuncios serán menos relevantes</li>
+<li>❌ Puedes ver el mismo anuncio repetidamente</li>
+</ul>
+</section>
+
+<section id="actualizaciones">
+<h2>8. Actualizaciones de esta Política</h2>
+
+<p>
+Podemos actualizar esta Política de Cookies ocasionalmente para reflejar cambios en 
+nuestras prácticas o por razones operativas, legales o regulatorias.
+</p>
+
+<p>
+Te notificaremos sobre cambios significativos publicando la política actualizada en 
+esta página con una nueva fecha de "última actualización".
+</p>
+
+<div class="info-box">
+<p><strong>💡 Recomendación:</strong></p>
+<p>
+Revisa esta política periódicamente para estar informado sobre cómo usamos las cookies 
+y cómo puedes controlarlas.
+</p>
+</div>
+</section>
+
+<section id="contacto">
+<h2>9. Contacto</h2>
+
+<div class="contact-box">
+<h3>📧 ¿Preguntas sobre Cookies?</h3>
+<p>
+Si tienes preguntas sobre nuestra Política de Cookies o cómo usamos las cookies, 
+contáctanos:
+</p>
+<p style="margin-top: 1.5rem;">
+<strong>Email:</strong> 
+<a href="mailto:fabriciobarreto2610@gmail.com">fabriciobarreto2610@gmail.com</a>
+</p>
+<p>
+<strong>Página de Contacto:</strong> 
+<a href="/contact">Formulario de Contacto</a>
+</p>
+<p style="margin-top: 1rem;">
+<strong>Política de Privacidad:</strong> 
+<a href="/privacy">Ver Política de Privacidad completa</a>
+</p>
+</div>
+</section>
+
+<div class="highlight-box" style="margin-top: 3rem;">
+<p><strong>🍪 Última Actualización:</strong> {lastUpdated}</p>
+<p>
+Gracias por tomarte el tiempo de leer nuestra Política de Cookies. Valoramos tu 
+privacidad y nos esforzamos por ser transparentes sobre cómo usamos las cookies 
+en {SITE_TITLE}.
+</p>
+</div>
+</div>
+</main>
+<Footer />
+</body>
+</html>

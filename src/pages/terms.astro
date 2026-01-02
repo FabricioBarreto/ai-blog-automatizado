@@ -1,0 +1,237 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+
+const lastUpdated = "2 de Enero de 2026";
+---
+
+<!doctype html>
+<html lang="es">
+<head>
+  <BaseHead
+    title={`Términos y Condiciones - ${SITE_TITLE}`}
+    description="Términos y Condiciones de uso de AI Tools & Productivity Hub. Reglas, responsabilidades y limitaciones legales."
+  />
+
+  <style>
+    :root {
+      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .legal-hero {
+      text-align: center;
+      padding: 4rem 2rem 3rem;
+      background: var(--gradient-primary);
+      border-radius: 24px;
+      margin-bottom: 3rem;
+      color: white;
+    }
+
+    .legal-hero h1 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      margin-bottom: 1rem;
+      font-weight: 800;
+    }
+
+    .legal-hero .last-updated {
+      font-size: 1rem;
+      opacity: 0.9;
+      font-weight: 600;
+    }
+
+    .legal-content {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+    }
+
+    .legal-content h2 {
+      font-size: 1.8rem;
+      margin: 2.5rem 0 1rem;
+      color: #1e293b;
+      font-weight: 800;
+    }
+
+    .legal-content h3 {
+      font-size: 1.25rem;
+      margin: 2rem 0 0.75rem;
+      color: #334155;
+      font-weight: 700;
+    }
+
+    .legal-content p {
+      line-height: 1.8;
+      color: #475569;
+      margin-bottom: 1.2rem;
+      font-size: 1.05rem;
+    }
+
+    .legal-content ul {
+      margin: 1rem 0 1.5rem 1.5rem;
+      line-height: 1.8;
+      color: #475569;
+    }
+
+    .legal-content li {
+      margin-bottom: 0.75rem;
+    }
+
+    .highlight-box {
+      background: linear-gradient(
+        135deg,
+        rgba(102, 126, 234, 0.08) 0%,
+        rgba(118, 75, 162, 0.08) 100%
+      );
+      padding: 1.5rem;
+      border-radius: 12px;
+      border-left: 4px solid #667eea;
+      margin: 1.5rem 0;
+    }
+
+    .warning-box {
+      background: rgba(239, 68, 68, 0.08);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border-left: 4px solid #ef4444;
+      margin: 1.5rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .legal-hero {
+        padding: 3rem 1.5rem 2rem;
+      }
+
+      .legal-content {
+        padding: 0 1.5rem 3rem;
+      }
+
+      .legal-content h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <Header />
+
+  <main>
+    <div class="legal-hero">
+      <h1>📜 Términos y Condiciones</h1>
+      <p class="last-updated">Última actualización: {lastUpdated}</p>
+    </div>
+
+    <div class="legal-content">
+      <div class="highlight-box">
+        <p>
+          Al acceder y utilizar <strong>{SITE_TITLE}</strong>, aceptás estos
+          Términos y Condiciones. Si no estás de acuerdo, simplemente no uses el
+          sitio (sin drama).
+        </p>
+      </div>
+
+      <section>
+        <h2>1. Uso del Sitio</h2>
+        <p>
+          Este sitio ofrece contenido informativo, educativo y comparativo
+          sobre herramientas de inteligencia artificial y productividad.
+        </p>
+        <ul>
+          <li>El contenido es solo informativo, no asesoramiento profesional.</li>
+          <li>No garantizamos resultados específicos.</li>
+          <li>El uso del sitio es bajo tu propia responsabilidad.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>2. Propiedad Intelectual</h2>
+        <p>
+          Todo el contenido (textos, imágenes, diseño, código y marca) es
+          propiedad de {SITE_TITLE} o de sus respectivos autores.
+        </p>
+        <ul>
+          <li>No podés copiar o redistribuir contenido sin autorización.</li>
+          <li>Se permite compartir enlaces citando la fuente.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>3. Enlaces Externos y Afiliados</h2>
+        <p>
+          El sitio puede contener enlaces a sitios de terceros y enlaces de
+          afiliados.
+        </p>
+        <ul>
+          <li>No controlamos el contenido de sitios externos.</li>
+          <li>No somos responsables por productos o servicios de terceros.</li>
+          <li>Algunos enlaces pueden generar comisiones sin costo adicional para vos.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>4. Publicidad</h2>
+        <p>
+          Utilizamos servicios de publicidad como Google AdSense (cuando esté
+          activo). Los anuncios mostrados son responsabilidad de los proveedores
+          publicitarios.
+        </p>
+      </section>
+
+      <section>
+        <h2>5. Limitación de Responsabilidad</h2>
+        <div class="warning-box">
+          <p>
+            {SITE_TITLE} no será responsable por daños directos o indirectos
+            derivados del uso del sitio, errores en el contenido o interrupciones
+            del servicio.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2>6. Cambios en el Servicio</h2>
+        <p>
+          Nos reservamos el derecho de modificar, suspender o eliminar cualquier
+          parte del sitio sin previo aviso.
+        </p>
+      </section>
+
+      <section>
+        <h2>7. Modificaciones de los Términos</h2>
+        <p>
+          Podemos actualizar estos Términos en cualquier momento. La versión
+          vigente siempre estará disponible en esta página.
+        </p>
+      </section>
+
+      <section>
+        <h2>8. Legislación Aplicable</h2>
+        <p>
+          Estos términos se rigen por las leyes de la República Argentina.
+        </p>
+      </section>
+
+      <section>
+        <h2>9. Contacto</h2>
+        <p>
+          Si tenés dudas sobre estos Términos, escribinos a:
+          <a href="mailto:fabriciobarreto2610@gmail.com">
+            fabriciobarreto2610@gmail.com
+          </a>
+        </p>
+      </section>
+
+      <div class="highlight-box" style="margin-top: 3rem;">
+        <p>
+          Gracias por usar <strong>{SITE_TITLE}</strong>.  
+          Transparencia, contenido útil y cero humo.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</body>
+</html>

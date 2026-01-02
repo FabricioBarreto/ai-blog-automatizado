@@ -7,4 +7,5 @@ export const SITE_DESCRIPTION =
 export const GOOGLE_ANALYTICS_ID =
   import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID || "G-38H3EVRCT3";
 
-export const AFFILIATE_TAG = 'productivi0d7-20';
+export const AFFILIATE_TAG = "productivi0d7-20";
+export const ADSENSE_ID = "ca-pub-XXXXXXXXXX";

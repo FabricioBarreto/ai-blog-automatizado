@@ -1,0 +1,527 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+
+const lastUpdated = "2 de Enero de 2026";
+---
+
+<!doctype html>
+<html lang="es">
+<head>
+<BaseHead
+title={`Política de Afiliados - ${SITE_TITLE}`}
+description="Política de Divulgación de Afiliados de DuctivityLab. Información transparente sobre nuestros enlaces de afiliados y comisiones."
+/>
+<style>
+:root {
+--gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.legal-hero {
+text-align: center;
+padding: 4rem 2rem 3rem;
+background: var(--gradient-primary);
+border-radius: 24px;
+margin-bottom: 3rem;
+color: white;
+}
+
+.legal-hero h1 {
+font-size: clamp(2rem, 4vw, 2.8rem);
+margin-bottom: 1rem;
+font-weight: 800;
+}
+
+.legal-hero .last-updated {
+font-size: 1rem;
+opacity: 0.9;
+font-weight: 600;
+}
+
+.legal-content {
+max-width: 850px;
+margin: 0 auto;
+padding: 0 2rem 4rem;
+}
+
+.legal-content h2 {
+font-size: 1.8rem;
+margin: 2.5rem 0 1rem;
+color: #1e293b;
+font-weight: 800;
+}
+
+.legal-content h3 {
+font-size: 1.3rem;
+margin: 2rem 0 0.75rem;
+color: #334155;
+font-weight: 700;
+}
+
+.legal-content p {
+line-height: 1.8;
+color: #475569;
+margin-bottom: 1.2rem;
+font-size: 1.05rem;
+}
+
+.legal-content ul,
+.legal-content ol {
+margin: 1rem 0 1.5rem 1.5rem;
+line-height: 1.8;
+color: #475569;
+}
+
+.legal-content li {
+margin-bottom: 0.75rem;
+padding-left: 0.5rem;
+}
+
+.legal-content strong {
+color: #1e293b;
+font-weight: 700;
+}
+
+.highlight-box {
+background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+padding: 1.5rem;
+border-radius: 12px;
+border-left: 4px solid #667eea;
+margin: 1.5rem 0;
+}
+
+.highlight-box p:last-child {
+margin-bottom: 0;
+}
+
+.trust-box {
+background: white;
+padding: 2rem;
+border-radius: 16px;
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+margin: 3rem 0;
+text-align: center;
+}
+
+.trust-box h3 {
+margin: 0 0 1rem;
+color: #1e293b;
+font-size: 1.5rem;
+}
+
+.trust-badges {
+display: flex;
+justify-content: center;
+gap: 2rem;
+margin-top: 2rem;
+flex-wrap: wrap;
+}
+
+.badge {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 0.5rem;
+}
+
+.badge-icon {
+font-size: 3rem;
+}
+
+.badge-text {
+font-size: 0.9rem;
+color: #64748b;
+font-weight: 600;
+}
+
+.table-of-contents {
+background: white;
+padding: 2rem;
+border-radius: 16px;
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+margin-bottom: 3rem;
+}
+
+.table-of-contents h2 {
+margin: 0 0 1rem;
+font-size: 1.3rem;
+color: #1e293b;
+}
+
+.table-of-contents ul {
+list-style: none;
+margin: 0;
+padding: 0;
+}
+
+.table-of-contents li {
+margin-bottom: 0.5rem;
+}
+
+.table-of-contents a {
+color: #667eea;
+text-decoration: none;
+font-weight: 600;
+transition: all 0.3s ease;
+}
+
+.table-of-contents a:hover {
+color: #764ba2;
+text-decoration: underline;
+}
+
+.programs-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 1.5rem;
+margin: 2rem 0;
+}
+
+.program-card {
+background: white;
+padding: 1.5rem;
+border-radius: 12px;
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+border: 2px solid rgba(102, 126, 234, 0.1);
+}
+
+.program-card h4 {
+margin: 0 0 0.5rem;
+color: #1e293b;
+font-size: 1.1rem;
+}
+
+.program-card p {
+margin: 0;
+font-size: 0.95rem;
+color: #64748b;
+}
+
+@media (max-width: 768px) {
+.legal-hero {
+padding: 3rem 1.5rem 2rem;
+}
+
+.legal-content {
+padding: 0 1.5rem 3rem;
+}
+
+.legal-content h2 {
+font-size: 1.5rem;
+}
+
+.trust-badges {
+gap: 1rem;
+}
+}
+</style>
+</head>
+<body>
+<Header />
+<main>
+<div class="legal-hero">
+<h1>🤝 Política de Afiliados</h1>
+<p class="last-updated">Última actualización: {lastUpdated}</p>
+</div>
+
+<div class="legal-content">
+<div class="highlight-box">
+<p><strong>💡 Transparencia Primero:</strong></p>
+<p>
+Creemos en la transparencia total. Esta página explica cómo funcionan nuestros enlaces de afiliados, 
+cómo ganamos comisiones y por qué puedes confiar en nuestras recomendaciones.
+</p>
+</div>
+
+<div class="table-of-contents">
+<h2>📋 Índice de Contenidos</h2>
+<ul>
+<li><a href="#que-son">1. ¿Qué son los Enlaces de Afiliados?</a></li>
+<li><a href="#como-funciona">2. Cómo Funciona</a></li>
+<li><a href="#programas">3. Programas de Afiliados que Usamos</a></li>
+<li><a href="#independencia">4. Nuestra Independencia Editorial</a></li>
+<li><a href="#identificacion">5. Cómo Identificar Enlaces de Afiliados</a></li>
+<li><a href="#tus-derechos">6. Tus Derechos como Usuario</a></li>
+<li><a href="#preguntas">7. Preguntas Frecuentes</a></li>
+</ul>
+</div>
+
+<section id="que-son">
+<h2>1. ¿Qué son los Enlaces de Afiliados?</h2>
+<p>
+Un <strong>enlace de afiliado</strong> es un enlace especial que rastrea las ventas que provienen 
+de nuestro sitio. Cuando haces clic en uno de estos enlaces y realizas una compra, recibimos una 
+pequeña comisión del vendedor, <strong>sin costo adicional para ti</strong>.
+</p>
+
+<div class="highlight-box">
+<p><strong>✅ Lo más importante:</strong></p>
+<ul style="margin-bottom: 0;">
+<li>NO pagas más por usar nuestros enlaces de afiliados</li>
+<li>El precio es exactamente el mismo que si compraras directamente</li>
+<li>En algunos casos, incluso conseguimos descuentos exclusivos para nuestros lectores</li>
+<li>Nos ayudas a mantener el sitio funcionando sin afectar tu bolsillo</li>
+</ul>
+</div>
+
+<p>
+Por ejemplo: Si recomendamos una herramienta de IA que cuesta $50 y usas nuestro enlace de afiliado 
+para comprarla, tú pagas $50 (el mismo precio) y nosotros recibimos una comisión (típicamente entre 
+5-30% dependiendo del programa).
+</p>
+</section>
+
+<section id="como-funciona">
+<h2>2. Cómo Funciona el Marketing de Afiliados</h2>
+
+<h3>2.1. El Proceso</h3>
+<ol>
+<li><strong>Investigamos y probamos</strong> herramientas, servicios y productos relacionados con IA y productividad</li>
+<li><strong>Escribimos reviews honestas</strong> sobre nuestra experiencia real con estos productos</li>
+<li><strong>Incluimos enlaces de afiliados</strong> a los productos que recomendamos genuinamente</li>
+<li><strong>Tú haces clic</strong> en el enlace si el producto te interesa</li>
+<li><strong>Realizas una compra</strong> (o a veces solo te registras)</li>
+<li><strong>Recibimos una comisión</strong> del vendedor como agradecimiento por la referencia</li>
+</ol>
+
+<h3>2.2. Tipos de Comisiones</h3>
+<p>Las comisiones varían según el tipo de programa:</p>
+<ul>
+<li><strong>Comisión por venta:</strong> Recibimos un porcentaje cuando compras un producto</li>
+<li><strong>Comisión por registro:</strong> Ganamos cuando te registras en un servicio (incluso gratis)</li>
+<li><strong>Comisión recurrente:</strong> Para suscripciones, ganamos una pequeña comisión mensual mientras uses el servicio</li>
+<li><strong>Comisión fija:</strong> Un monto fijo por cada conversión</li>
+</ul>
+</section>
+
+<section id="programas">
+<h2>3. Programas de Afiliados que Usamos</h2>
+<p>
+Participamos en varios programas de afiliados de empresas que consideramos valiosas para nuestros 
+lectores. Algunos de los programas incluyen:
+</p>
+
+<div class="programs-grid">
+<div class="program-card">
+<h4>🛍️ Amazon Associates</h4>
+<p>Para productos físicos y digitales en Amazon</p>
+</div>
+
+<div class="program-card">
+<h4>🤖 Herramientas de IA</h4>
+<p>ChatGPT Plus, Claude, Jasper, Copy.ai y otras</p>
+</div>
+
+<div class="program-card">
+<h4>💻 Software y SaaS</h4>
+<p>Notion, Todoist, ClickUp y herramientas de productividad</p>
+</div>
+
+<div class="program-card">
+<h4>📚 Cursos Online</h4>
+<p>Udemy, Coursera, Platzi y otras plataformas educativas</p>
+</div>
+
+<div class="program-card">
+<h4>🌐 Hosting y Dominios</h4>
+<p>Servicios de alojamiento web y registro de dominios</p>
+</div>
+
+<div class="program-card">
+<h4>📦 Otros Servicios</h4>
+<p>VPNs, almacenamiento en la nube, y más</p>
+</div>
+</div>
+
+<p>
+<strong>Nota:</strong> Esta lista no es exhaustiva. Constantemente evaluamos y agregamos nuevos 
+programas de afiliados que beneficien a nuestros lectores.
+</p>
+</section>
+
+<section id="independencia">
+<h2>4. Nuestra Independencia Editorial</h2>
+
+<div class="trust-box">
+<h3>🎯 Nuestro Compromiso Contigo</h3>
+<p>
+Nuestras opiniones son 100% honestas e independientes. Nunca recomendamos algo solo porque paga 
+una comisión más alta.
+</p>
+
+<div class="trust-badges">
+<div class="badge">
+<span class="badge-icon">✅</span>
+<span class="badge-text">Reviews Honestas</span>
+</div>
+<div class="badge">
+<span class="badge-icon">🔬</span>
+<span class="badge-text">Probamos Todo</span>
+</div>
+<div class="badge">
+<span class="badge-icon">🚫</span>
+<span class="badge-text">Sin Influencias</span>
+</div>
+<div class="badge">
+<span class="badge-icon">💯</span>
+<span class="badge-text">Transparencia Total</span>
+</div>
+</div>
+</div>
+
+<h3>4.1. Nuestros Principios Editoriales</h3>
+<ul>
+<li><strong>Probamos antes de recomendar:</strong> Solo recomendamos productos y servicios que hemos usado personalmente</li>
+<li><strong>Honestidad sobre defectos:</strong> Mencionamos los pros y contras de cada producto</li>
+<li><strong>No todo tiene afiliados:</strong> También recomendamos productos sin enlaces de afiliados si son los mejores</li>
+<li><strong>Alternativas gratuitas:</strong> Siempre mencionamos opciones gratuitas cuando existen</li>
+<li><strong>Sin presión de compra:</strong> Nunca te presionamos para comprar; te damos información para que decidas</li>
+<li><strong>Actualizaciones constantes:</strong> Revisamos y actualizamos nuestras recomendaciones regularmente</li>
+</ul>
+
+<h3>4.2. Lo que NO Hacemos</h3>
+<ul>
+<li>❌ Recomendar productos que no hemos probado</li>
+<li>❌ Escribir reviews falsas o exageradas</li>
+<li>❌ Ocultar información negativa sobre productos</li>
+<li>❌ Priorizar productos por comisiones más altas</li>
+<li>❌ Usar tácticas de marketing engañosas</li>
+<li>❌ Recomendar productos solo por la comisión</li>
+</ul>
+</section>
+
+<section id="identificacion">
+<h2>5. Cómo Identificar Enlaces de Afiliados</h2>
+<p>
+Somos 100% transparentes sobre nuestros enlaces de afiliados. Los identificamos de estas formas:
+</p>
+
+<h3>5.1. Avisos de Divulgación</h3>
+<p>En artículos con enlaces de afiliados, incluimos un aviso claro como:</p>
+
+<div class="highlight-box">
+<p><strong>🔗 Divulgación de Afiliados:</strong></p>
+<p>
+Este artículo contiene enlaces de afiliados. Si compras a través de estos enlaces, podemos recibir 
+una comisión sin costo adicional para ti. Esto nos ayuda a mantener el sitio funcionando.
+</p>
+</div>
+
+<h3>5.2. Identificación Visual</h3>
+<p>Dependiendo del contexto, marcamos los enlaces de afiliados con:</p>
+<ul>
+<li>Un símbolo especial (🔗 o *)</li>
+<li>Un color o estilo diferente</li>
+<li>Un tooltip que aparece al pasar el mouse</li>
+<li>Texto explícito como "enlace de afiliado"</li>
+</ul>
+
+<h3>5.3. En Comparativas y Tablas</h3>
+<p>
+Cuando creamos tablas comparativas de productos, indicamos claramente cuáles tienen enlaces de 
+afiliados y cuáles no.
+</p>
+</section>
+
+<section id="tus-derechos">
+<h2>6. Tus Derechos como Usuario</h2>
+
+<h3>6.1. Derecho a No Usar Enlaces de Afiliados</h3>
+<p>
+Tienes todo el derecho de buscar el producto directamente en Google y comprarlo sin usar nuestro 
+enlace. Nosotros entendemos y respetamos completamente tu decisión.
+</p>
+
+<h3>6.2. Sin Obligación de Compra</h3>
+<p>
+Nunca estás obligado a comprar nada. Nuestro contenido es gratuito y útil independientemente de 
+si usas nuestros enlaces de afiliados o no.
+</p>
+
+<h3>6.3. Precios Iguales</h3>
+<p>
+Los precios son los mismos uses o no nuestros enlaces. De hecho, a veces conseguimos códigos de 
+descuento exclusivos que hacen que pagues MENOS usando nuestros enlaces.
+</p>
+
+<h3>6.4. Tu Privacidad</h3>
+<p>
+El uso de enlaces de afiliados no afecta tu privacidad más allá del tracking normal de ventas. 
+Los vendedores saben que veniste desde nuestro sitio, pero no compartimos tu información personal 
+con ellos.
+</p>
+</section>
+
+<section id="preguntas">
+<h2>7. Preguntas Frecuentes</h2>
+
+<h3>❓ ¿Por qué usáis enlaces de afiliados?</h3>
+<p>
+Los enlaces de afiliados nos permiten mantener el sitio funcionando, crear contenido de calidad 
+gratuito y seguir probando nuevas herramientas para compartir con vosotros. Es una forma de 
+sostenibilidad que no requiere suscripciones pagadas ni muros de pago.
+</p>
+
+<h3>❓ ¿Todas vuestras recomendaciones son de afiliados?</h3>
+<p>
+No. También recomendamos productos y herramientas que no tienen programas de afiliados simplemente 
+porque son excelentes y útiles para nuestros lectores.
+</p>
+
+<h3>❓ ¿Cambiaríais vuestra opinión por dinero?</h3>
+<p>
+Jamás. Nuestra reputación y la confianza de nuestros lectores vale infinitamente más que cualquier 
+comisión. Si un producto no es bueno, lo decimos claramente.
+</p>
+
+<h3>❓ ¿Cuánto ganáis con los afiliados?</h3>
+<p>
+Las comisiones varían mucho según el producto (típicamente 5-30% de la venta). No revelamos 
+ingresos específicos, pero estos ingresos cubren los costos del sitio (hosting, herramientas, tiempo 
+de investigación) y nos permiten seguir creando contenido gratuito.
+</p>
+
+<h3>❓ ¿Puedo confiar en vuestras reviews?</h3>
+<p>
+Absolutamente. Cada producto que recomendamos lo hemos probado personalmente. Somos brutalmente 
+honestos sobre los pros y contras. Muchas veces recomendamos alternativas gratuitas incluso cuando 
+productos pagados tienen mejores comisiones.
+</p>
+
+<h3>❓ ¿Qué pasa si no me gusta un producto que recomendasteis?</h3>
+<p>
+Nos encantaría saberlo. Tu feedback nos ayuda a mejorar nuestras recomendaciones. Además, la 
+mayoría de productos tienen políticas de reembolso. No dudes en contactarnos si tienes una mala 
+experiencia.
+</p>
+</section>
+
+<div class="highlight-box" style="margin-top: 3rem;">
+<p><strong>📬 ¿Más Preguntas sobre Afiliados?</strong></p>
+<p>
+Si tienes dudas sobre nuestra política de afiliados, enlaces específicos, o cualquier otra 
+pregunta sobre transparencia, no dudes en contactarnos en:
+</p>
+<p style="margin-top: 1rem; margin-bottom: 0;">
+<a href="mailto:fabriciobarreto2610@gmail.com" style="color: #667eea; font-weight: 700;">fabriciobarreto2610@gmail.com</a>
+</p>
+</div>
+
+<div class="trust-box" style="margin-top: 3rem;">
+<h3>🙏 Gracias por tu Apoyo</h3>
+<p>
+Si decides usar nuestros enlaces de afiliados, nos ayudas enormemente a seguir creando contenido 
+gratuito y de calidad. Si prefieres no usarlos, también está perfecto. Lo importante es que 
+encuentres las herramientas que necesitas para ser más productivo.
+</p>
+<p style="margin-top: 1.5rem; margin-bottom: 0; font-weight: 700; color: #1e293b;">
+– El Equipo de DuctivityLab
+</p>
+</div>
+</div>
+</main>
+<Footer />
+</body>
+</html>

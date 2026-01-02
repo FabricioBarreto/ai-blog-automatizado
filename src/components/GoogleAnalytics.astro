@@ -1,12 +1,58 @@
 ---
-const { id } = Astro.props;
+import { GOOGLE_ANALYTICS_ID } from '../consts';
 ---
 
-<!-- Google tag (gtag.js) -->
-<script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${id}`}></script>
-<script is:inline define:vars={{ id }}>
+<!-- Google Analytics con Consent Mode v2 -->
+<script is:inline define:vars={{ gaId: GOOGLE_ANALYTICS_ID }}>
+  // NO cargamos GA automáticamente
+  // El CookieConsent se encargará de cargarlo si el usuario acepta
+
+  // Solo configuramos el ID para que CookieConsent lo use
+  window.__GA_ID = gaId;
+
+  // Configurar consent mode por defecto (ANTES de cargar gtag.js)
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', id);
+  function gtag() { window.dataLayer.push(arguments); }
+
+  // Default: todo denegado (el banner lo actualizará según elección del usuario)
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    analytics_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted',
+    wait_for_update: 500
+  });
+
+  // Si hay consentimiento previo, aplicarlo inmediatamente
+  try {
+    const consent = localStorage.getItem('cookie_consent_v1');
+    if (consent) {
+      const { analytics, ads } = JSON.parse(consent);
+      gtag('consent', 'update', {
+        ad_storage: ads ? 'granted' : 'denied',
+        analytics_storage: analytics ? 'granted' : 'denied',
+        ad_user_data: ads ? 'granted' : 'denied',
+        ad_personalization: ads ? 'granted' : 'denied'
+      });
+
+      // Cargar GA solo si analytics está permitido
+      if (analytics && !window.__gaLoaded) {
+        window.__gaLoaded = true;
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+        document.head.appendChild(script);
+
+        gtag('js', new Date());
+        gtag('config', gaId, {
+          anonymize_ip: true,
+          cookie_flags: 'SameSite=None;Secure'
+        });
+      }
+    }
+  } catch (e) {
+    console.error('Error loading consent:', e);
+  }
 </script>

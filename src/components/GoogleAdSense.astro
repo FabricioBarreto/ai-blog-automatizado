@@ -1,0 +1,21 @@
+---
+import { ADSENSE_ID } from '../consts';
+---
+
+<script is:inline define:vars={{ adsenseId: ADSENSE_ID }}>
+  window.__ADSENSE_ID = adsenseId;
+  
+  // Solo carga si el usuario ha aceptado ads
+  const consent = localStorage.getItem('cookie_consent_v1');
+  if (consent) {
+    const { ads } = JSON.parse(consent);
+    if (ads && !window.__adsenseLoaded) {
+      window.__adsenseLoaded = true;
+      const script = document.createElement('script');
+      script.async = true;
+      script.crossOrigin = 'anonymous';
+      script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseId}`;
+      document.head.appendChild(script);
+    }
+  }
+</script>

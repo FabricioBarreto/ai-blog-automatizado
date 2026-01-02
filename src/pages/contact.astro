@@ -1,0 +1,43 @@
+<script>
+const form = document.getElementById('contact-form');
+const submitBtn = document.getElementById('submit-btn');
+const formMessage = document.getElementById('form-message');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = '⏳ Enviando...';
+  formMessage.style.display = 'none';
+
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData.entries());
+
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+
+    const result = await res.json();
+
+    if (!res.ok) {
+      throw new Error(result.error || 'Error');
+    }
+
+    formMessage.className = 'form-message success';
+    formMessage.textContent = '✅ Mensaje enviado. Te responderemos pronto.';
+    formMessage.style.display = 'block';
+    form.reset();
+  } catch (err) {
+    formMessage.className = 'form-message error';
+    formMessage.textContent =
+      '❌ Error al enviar el mensaje. Probá más tarde o escribinos por email.';
+    formMessage.style.display = 'block';
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = '📤 Enviar Mensaje';
+  }
+});
+</script>

@@ -1,5 +1,6 @@
 ---
 import AffiliateDisclaimer from "./AffiliateDisclaimer.astro";
+import CookieConsent from "./CookieConsent.astro";
 
 const currentYear = new Date().getFullYear();
 
@@ -16,12 +17,13 @@ const footerLinks = {
 		{ label: 'Tutoriales', href: '/blog?category=tutoriales' },
 		{ label: 'Reviews', href: '/blog?category=reviews' },
 	],
-	legal: [
-		{ label: 'Política de Privacidad', href: '/privacy' },
-		{ label: 'Términos de Uso', href: '/terms' },
-		{ label: 'Política de Afiliados', href: '/affiliate-policy' },
-		{ label: 'Contacto', href: '/contact' },
-	]
+legal: [
+  { label: 'Política de Privacidad', href: '/privacy' },
+  { label: 'Términos de Uso', href: '/terms' },
+  { label: 'Política de Afiliados', href: '/affiliate-policy' },
+  { label: 'Política de Cookies', href: '/cookies' }, 
+  { label: 'Contacto', href: '/contact' },            
+]
 };
 
 const socialLinks = [
@@ -353,11 +355,11 @@ const socialLinks = [
 			<div class="footer-legal">
 				<span>Hecho con ❤️ en Argentina</span>
 			</div>
-		</div>
-
+		</div>	
 		<AffiliateDisclaimer placement="bottom" />
 	</div>
 </footer>
+<CookieConsent />
 
 <!-- Back to Top Button -->
 <button 
