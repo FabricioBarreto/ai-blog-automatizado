@@ -17,13 +17,13 @@ const footerLinks = {
 		{ label: 'Tutoriales', href: '/blog?category=tutoriales' },
 		{ label: 'Reviews', href: '/blog?category=reviews' },
 	],
-legal: [
-  { label: 'Política de Privacidad', href: '/privacy' },
-  { label: 'Términos de Uso', href: '/terms' },
-  { label: 'Política de Afiliados', href: '/affiliate-policy' },
-  { label: 'Política de Cookies', href: '/cookies' }, 
-  { label: 'Contacto', href: '/contact' },            
-]
+	legal: [
+		{ label: 'Política de Privacidad', href: '/privacy' },
+		{ label: 'Términos de Uso', href: '/terms' },
+		{ label: 'Política de Afiliados', href: '/affiliate-policy' },
+		{ label: 'Política de Cookies', href: '/cookies' }, 
+		{ label: 'Contacto', href: '/contact' },            
+	]
 };
 
 const socialLinks = [
@@ -211,24 +211,51 @@ const socialLinks = [
 		border: 1px solid rgba(102, 126, 234, 0.3);
 	}
 
+	/* Modern Back to Top Button with 3D effect and animations */
 	.back-to-top {
-		align-items: center;
 		position: fixed;
 		bottom: 2rem;
 		right: 2rem;
-		width: 50px;
-		height: 50px;
+		width: 56px;
+		height: 56px;
 		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 		color: white;
 		border: none;
-		border-radius: 50%;
-		font-size: 1.5rem;
+		border-radius: 16px;
+		font-size: 1.4rem;
 		cursor: pointer;
-		box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
 		opacity: 0;
 		visibility: hidden;
-		transition: all 0.3s ease;
-		z-index: 99;
+		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		z-index: 999;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 
+			0 4px 20px rgba(102, 126, 234, 0.3),
+			0 0 0 0 rgba(102, 126, 234, 0.5);
+		animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+		backdrop-filter: blur(10px);
+	}
+
+	.back-to-top::before {
+		content: '';
+		position: absolute;
+		inset: -2px;
+		background: linear-gradient(135deg, #667eea, #764ba2);
+		border-radius: 18px;
+		z-index: -1;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.back-to-top::after {
+		content: '';
+		position: absolute;
+		inset: 2px;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		border-radius: 14px;
+		z-index: -1;
 	}
 
 	.back-to-top.visible {
@@ -237,8 +264,64 @@ const socialLinks = [
 	}
 
 	.back-to-top:hover {
-		transform: translateY(-5px);
-		box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+		transform: translateY(-8px) scale(1.05);
+		box-shadow: 
+			0 8px 30px rgba(102, 126, 234, 0.5),
+			0 0 0 8px rgba(102, 126, 234, 0.2);
+	}
+
+	.back-to-top:hover::before {
+		opacity: 1;
+	}
+
+	.back-to-top:active {
+		transform: translateY(-6px) scale(1.02);
+	}
+
+	.back-to-top-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: transform 0.3s ease;
+	}
+
+	.back-to-top:hover .back-to-top-icon {
+		transform: translateY(-3px);
+		animation: bounce 0.6s ease infinite;
+	}
+
+	/* Progress ring around button */
+	.back-to-top-progress {
+		position: absolute;
+		inset: -4px;
+		border-radius: 18px;
+		border: 3px solid transparent;
+		border-top-color: rgba(255, 255, 255, 0.8);
+		border-right-color: rgba(255, 255, 255, 0.5);
+		transition: transform 0.3s ease;
+		pointer-events: none;
+	}
+
+	@keyframes pulse-ring {
+		0%, 100% {
+			box-shadow: 
+				0 4px 20px rgba(102, 126, 234, 0.3),
+				0 0 0 0 rgba(102, 126, 234, 0.5);
+		}
+		50% {
+			box-shadow: 
+				0 4px 25px rgba(102, 126, 234, 0.4),
+				0 0 0 8px rgba(102, 126, 234, 0);
+		}
+	}
+
+	@keyframes bounce {
+		0%, 100% {
+			transform: translateY(-3px);
+		}
+		50% {
+			transform: translateY(-8px);
+		}
 	}
 
 	@media (max-width: 1024px) {
@@ -274,8 +357,9 @@ const socialLinks = [
 		.back-to-top {
 			bottom: 1.5rem;
 			right: 1.5rem;
-			width: 45px;
-			height: 45px;
+			width: 50px;
+			height: 50px;
+			font-size: 1.3rem;
 		}
 	}
 </style>
@@ -361,27 +445,40 @@ const socialLinks = [
 </footer>
 <CookieConsent />
 
-<!-- Back to Top Button -->
+<!-- Enhanced Back to Top Button -->
 <button 
 	class="back-to-top" 
 	id="back-to-top" 
 	aria-label="Volver arriba"
 	title="Volver arriba"
 >
-	↑
+	<div class="back-to-top-progress" id="progress-ring"></div>
+	<span class="back-to-top-icon">↑</span>
 </button>
 
 <script>
-	// Back to top functionality
+	// Enhanced back to top functionality with scroll progress
 	const backToTopButton = document.getElementById('back-to-top');
+	const progressRing = document.getElementById('progress-ring');
 	
-	window.addEventListener('scroll', () => {
-		if (window.pageYOffset > 500) {
+	function updateScrollProgress() {
+		const windowHeight = window.innerHeight;
+		const documentHeight = document.documentElement.scrollHeight - windowHeight;
+		const scrolled = window.pageYOffset;
+		const progress = (scrolled / documentHeight) * 360;
+		
+		if (progressRing) {
+			progressRing.style.transform = `rotate(${progress}deg)`;
+		}
+		
+		if (scrolled > 500) {
 			backToTopButton?.classList.add('visible');
 		} else {
 			backToTopButton?.classList.remove('visible');
 		}
-	}, { passive: true });
+	}
+	
+	window.addEventListener('scroll', updateScrollProgress, { passive: true });
 
 	backToTopButton?.addEventListener('click', () => {
 		window.scrollTo({
@@ -389,4 +486,18 @@ const socialLinks = [
 			behavior: 'smooth'
 		});
 	});
+
+	// Keyboard accessibility
+	backToTopButton?.addEventListener('keydown', (e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			window.scrollTo({
+				top: 0,
+				behavior: 'smooth'
+			});
+		}
+	});
+
+	// Initialize on load
+	updateScrollProgress();
 </script>
