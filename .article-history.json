@@ -151,13 +151,19 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-01-02T12:40:39.434Z"
+    },
+    {
+      "keyword": "Zapier vs Make for AI workflows",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-01-03T12:39:05.764Z"
     }
   ],
-  "lastUpdate": "2026-01-02T12:40:39.434Z",
+  "lastUpdate": "2026-01-03T12:39:05.764Z",
   "categories": {
     "ai_tools": 8,
     "productivity_systems": 7,
-    "ai_automation": 4,
+    "ai_automation": 5,
     "developer_productivity": 2,
     "monetized_hardware": 1
   }
