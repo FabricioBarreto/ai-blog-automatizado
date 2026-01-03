@@ -1,8 +1,8 @@
-name: 🤖 Generate Smart Article
+name: Generate Smart Article
 
 on:
   schedule:
-    - cron: "0 12 * * *"
+    - cron: "0 12 * * *" # 12:00 UTC diario
   workflow_dispatch:
     inputs:
       quantity:
@@ -25,7 +25,7 @@ concurrency:
 jobs:
   generate:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30 # Aumentado para múltiples artículos
 
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -36,135 +36,219 @@ jobs:
       CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
 
     steps:
-      - name: 📥 Checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: 🟢 Setup Node.js 20
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "npm"
 
-      - name: 📦 Install dependencies
-        run: npm install --legacy-peer-deps
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
 
-      - name: 🔍 Check existing articles
+      - name: Check existing articles
         id: check
         run: |
-          ARTICLE_COUNT=$(ls src/content/blog/*.mdx 2>/dev/null | wc -l)
+          ARTICLE_COUNT=$(find src/content/blog -name "*.mdx" 2>/dev/null | wc -l)
           echo "current_count=$ARTICLE_COUNT" >> $GITHUB_OUTPUT
-          echo "📊 Artículos actuales: $ARTICLE_COUNT"
+          echo "Artículos actuales: $ARTICLE_COUNT"
 
-      - name: 📝 Generate article(s)
+      - name: Generate article(s)
+        id: generate
         run: |
           QUANTITY=${{ github.event.inputs.quantity || '1' }}
+          SUCCESS_COUNT=0
+          FAILED_COUNT=0
 
-          echo "🚀 Iniciando generación de $QUANTITY artículo(s)..."
+          echo "Iniciando generación de $QUANTITY artículo(s)..."
+          echo ""
 
           for i in $(seq 1 $QUANTITY); do
-            echo ""
-            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-            echo "📝 Generando artículo $i/$QUANTITY..."
-            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo "=========================================="
+            echo "Generando artículo $i/$QUANTITY..."
+            echo "=========================================="
 
             if node scripts/generate-smart-article.js; then
-              echo "✅ Artículo $i generado exitosamente"
+              echo "Artículo $i generado exitosamente"
+              SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
             else
-              echo "❌ Error generando artículo $i"
-              exit 1
+              echo "Error generando artículo $i"
+              FAILED_COUNT=$((FAILED_COUNT + 1))
+              
+              # Si falla el primer artículo, detener
+              if [ $i -eq 1 ]; then
+                echo "Deteniendo: falló el primer artículo"
+                exit 1
+              fi
+              
+              # Si fallan 2 consecutivos, detener
+              if [ $FAILED_COUNT -ge 2 ]; then
+                echo "Deteniendo: múltiples fallos consecutivos"
+                exit 1
+              fi
             fi
 
+            # Esperar entre artículos (excepto el último)
             if [ $i -lt $QUANTITY ]; then
-              echo "⏳ Esperando 45 segundos..."
+              echo ""
+              echo "Esperando 45 segundos antes del siguiente..."
               sleep 45
+              echo ""
             fi
           done
 
           echo ""
-          echo "✅ Todos los artículos generados"
+          echo "=========================================="
+          echo "Resumen de generación:"
+          echo "  Exitosos: $SUCCESS_COUNT"
+          echo "  Fallidos: $FAILED_COUNT"
+          echo "=========================================="
 
-      - name: 📊 Generate summary
+          echo "success_count=$SUCCESS_COUNT" >> $GITHUB_OUTPUT
+          echo "failed_count=$FAILED_COUNT" >> $GITHUB_OUTPUT
+
+      - name: Generate summary
         id: summary
+        if: success()
         run: |
-          NEW_FILES=$(git status --short | grep "\.mdx$" | wc -l)
-          echo "new_count=$NEW_FILES" >> $GITHUB_OUTPUT
+          # Contar nuevos archivos
+          NEW_FILES=$(git status --porcelain | grep "^?? src/content/blog/.*\.mdx$" | wc -l)
+          MODIFIED_FILES=$(git status --porcelain | grep "^ M src/content/blog/.*\.mdx$" | wc -l)
+          TOTAL_NEW=$((NEW_FILES + MODIFIED_FILES))
 
-          if [ $NEW_FILES -gt 0 ]; then
+          echo "new_count=$TOTAL_NEW" >> $GITHUB_OUTPUT
+          echo "Archivos nuevos/modificados: $TOTAL_NEW"
+
+          # Extraer títulos de los nuevos artículos
+          if [ $TOTAL_NEW -gt 0 ]; then
             echo "titles<<EOF" >> $GITHUB_OUTPUT
-            git status --short | grep "\.mdx$" | while read status file; do
-              title=$(grep "^title:" "$file" | sed 's/title: //g' | tr -d '"' | head -1)
-              echo "- $title" >> $GITHUB_OUTPUT
+            git status --porcelain | grep "\.mdx$" | while read status file; do
+              if [ -f "$file" ]; then
+                # Extraer título del frontmatter (maneja comillas correctamente)
+                title=$(grep -m 1 "^title:" "$file" | sed 's/^title: *"*\(.*\)"*/\1/' | sed 's/"$//')
+                if [ -n "$title" ]; then
+                  echo "- $title" >> $GITHUB_OUTPUT
+                else
+                  echo "- $(basename $file .mdx)" >> $GITHUB_OUTPUT
+                fi
+              fi
             done
             echo "EOF" >> $GITHUB_OUTPUT
           fi
 
-      - name: ⚙️ Configure Git
+      - name: Configure Git
+        if: success()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: ✅ Commit and push
+      - name: Commit and push
         id: commit
+        if: success()
         run: |
-          # Solo agregar MDX y history (imágenes están en Cloudinary)
+          # Agregar archivos generados
           git add src/content/blog/*.mdx 2>/dev/null || true
           git add .article-history.json 2>/dev/null || true
 
+          # Verificar si hay cambios
           if git diff --staged --quiet; then
-            echo "⚠️ No hay cambios"
+            echo "No hay cambios para commitear"
             echo "has_changes=false" >> $GITHUB_OUTPUT
             exit 0
           fi
 
           echo "has_changes=true" >> $GITHUB_OUTPUT
 
+          # Crear mensaje de commit
           NEW_COUNT=${{ steps.summary.outputs.new_count }}
+          TIMESTAMP=$(date -u +'%Y-%m-%d %H:%M UTC')
 
           git commit \
-            -m "🤖 Auto: ${NEW_COUNT} new article(s)" \
-            -m "Generated at: $(date -u +'%Y-%m-%d %H:%M UTC')" \
+            -m "Auto: ${NEW_COUNT} new article(s)" \
+            -m "Generated at: $TIMESTAMP" \
             -m "Images hosted on Cloudinary CDN"
 
-          for i in {1..3}; do
-            if git push; then
-              echo "✅ Push exitoso"
-              break
+          # Push con reintentos
+          MAX_RETRIES=3
+          RETRY_COUNT=0
+
+          while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+            if git push origin main; then
+              echo "Push exitoso"
+              exit 0
             else
-              echo "⚠️ Reintentando ($i/3)..."
-              sleep 5
-              git pull --rebase
+              RETRY_COUNT=$((RETRY_COUNT + 1))
+              echo "Push falló. Reintento $RETRY_COUNT/$MAX_RETRIES..."
+              
+              if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+                sleep 5
+                git pull --rebase origin main
+              else
+                echo "Push falló después de $MAX_RETRIES intentos"
+                exit 1
+              fi
             fi
           done
 
-      - name: 📋 Job Summary
+      - name: Job Summary
         if: always()
         run: |
-          echo "## 📊 Article Generation Report" >> $GITHUB_STEP_SUMMARY
+          echo "## Article Generation Report" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
-          if [ "${{ steps.commit.outputs.has_changes }}" == "true" ]; then
-            echo "### ✅ Success" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ job.status }}" == "success" ] && [ "${{ steps.commit.outputs.has_changes }}" == "true" ]; then
+            echo "### Status: Success" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "**Articles Generated:** ${{ steps.summary.outputs.new_count }}" >> $GITHUB_STEP_SUMMARY
-            echo "**Total Articles:** ${{ steps.check.outputs.current_count }}" >> $GITHUB_STEP_SUMMARY
-            echo "**Images:** Hosted on Cloudinary CDN" >> $GITHUB_STEP_SUMMARY
+            echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+            echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+            echo "| Articles Generated | ${{ steps.summary.outputs.new_count }} |" >> $GITHUB_STEP_SUMMARY
+            echo "| Total Articles | ${{ steps.check.outputs.current_count }} |" >> $GITHUB_STEP_SUMMARY
+            echo "| Success Rate | ${{ steps.generate.outputs.success_count }}/${{ github.event.inputs.quantity || '1' }} |" >> $GITHUB_STEP_SUMMARY
+            echo "| Image Hosting | Cloudinary CDN |" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "### 📝 New Articles:" >> $GITHUB_STEP_SUMMARY
-            echo "${{ steps.summary.outputs.titles }}" >> $GITHUB_STEP_SUMMARY
+            
+            if [ -n "${{ steps.summary.outputs.titles }}" ]; then
+              echo "### New Articles:" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "${{ steps.summary.outputs.titles }}" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+            fi
+            
+            echo "**Deployment:** Live in ~2 minutes via Vercel" >> $GITHUB_STEP_SUMMARY
+            
+          elif [ "${{ steps.commit.outputs.has_changes }}" == "false" ]; then
+            echo "### Status: No Changes" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "🚀 Deployment: Live in ~2 minutes via Vercel" >> $GITHUB_STEP_SUMMARY
+            echo "No new articles were generated or all generated content was identical to existing files." >> $GITHUB_STEP_SUMMARY
+            
           else
-            echo "### ⚠️ No Changes" >> $GITHUB_STEP_SUMMARY
+            echo "### Status: Failed" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "**Possible causes:**" >> $GITHUB_STEP_SUMMARY
+            echo "- API keys not configured or invalid" >> $GITHUB_STEP_SUMMARY
+            echo "- Cloudinary credentials incorrect" >> $GITHUB_STEP_SUMMARY
+            echo "- Rate limits exceeded (OpenAI, Serper, Pexels)" >> $GITHUB_STEP_SUMMARY
+            echo "- Network timeouts" >> $GITHUB_STEP_SUMMARY
+            echo "- Syntax errors in generated content" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "**Next steps:**" >> $GITHUB_STEP_SUMMARY
+            echo "1. Check workflow logs for detailed error messages" >> $GITHUB_STEP_SUMMARY
+            echo "2. Verify all secrets are properly configured" >> $GITHUB_STEP_SUMMARY
+            echo "3. Try running manually with workflow_dispatch" >> $GITHUB_STEP_SUMMARY
           fi
 
-      - name: ❌ Error Report
+      - name: Upload artifacts on failure
         if: failure()
-        run: |
-          echo "## ❌ Workflow Failed" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Check:**" >> $GITHUB_STEP_SUMMARY
-          echo "- API keys configured in GitHub Secrets?" >> $GITHUB_STEP_SUMMARY
-          echo "- Cloudinary credentials correct?" >> $GITHUB_STEP_SUMMARY
-          echo "- Rate limits exceeded?" >> $GITHUB_STEP_SUMMARY
+        uses: actions/upload-artifact@v4
+        with:
+          name: failed-generation-logs
+          path: |
+            .article-history.json
+            src/content/blog/*.mdx
+          retention-days: 7
+          if-no-files-found: ignore
