@@ -235,11 +235,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-01-03T22:40:36.364Z"
+    },
+    {
+      "keyword": "AI agents for automation",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-01-03T22:46:05.572Z"
     }
   ],
-  "lastUpdate": "2026-01-03T22:40:36.364Z",
+  "lastUpdate": "2026-01-03T22:46:05.572Z",
   "categories": {
-    "ai_tools": 12,
+    "ai_tools": 13,
     "productivity_systems": 11,
     "ai_automation": 7,
     "developer_productivity": 4,
