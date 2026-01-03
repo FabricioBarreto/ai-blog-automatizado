@@ -181,11 +181,17 @@
       "type": "value",
       "category": "monetized_hardware",
       "date": "2026-01-03T21:35:50.104Z"
+    },
+    {
+      "keyword": "AI for data analysis and visualization",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-01-03T21:39:11.316Z"
     }
   ],
-  "lastUpdate": "2026-01-03T21:35:50.104Z",
+  "lastUpdate": "2026-01-03T21:39:11.316Z",
   "categories": {
-    "ai_tools": 9,
+    "ai_tools": 10,
     "productivity_systems": 8,
     "ai_automation": 5,
     "developer_productivity": 3,
