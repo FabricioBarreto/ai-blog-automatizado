@@ -354,7 +354,7 @@ const hasToc = toc.length >= 3; // si hay poco, no jodas con TOC
 
 		<main>
 			<article>
-				{heroImage ? (
+				{heroImage && heroImage !== "null" ? (
 					<div class="hero-image">
 						<img
 							src={heroImage}

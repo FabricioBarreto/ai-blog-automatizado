@@ -12,8 +12,8 @@ const blogSchema = z
     publishDate: z.coerce.date().optional(),
     updatedDate: z.coerce.date().optional(),
 
-    // ===== Imágenes =====
-    heroImage: z.string().optional(),
+    // ===== Imágenes (acepta string, null, o undefined) =====
+    heroImage: z.string().nullable().optional(),
 
     // ===== Taxonomía =====
     category: z
@@ -32,17 +32,17 @@ const blogSchema = z
     // ===== Metadata =====
     author: z.string().default("AI Tools Hub"),
     readingTime: z.string().optional(),
-    
+
     // ===== SEO & Monetización =====
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
-    
+
     // ===== Campos opcionales útiles =====
-    excerpt: z.string().optional(), // Resumen corto para cards
-    canonicalUrl: z.string().url().optional(), // Si es repost
-    relatedPosts: z.array(z.string()).optional(), // IDs de posts relacionados
+    excerpt: z.string().optional(),
+    canonicalUrl: z.string().url().optional(),
+    relatedPosts: z.array(z.string()).optional(),
   })
-  .strict() // Evita campos no definidos
+  .strict()
   .transform((data) => {
     // Normalizar fecha de publicación
     const pubDate = data.pubDate ?? data.publishDate ?? new Date();
