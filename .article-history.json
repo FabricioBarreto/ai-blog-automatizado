@@ -157,14 +157,20 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-01-03T12:39:05.764Z"
+    },
+    {
+      "keyword": "technical documentation writing",
+      "type": "value",
+      "category": "developer_productivity",
+      "date": "2026-01-03T21:12:53.144Z"
     }
   ],
-  "lastUpdate": "2026-01-03T12:39:05.764Z",
+  "lastUpdate": "2026-01-03T21:12:53.144Z",
   "categories": {
     "ai_tools": 8,
     "productivity_systems": 7,
     "ai_automation": 5,
-    "developer_productivity": 2,
+    "developer_productivity": 3,
     "monetized_hardware": 1
   }
 }

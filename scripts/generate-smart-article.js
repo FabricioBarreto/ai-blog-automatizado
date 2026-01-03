@@ -4,6 +4,7 @@ import axios from "axios";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { v2 as cloudinary } from "cloudinary";
 
 // Importar templates de monetización
 import {
@@ -18,6 +19,13 @@ const __dirname = path.dirname(__filename);
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const SERPER_API_KEY = process.env.SERPER_API_KEY;
 const PEXELS_API_KEY = process.env.PEXELS_API_KEY;
+
+// ===== CONFIGURAR CLOUDINARY =====
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 // ===== TRACKING =====
 const TRACKING_FILE = path.join(__dirname, "../.article-history.json");
@@ -91,7 +99,7 @@ async function loadProducts() {
   }
 }
 
-// ===== CATEGORÍAS CON KEYWORDS COMPLETOS =====
+// ===== CATEGORÍAS =====
 const CONTENT_CATEGORIES = {
   ai_tools: {
     weight: 35,
@@ -113,7 +121,6 @@ const CONTENT_CATEGORIES = {
       "AI API integration guide",
     ],
   },
-
   productivity_systems: {
     weight: 30,
     keywords: [
@@ -134,7 +141,6 @@ const CONTENT_CATEGORIES = {
       "habit stacking techniques",
     ],
   },
-
   ai_automation: {
     weight: 20,
     keywords: [
@@ -155,7 +161,6 @@ const CONTENT_CATEGORIES = {
       "smart notification filtering",
     ],
   },
-
   developer_productivity: {
     weight: 10,
     keywords: [
@@ -176,7 +181,6 @@ const CONTENT_CATEGORIES = {
       "technical documentation writing",
     ],
   },
-
   monetized_hardware: {
     weight: 5,
     keywords: [
@@ -207,22 +211,12 @@ async function selectSmartTopic() {
       const expectedRatio = config.weight / 100;
       const currentRatio = totalArticles > 0 ? currentCount / totalArticles : 0;
       const deficit = expectedRatio - currentRatio;
-
       return { category: cat, deficit, config };
     })
     .sort((a, b) => b.deficit - a.deficit);
 
-  console.log("🎲 Categoría seleccionada:", categoryScores[0].category);
-
   const selectedCategory = categoryScores[0];
   const keywords = [...selectedCategory.config.keywords];
-
-  if (!keywords || keywords.length === 0) {
-    throw new Error(
-      `❌ No hay keywords definidos para: ${selectedCategory.category}`
-    );
-  }
-
   keywords.sort(() => Math.random() - 0.5);
 
   let selectedKeyword = null;
@@ -241,23 +235,15 @@ async function selectSmartTopic() {
     const validKeywords = keywords.filter(
       (k) => typeof k === "string" && k.trim()
     );
-
-    if (validKeywords.length === 0) {
-      throw new Error(
-        `❌ No hay keywords válidos en: ${selectedCategory.category}`
-      );
-    }
-
     selectedKeyword =
       validKeywords[Math.floor(Math.random() * validKeywords.length)];
-    console.log("⚠️ Usando keyword reciente (todas usadas recientemente)");
+    console.log("⚠️ Usando keyword reciente");
   }
 
   const isMonetized = selectedCategory.category === "monetized_hardware";
 
   console.log(`✅ Tema: ${selectedKeyword}`);
-  console.log(`   Categoría: ${selectedCategory.category}`);
-  console.log(`   Monetizado: ${isMonetized ? "Sí (1 de cada 20)" : "No"}\n`);
+  console.log(`   Categoría: ${selectedCategory.category}\n`);
 
   return {
     keyword: selectedKeyword,
@@ -292,43 +278,23 @@ async function researchKeyword(keyword) {
     console.log(`✅ ${competitorInsights.length} competidores analizados`);
     return { competitorInsights };
   } catch (error) {
-    console.warn("⚠️ Research timeout/error (continuando sin contexto)");
+    console.warn("⚠️ Research timeout (continuando)");
     return { competitorInsights: [] };
   }
 }
 
-// ===== SISTEMA MEJORADO DE IMÁGENES =====
-
-// Caché de imágenes
-const imageCache = new Map();
+// ===== SISTEMA DE IMÁGENES CON CLOUDINARY =====
 
 function buildSmartImageQuery(keyword, category) {
   const categoryVisuals = {
-    ai_tools: "artificial intelligence technology digital futuristic",
-    productivity_systems: "productivity workspace organized minimal",
-    ai_automation: "automation workflow technology modern",
-    developer_productivity: "coding developer workspace programming",
-    monetized_hardware: "tech gadget product modern",
+    ai_tools: "artificial intelligence technology digital",
+    productivity_systems: "productivity workspace organized",
+    ai_automation: "automation workflow technology",
+    developer_productivity: "coding developer workspace",
+    monetized_hardware: "tech gadget product",
   };
 
-  const stopWords = [
-    "how",
-    "to",
-    "for",
-    "with",
-    "the",
-    "a",
-    "an",
-    "and",
-    "or",
-    "but",
-    "in",
-    "on",
-    "at",
-    "from",
-    "vs",
-    "comparison",
-  ];
+  const stopWords = ["how", "to", "for", "with", "the", "a", "vs", "and"];
 
   const keywordTerms = keyword
     .toLowerCase()
@@ -337,7 +303,7 @@ function buildSmartImageQuery(keyword, category) {
     .slice(0, 3)
     .join(" ");
 
-  const baseVisual = categoryVisuals[category] || "technology workspace modern";
+  const baseVisual = categoryVisuals[category] || "technology workspace";
 
   return `${keywordTerms} ${baseVisual}`;
 }
@@ -345,30 +311,14 @@ function buildSmartImageQuery(keyword, category) {
 function selectBestPhoto(photos) {
   const scoredPhotos = photos.map((photo) => {
     let score = 0;
-
-    // Bonus por resolución
     if (photo.width >= 1920) score += 3;
     else if (photo.width >= 1280) score += 2;
     else score += 1;
 
-    // Bonus por aspect ratio ideal
     const aspectRatio = photo.width / photo.height;
-    const idealRatio = 16 / 9;
-    const ratioDiff = Math.abs(aspectRatio - idealRatio);
+    const ratioDiff = Math.abs(aspectRatio - 16 / 9);
     if (ratioDiff < 0.1) score += 3;
     else if (ratioDiff < 0.3) score += 2;
-    else score += 1;
-
-    // Bonus por colores no muy oscuros
-    if (photo.avg_color) {
-      const hex = photo.avg_color.replace("#", "");
-      const r = parseInt(hex.substr(0, 2), 16);
-      const g = parseInt(hex.substr(2, 2), 16);
-      const b = parseInt(hex.substr(4, 2), 16);
-      const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-      if (brightness > 100) score += 2;
-      else if (brightness > 50) score += 1;
-    }
 
     return { photo, score };
   });
@@ -377,177 +327,110 @@ function selectBestPhoto(photos) {
   return scoredPhotos[0].photo;
 }
 
-function generateImageFilename(query) {
-  const timestamp = Date.now();
-  const slug = query
-    .toLowerCase()
-    .replace(/[^a-z0-9\s]/g, "")
-    .trim()
-    .split(/\s+/)
-    .slice(0, 3)
-    .join("-");
-
-  return `hero-${slug}-${timestamp}.jpg`;
-}
-
-function validateImage(filepath) {
+async function uploadToCloudinary(imageBuffer, keyword, category) {
   try {
-    const stats = fs.statSync(filepath);
+    const slug = keyword
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, "")
+      .trim()
+      .split(/\s+/)
+      .slice(0, 3)
+      .join("-");
 
-    if (stats.size < 10000) {
-      console.warn("   ⚠️ Imagen demasiado pequeña");
-      return false;
-    }
+    const publicId = `blog/${category}/${slug}-${Date.now()}`;
 
-    const buffer = fs.readFileSync(filepath);
-    const isJPEG = buffer[0] === 0xff && buffer[1] === 0xd8;
-    const isPNG = buffer[0] === 0x89 && buffer[1] === 0x50;
+    const result = await cloudinary.uploader.upload(
+      `data:image/jpeg;base64,${imageBuffer.toString("base64")}`,
+      {
+        public_id: publicId,
+        folder: "blog-images",
+        transformation: [
+          {
+            width: 1920,
+            height: 1080,
+            crop: "fill",
+            gravity: "auto",
+            quality: "auto:good",
+            fetch_format: "auto",
+          },
+        ],
+        tags: [category, "blog", "auto-generated"],
+      }
+    );
 
-    if (!isJPEG && !isPNG) {
-      console.warn("   ⚠️ Formato de imagen inválido");
-      return false;
-    }
+    console.log(`   ✅ Subido a Cloudinary`);
+    console.log(`   📏 ${(result.bytes / 1024).toFixed(1)} KB`);
 
-    return true;
+    return result.secure_url;
   } catch (error) {
-    console.error("   ❌ Error validando imagen:", error.message);
-    return false;
+    console.error(`   ❌ Error Cloudinary: ${error.message}`);
+    throw error;
   }
 }
 
-function getCategoryPlaceholder(category) {
-  const placeholders = {
-    ai_tools: "/images/placeholder-ai-tools.jpg",
-    productivity_systems: "/images/placeholder-productivity.jpg",
-    ai_automation: "/images/placeholder-automation.jpg",
-    developer_productivity: "/images/placeholder-dev.jpg",
-    monetized_hardware: "/images/placeholder-hardware.jpg",
-  };
+async function downloadAndUploadImage(keyword, category) {
+  console.log("🖼️  Obteniendo imagen...");
 
-  return placeholders[category] || "/images/default-hero.jpg";
-}
+  const query = buildSmartImageQuery(keyword, category);
+  console.log(`   Query: "${query}"`);
 
-async function tryPexels(query) {
   try {
-    const response = await axios.get("https://api.pexels.com/v1/search", {
-      headers: { Authorization: PEXELS_API_KEY },
-      params: {
-        query: query,
-        per_page: 15,
-        orientation: "landscape",
-        size: "large",
-      },
-      timeout: 15000,
-    });
+    // Intentar Pexels
+    if (PEXELS_API_KEY) {
+      const response = await axios.get("https://api.pexels.com/v1/search", {
+        headers: { Authorization: PEXELS_API_KEY },
+        params: {
+          query: query,
+          per_page: 15,
+          orientation: "landscape",
+        },
+        timeout: 15000,
+      });
 
-    if (!response.data.photos || response.data.photos.length === 0) {
-      return null;
+      if (response.data.photos && response.data.photos.length > 0) {
+        const bestPhoto = selectBestPhoto(response.data.photos);
+
+        const imageResponse = await axios.get(bestPhoto.src.large2x, {
+          responseType: "arraybuffer",
+          timeout: 30000,
+        });
+
+        console.log(`   📸 Pexels - ${bestPhoto.photographer}`);
+
+        const cloudinaryUrl = await uploadToCloudinary(
+          Buffer.from(imageResponse.data),
+          keyword,
+          category
+        );
+
+        return cloudinaryUrl;
+      }
     }
 
-    const bestPhoto = selectBestPhoto(response.data.photos);
+    // Fallback: Unsplash
+    const unsplashUrl = `https://source.unsplash.com/1920x1080/?${encodeURIComponent(
+      query
+    )}`;
 
-    const imageResponse = await axios.get(bestPhoto.src.large2x, {
-      responseType: "arraybuffer",
-      timeout: 30000,
-    });
-
-    const filename = generateImageFilename(query);
-    const filepath = path.join("public", "images", filename);
-
-    fs.mkdirSync(path.dirname(filepath), { recursive: true });
-    fs.writeFileSync(filepath, imageResponse.data);
-
-    console.log(`   📸 Imagen guardada: ${filename}`);
-    console.log(`   👤 Fotógrafo: ${bestPhoto.photographer}`);
-
-    return `/images/${filename}`;
-  } catch (error) {
-    console.warn(`   ⚠️ Pexels falló: ${error.message}`);
-    return null;
-  }
-}
-
-async function tryUnsplashSource(query) {
-  try {
-    const encodedQuery = encodeURIComponent(query);
-    const imageUrl = `https://source.unsplash.com/1920x1080/?${encodedQuery}`;
-
-    const response = await axios.get(imageUrl, {
+    const unsplashResponse = await axios.get(unsplashUrl, {
       responseType: "arraybuffer",
       timeout: 20000,
       maxRedirects: 5,
     });
 
-    const filename = generateImageFilename(query);
-    const filepath = path.join("public", "images", filename);
+    console.log("   📸 Unsplash");
 
-    fs.mkdirSync(path.dirname(filepath), { recursive: true });
-    fs.writeFileSync(filepath, response.data);
+    const cloudinaryUrl = await uploadToCloudinary(
+      Buffer.from(unsplashResponse.data),
+      keyword,
+      category
+    );
 
-    console.log(`   📸 Imagen guardada desde Unsplash: ${filename}`);
-
-    return `/images/${filename}`;
+    return cloudinaryUrl;
   } catch (error) {
-    console.warn(`   ⚠️ Unsplash falló: ${error.message}`);
-    return null;
-  }
-}
-
-async function downloadImageWithFallback(keyword, category) {
-  console.log("🖼️  Buscando imagen perfecta para el artículo...");
-
-  const query = buildSmartImageQuery(keyword, category);
-  console.log(`   Query de búsqueda: "${query}"`);
-
-  // Intentar Pexels primero
-  if (PEXELS_API_KEY) {
-    const pexelsResult = await tryPexels(query);
-    if (pexelsResult) {
-      console.log("✅ Imagen obtenida de Pexels");
-      return pexelsResult;
-    }
-  }
-
-  // Fallback a Unsplash
-  const unsplashResult = await tryUnsplashSource(query);
-  if (unsplashResult) {
-    console.log("✅ Imagen obtenida de Unsplash");
-    return unsplashResult;
-  }
-
-  // Si todo falla, usar placeholder
-  console.log("⚠️ Usando imagen por defecto");
-  return getCategoryPlaceholder(category);
-}
-
-async function downloadImageFromPexels(keyword, category) {
-  try {
-    // Verificar caché
-    if (imageCache.has(keyword)) {
-      console.log("   💾 Usando imagen desde caché");
-      return imageCache.get(keyword);
-    }
-
-    const imageUrl = await downloadImageWithFallback(keyword, category);
-
-    // Validar si se descargó nueva imagen
-    if (imageUrl.startsWith("/images/hero-")) {
-      const filepath = path.join("public", imageUrl);
-      const isValid = validateImage(filepath);
-
-      if (!isValid) {
-        console.warn("   ⚠️ Imagen inválida, usando placeholder");
-        return getCategoryPlaceholder(category);
-      }
-    }
-
-    // Guardar en caché
-    imageCache.set(keyword, imageUrl);
-
-    return imageUrl;
-  } catch (error) {
-    console.error("   ❌ Error en sistema de imágenes:", error.message);
-    return getCategoryPlaceholder(category);
+    console.error(`   ❌ Error obteniendo imagen: ${error.message}`);
+    // Fallback: URL de placeholder en Cloudinary (créalo manualmente)
+    return `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/v1/placeholders/${category}.jpg`;
   }
 }
 
@@ -573,15 +456,9 @@ async function generateArticle(keyword, category, isMonetized) {
     products = getRelevantProducts(keyword, 3);
 
     if (products.length === 0) {
-      console.warn(
-        "⚠️ No hay productos para este keyword, generando educativo"
-      );
       isMonetized = false;
     } else {
       template = detectTemplate(keyword);
-      console.log(`📋 Template: ${template}`);
-      console.log(`🛒 Productos: ${products.length}`);
-
       prompt = buildPromptWithTemplate(
         keyword,
         template,
@@ -591,7 +468,6 @@ async function generateArticle(keyword, category, isMonetized) {
     }
   }
 
-  // PROMPT EDUCATIVO MEJORADO
   if (!isMonetized) {
     prompt = `Sos un experto reconocido en IA y productividad. Escribís en español argentino con voseo natural y auténtico.
 
@@ -604,234 +480,81 @@ ${competitorContext}
 
 **OBJETIVO:** Crear el artículo MÁS COMPLETO Y PRÁCTICO sobre este tema que existe en español.
 
-## ESTRUCTURA OBLIGATORIA (usa TODAS estas secciones en orden):
+## ESTRUCTURA OBLIGATORIA (12 secciones):
 
-### 1. APERTURA MAGNÉTICA
-- Hook con estadística impactante o historia real
-- Problema específico que el lector experimenta HOY
-- Promesa clara: "En este artículo vas a aprender..."
-- 2-3 párrafos máximo
+1. APERTURA MAGNÉTICA (hook + problema + promesa)
+2. ¿QUÉ ES [CONCEPTO]? (definición + por qué ahora + quién lo usa)
+3. EL PROBLEMA QUE RESUELVE (3-5 pain points)
+4. CÓMO FUNCIONA: FRAMEWORK PASO A PASO (5-8 pasos detallados)
+5. IMPLEMENTACIÓN PRÁCTICA (workflow + herramientas + setup)
+6. EJEMPLOS REALES Y CASOS DE USO (3-4 escenarios)
+7. TÉCNICAS AVANZADAS Y HACKS (5-7 tips)
+8. ERRORES FATALES Y CÓMO EVITARLOS (5-6 errores)
+9. RECURSOS Y HERRAMIENTAS GRATIS
+10. CHECKLIST DE IMPLEMENTACIÓN (8-12 items)
+11. FAQ (5-7 preguntas)
+12. CONCLUSIÓN + PRÓXIMOS PASOS
 
-### 2. ¿QUÉ ES [CONCEPTO]? (Fundamentos)
-- Definición clara sin jerga innecesaria
-- Por qué importa AHORA (tendencias 2025-2026)
-- Quién debería usarlo (y quién no)
-- Ejemplo visual o analogía memorable
+**VOSEO ARGENTINO OBLIGATORIO:**
+✅ "Vos podés", "fijate", "asegurate", "probá"
+❌ NUNCA "tú puedes", "fíjate", "asegúrate"
 
-### 3. EL PROBLEMA QUE RESUELVE
-- 3-5 pain points específicos con bullet points
-- Impacto cuantificado cuando es posible
-- Casos de uso reales
-- Contraste: Sin esto vs Con esto
+**FORMATO:**
+- Párrafos: 3-4 líneas máx
+- Emojis: 2-3 por H2 (✅ ❌ 💡 🚀)
+- **Negritas** para términos clave
+- \`código\` para comandos técnicos
+- Code snippets cuando sea técnico
 
-### 4. CÓMO FUNCIONA: FRAMEWORK PASO A PASO
-Sistema detallado con 5-8 pasos numerados. Cada paso DEBE tener:
-- Título descriptivo
-- Explicación de 2-3 párrafos
-- Ejemplo concreto
-- Tips de implementación
-- Code snippets si es técnico
+**SEO:**
+- Title: 50-60 caracteres + keyword + 2025/2026
+- Description: 150-155 caracteres + CTA
+- Tags: 4-6 tags relevantes
+- H2: Variaciones de keyword en 3-4 headers
 
-### 5. IMPLEMENTACIÓN PRÁCTICA
-- Workflow completo de principio a fin
-- Herramientas específicas (con nombres reales)
-- Configuración paso a paso
-- Tiempo estimado de setup
-- Recursos necesarios
-
-### 6. EJEMPLOS REALES Y CASOS DE USO
-- 3-4 escenarios diferentes
-- Antes/Después con métricas
-- Errores comunes de cada escenario
-- "Si te pasa X, hacé Y"
-
-### 7. TÉCNICAS AVANZADAS Y HACKS
-- 5-7 tips que el 90% de la gente no conoce
-- Shortcuts y atajos
-- Optimizaciones de rendimiento
-- Integraciones con otras herramientas
-
-### 8. ERRORES FATALES Y CÓMO EVITARLOS
-Lista de 5-6 errores comunes:
-- ❌ Error específico
-- Por qué sucede
-- Cómo detectarlo
-- ✅ Solución específica
-
-### 9. RECURSOS Y HERRAMIENTAS GRATIS
-- Apps y servicios (mencionar nombres conocidos)
-- Documentación oficial
-- Comunidades y foros
-- Templates o boilerplates
-- Cursos gratuitos si existen
-
-### 10. CHECKLIST DE IMPLEMENTACIÓN
-Lista verificable de 8-12 items:
-- [ ] Paso 1 accionable y específico
-- [ ] Paso 2 accionable y específico
-- [ ] etc...
-Orden lógico de ejecución.
-
-### 11. PREGUNTAS FRECUENTES (FAQ)
-5-7 preguntas reales con formato:
-**¿Pregunta específica?**
-Respuesta de 2-3 párrafos con ejemplos.
-
-### 12. CONCLUSIÓN + PRÓXIMOS PASOS
-- Resumen de los 3 puntos más importantes
-- Call to action específico
-- Qué hacer HOY para empezar
-- Invitación a comentar/compartir experiencias
-
+**OUTPUT (sin bloques markdown):**
 ---
-
-## ESTILO DE ESCRITURA OBLIGATORIO:
-
-**VOSEO ARGENTINO (CRÍTICO):**
-✅ CORRECTO: "Vos podés configurarlo", "Fijate cómo funciona", "Asegurate de hacer backup", "Si tenés dudas, probá esto"
-❌ INCORRECTO: "Tú puedes", "Fíjate", "Asegúrate", "Si tienes dudas"
-
-**TONO:**
-- Conversacional como hablar con un colega experto
-- Directo y sin fluff innecesario
-- Empático con las dificultades del lector
-- Optimista sobre los resultados
-
-**PÁRRAFOS:**
-- Máximo 3-4 líneas por párrafo
-- Una idea principal por párrafo
-- Ocasionalmente párrafos de una sola línea para énfasis
-
-**EMOJIS (uso moderado):**
-- 2-3 por sección H2
-- Usar con propósito: ✅ ❌ 💡 🚀 ⚡ 🎯 📊 🔥
-- NO overload de emojis
-
-**FORMATEO:**
-- **Negritas** para términos clave (5-8 por sección)
-- \`código\` para comandos, variables, nombres técnicos
-- Listas con • o - (no mezclar estilos)
-- Tablas cuando sea apropiado para comparaciones
-- Blockquotes (>) para consejos MUY importantes
-
-**CODE SNIPPETS (cuando sea relevante):**
-\`\`\`javascript
-// Ejemplo con 5-15 líneas
-// Comentarios en español
-const ejemplo = "código funcional";
-\`\`\`
-Explicar qué hace el código antes y después.
-
----
-
-## SEO Y METADATOS (CRÍTICO):
-
-**Title:**
-- Entre 50-60 caracteres EXACTOS (ni más ni menos)
-- Incluir keyword principal
-- Agregar número si es apropiado: "7 Técnicas..."
-- Incluir año: 2025 o 2026
-- Power words: Guía, Completa, Definitiva, Práctica, Tutorial
-
-**Description:**
-- Entre 150-155 caracteres EXACTOS
-- Incluir keyword principal
-- Mencionar beneficio específico
-- Call to action al final
-- Crear urgencia o curiosidad
-
-**Tags:**
-- Exactamente 4-6 tags relevantes
-- Mix de tags generales y específicos
-- Incluir variaciones de la keyword
-- Formato: lowercase con guiones ("ia-generativa", "productividad-2025")
-
-**H2 Headers (importante para SEO):**
-- Incluir variaciones de keyword en 3-4 H2 diferentes
-- Usar long-tail keywords naturalmente
-- 1-2 headers en formato de pregunta
-- NO hacer keyword stuffing
-
----
-
-## FORMATO DE OUTPUT EXACTO:
-
-IMPORTANTE: Escribe el contenido MDX directamente. NO lo envuelvas en bloques de código markdown (\`\`\`markdown).
-
----
-title: "Tu título aquí de 50-60 caracteres"
-description: "Tu descripción de 150-155 caracteres con CTA"
+title: "Título 50-60 chars"
+description: "Descripción 150-155 chars"
 pubDate: ${today}
-heroImage: "/images/default-hero.jpg"
+heroImage: "/placeholder.jpg"
 category: "${getCategoryLabel(category)}"
 tags: ["tag1", "tag2", "tag3", "tag4"]
 featured: true
 readingTime: "10 min"
 ---
 
-## [Título H2 descriptivo con keyword]
+## Título H2
 
-Primer párrafo del artículo...
+Contenido...
 
-Segundo párrafo...
+**VALIDACIONES:**
+- ✅ 2500-3500 palabras
+- ✅ 10+ H2 con 200+ palabras cada uno
+- ✅ 3+ ejemplos concretos
+- ✅ Voseo argentino TODO el texto
+- ✅ Sin placeholder text
 
-### Subsección si es necesaria
-
-Más contenido...
-
-## [Segundo H2]
-
-Contenido de la segunda sección...
-
----
-
-## VALIDACIONES ANTES DE ENTREGAR:
-
-Verificá que tu artículo cumpla con:
-- ✅ Longitud total: 2500-3500 palabras
-- ✅ Todos los H2 tienen contenido sustancial (mínimo 200 palabras cada uno)
-- ✅ Al menos 3 ejemplos concretos con detalles
-- ✅ Mínimo 1 lista por cada 300 palabras
-- ✅ Code snippets o comandos cuando el tema sea técnico
-- ✅ Referencias a otros artículos relacionados (sin URLs, solo menciones)
-- ✅ Valor inmediato: el lector puede implementar algo HOY
-- ✅ Sin promoción de productos (100% educativo)
-- ✅ Sin placeholder text tipo [AQUÍ VA...] o [COMPLETAR...]
-- ✅ Frontmatter YAML sin negritas ni formato especial
-- ✅ ReadingTime estimado correctamente (1 min por cada 200 palabras)
-- ✅ Voseo argentino en TODO el texto
-- ✅ Las 12 secciones estructurales están completas
-
-**MISIÓN:** Este artículo debe ser TAN BUENO que el lector:
-1. Lo guarde en sus marcadores
-2. Lo comparta con colegas
-3. Vuelva a tu blog por más contenido
-4. Implemente lo que aprendió HOY MISMO
-
-Priorizá VALOR REAL sobre volumen de palabras. Cada párrafo debe aportar algo útil.`;
+Priorizá VALOR REAL. El lector debe poder implementar HOY.`;
   }
 
-  console.log("📝 Generando artículo con GPT-4o...");
+  console.log("📝 Generando con GPT-4o...");
 
   const completion = await openai.chat.completions.create({
     model: "gpt-4o",
     messages: [
       {
         role: "system",
-        content: `Sos un redactor experto reconocido en IA y productividad. Escribís en español argentino REAL con voseo auténtico (vos tenés, fijate, podés, asegurate).
+        content: `Sos un redactor experto en IA y productividad. Español argentino REAL con voseo auténtico.
 
-Tus artículos son los MÁS COMPLETOS en español sobre cada tema. Priorizás VALOR PRÁCTICO sobre todo.
+Reglas NUNCA violadas:
+- NUNCA "tú", "fíjate", "asegúrate"
+- NUNCA bloques markdown para MDX
+- SIEMPRE 12 secciones completas
+- NUNCA placeholder text
+- NUNCA formato en frontmatter YAML
 
-Reglas estrictas que NUNCA violás:
-- NUNCA uses "tú", "tu", "fíjate", "asegúrate" - solo voseo argentino
-- NUNCA uses bloques de código markdown para envolver el contenido MDX
-- SIEMPRE incluís las 12 secciones estructurales completas
-- SIEMPRE das ejemplos concretos y accionables
-- NUNCA dejas placeholder text o secciones incompletas
-- NUNCA usas formato especial (negritas, código) en el frontmatter YAML
-- NUNCA haces keyword stuffing
-
-Tu misión: Crear artículos que la gente GUARDE, COMPARTA e IMPLEMENTE.`,
+Misión: Artículos que la gente GUARDE y COMPARTA.`,
       },
       { role: "user", content: prompt },
     ],
@@ -841,33 +564,26 @@ Tu misión: Crear artículos que la gente GUARDE, COMPARTA e IMPLEMENTE.`,
 
   let articleContent = completion.choices[0].message.content || "";
 
-  // Limpiar y validar
   articleContent = cleanMarkdownWrapper(articleContent);
   articleContent = fixYamlFrontmatter(articleContent);
   articleContent = enhanceArticleContent(articleContent);
 
-  // Validar monetización
   if (isMonetized && template) {
-    console.log("✅ Validando componentes de monetización...");
     const validation = validateMonetization(articleContent, template);
     if (!validation.valid) {
-      console.warn("⚠️ Errores de validación:");
-      validation.errors.forEach((err) => console.warn(`   ${err}`));
-      console.warn("   Continuando de todas formas...");
-    } else {
-      console.log("✅ Monetización correcta");
+      console.warn("⚠️ Errores de monetización");
     }
   }
 
-  // Obtener imagen con el sistema mejorado
-  const imageUrl = await downloadImageFromPexels(keyword, category);
+  // Obtener imagen y subir a Cloudinary
+  const imageUrl = await downloadAndUploadImage(keyword, category);
 
   const finalContent = articleContent.replace(
-    /heroImage:\s*["']\/images\/default-hero\.jpg["']/,
+    /heroImage:\s*["'].*?["']/,
     `heroImage: "${imageUrl}"`
   );
 
-  // Guardar
+  // Guardar artículo
   const slug = slugify(keyword);
   const filename = `${today}-${slug}.mdx`;
   const filepath = path.join("src", "content", "blog", filename);
@@ -877,15 +593,13 @@ Tu misión: Crear artículos que la gente GUARDE, COMPARTA e IMPLEMENTE.`,
 
   savePublishedTopic(keyword, isMonetized ? "monetized" : "value", category);
 
-  console.log(`✅ Artículo guardado: ${filename}`);
-  console.log(`💰 Costo estimado: ${estimateCost(prompt, articleContent)}`);
+  console.log(`\n✅ Artículo guardado: ${filename}`);
+  console.log(`💰 Costo: $${estimateCost(prompt, articleContent)}`);
 
   return {
     filename,
     keyword,
     category,
-    template: template || "educational",
-    products: products.length,
     monetized: isMonetized,
     imageUrl,
     slug,
@@ -916,8 +630,6 @@ function slugify(input) {
 function cleanMarkdownWrapper(content) {
   content = content.replace(/^```(?:markdown|md)?\s*\n/i, "");
   content = content.replace(/\n```\s*$/, "");
-  content = content.replace(/^```\s*\n/, "");
-  content = content.replace(/\n```\s*$/, "");
   return content.trim();
 }
 
@@ -929,7 +641,6 @@ function fixYamlFrontmatter(content) {
   const bodyContent = content.replace(/^---\n[\s\S]*?\n---/, "");
 
   frontmatter = frontmatter.replace(/'/g, '"');
-
   frontmatter = frontmatter.replace(
     /^(title|description|heroImage|category|readingTime):\s*(.+)$/gm,
     (match, key, value) => {
@@ -945,55 +656,28 @@ function fixYamlFrontmatter(content) {
 }
 
 function enhanceArticleContent(content) {
-  console.log("\n🔍 Validando calidad del artículo...");
+  console.log("\n🔍 Validando...");
 
   const h2Count = (content.match(/^## /gm) || []).length;
-  if (h2Count < 8) {
-    console.warn(`⚠️ Solo ${h2Count} secciones H2 (mínimo recomendado: 10)`);
-  } else {
-    console.log(`✅ Secciones H2: ${h2Count}`);
-  }
-
   const wordCount = content.split(/\s+/).length;
-  if (wordCount < 2000) {
-    console.warn(`⚠️ Solo ~${wordCount} palabras (mínimo recomendado: 2500)`);
-  } else {
-    console.log(`✅ Palabras: ~${wordCount}`);
-  }
+
+  if (h2Count < 8) console.warn(`⚠️ Solo ${h2Count} H2`);
+  else console.log(`✅ H2: ${h2Count}`);
+
+  if (wordCount < 2000) console.warn(`⚠️ Solo ${wordCount} palabras`);
+  else console.log(`✅ Palabras: ~${wordCount}`);
 
   const tuteoErrors = [];
-  if (content.includes("tú puedes") || content.includes("tu puedes")) {
-    tuteoErrors.push('Encontrado: "tú puedes" (debe ser "vos podés")');
-  }
-  if (content.includes("fíjate") || content.includes("Fíjate")) {
-    tuteoErrors.push('Encontrado: "fíjate" (debe ser "fijate")');
-  }
-  if (content.includes("asegúrate") || content.includes("Asegúrate")) {
-    tuteoErrors.push('Encontrado: "asegúrate" (debe ser "asegurate")');
-  }
+  if (content.includes("tú puedes")) tuteoErrors.push('"tú puedes"');
+  if (content.includes("fíjate")) tuteoErrors.push('"fíjate"');
+  if (content.includes("asegúrate")) tuteoErrors.push('"asegúrate"');
 
   if (tuteoErrors.length > 0) {
-    console.error("\n❌ ERRORES DE VOSEO DETECTADOS:");
-    tuteoErrors.forEach((err) => console.error(`   ${err}`));
-    console.error("   ⚠️ El artículo necesita corrección manual\n");
+    console.error(`\n❌ TUTEO DETECTADO: ${tuteoErrors.join(", ")}`);
   } else {
-    console.log("✅ Voseo argentino correcto");
+    console.log("✅ Voseo correcto");
   }
 
-  const listsCount = (content.match(/^[\-\*]\s/gm) || []).length;
-  const expectedLists = Math.floor(wordCount / 300);
-  if (listsCount < expectedLists) {
-    console.warn(
-      `⚠️ Solo ${listsCount} items de lista (recomendado: ~${expectedLists})`
-    );
-  } else {
-    console.log(`✅ Listas: ${listsCount} items`);
-  }
-
-  const codeBlocks = (content.match(/```/g) || []).length / 2;
-  console.log(`📝 Code blocks: ${codeBlocks}`);
-
-  console.log("");
   return content;
 }
 
@@ -1006,31 +690,19 @@ function estimateCost(prompt, output) {
 // ===== EJECUTAR =====
 async function main() {
   try {
-    console.log("🚀 Generador de Artículos con IA - Versión Mejorada\n");
+    console.log("🚀 Generador de Artículos + Cloudinary\n");
 
     const { keyword, category, isMonetized } = await selectSmartTopic();
     const result = await generateArticle(keyword, category, isMonetized);
 
-    console.log(`\n🎉 ARTÍCULO GENERADO EXITOSAMENTE!`);
-    console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
-    console.log(`📄 Archivo: ${result.filename}`);
-    console.log(`🔑 Keyword: ${result.keyword}`);
-    console.log(`📂 Categoría: ${result.category}`);
-    console.log(`💰 Monetizado: ${result.monetized ? "Sí" : "No"}`);
-    console.log(`🖼️  Imagen: ${result.imageUrl}`);
-
-    if (result.monetized) {
-      console.log(`📋 Template: ${result.template}`);
-      console.log(`🛒 Productos incluidos: ${result.products}`);
-      console.log(`\n💡 Artículo monetizado (1 de cada 20)`);
-    } else {
-      console.log(`\nℹ️  Artículo educativo (19 de cada 20)`);
-    }
-
-    console.log(`\n✨ Próximo paso: Revisar y publicar el artículo`);
+    console.log(`\n🎉 ÉXITO!`);
+    console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+    console.log(`📄 ${result.filename}`);
+    console.log(`🔑 ${result.keyword}`);
+    console.log(`🖼️  ${result.imageUrl}`);
+    console.log(`💰 ${result.monetized ? "Monetizado" : "Educativo"}`);
   } catch (error) {
-    console.error("❌ Error fatal:", error);
-    console.error(error.stack);
+    console.error("❌ Error:", error.message);
     process.exit(1);
   }
 }
