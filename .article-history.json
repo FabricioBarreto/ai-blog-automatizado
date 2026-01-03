@@ -241,13 +241,19 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-01-03T22:46:05.572Z"
+    },
+    {
+      "keyword": "AI email management automation",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-01-03T22:47:40.743Z"
     }
   ],
-  "lastUpdate": "2026-01-03T22:46:05.572Z",
+  "lastUpdate": "2026-01-03T22:47:40.743Z",
   "categories": {
     "ai_tools": 13,
     "productivity_systems": 11,
-    "ai_automation": 7,
+    "ai_automation": 8,
     "developer_productivity": 4,
     "monetized_hardware": 2
   }
