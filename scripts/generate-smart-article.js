@@ -493,7 +493,7 @@ ${competitorContext}
 
 ## ESTRUCTURA OBLIGATORIA (12 secciones):
 
-1. APERTURA MAGNÉTICA (hook + problema + promesa)
+1. CONTEXTO Y PROMESA (hook + problema + por qué te importa)
 2. ¿QUÉ ES [CONCEPTO]? (definición + por qué ahora + quién lo usa)
 3. EL PROBLEMA QUE RESUELVE (3-5 pain points)
 4. CÓMO FUNCIONA: FRAMEWORK PASO A PASO (5-8 pasos detallados)
