@@ -205,12 +205,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-01-03T22:10:11.032Z"
+    },
+    {
+      "keyword": "inbox zero email system",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-01-03T22:16:06.865Z"
     }
   ],
-  "lastUpdate": "2026-01-03T22:10:11.032Z",
+  "lastUpdate": "2026-01-03T22:16:06.865Z",
   "categories": {
     "ai_tools": 11,
-    "productivity_systems": 9,
+    "productivity_systems": 10,
     "ai_automation": 6,
     "developer_productivity": 3,
     "monetized_hardware": 2
