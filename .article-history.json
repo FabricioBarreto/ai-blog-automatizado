@@ -217,11 +217,17 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-01-03T22:26:27.638Z"
+    },
+    {
+      "keyword": "prompt engineering techniques",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-01-03T22:35:33.916Z"
     }
   ],
-  "lastUpdate": "2026-01-03T22:26:27.638Z",
+  "lastUpdate": "2026-01-03T22:35:33.916Z",
   "categories": {
-    "ai_tools": 11,
+    "ai_tools": 12,
     "productivity_systems": 10,
     "ai_automation": 7,
     "developer_productivity": 3,
