@@ -1,11 +1,8 @@
 name: 🤖 Generate Smart Article
 
 on:
-  # 1 artículo por día a las 09:00 ARG (12:00 UTC)
   schedule:
     - cron: "0 12 * * *"
-
-  # Trigger manual con opciones
   workflow_dispatch:
     inputs:
       quantity:
@@ -17,10 +14,6 @@ on:
           - "1"
           - "2"
           - "3"
-      force_topic:
-        description: "Tema específico (opcional)"
-        required: false
-        type: string
 
 permissions:
   contents: write
@@ -38,6 +31,9 @@ jobs:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
       SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
+      CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+      CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+      CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
 
     steps:
       - name: 📥 Checkout repository
@@ -50,7 +46,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          # cache: "npm"  # Deshabilitado - package-lock.json no commiteado
 
       - name: 📦 Install dependencies
         run: npm install --legacy-peer-deps
@@ -74,7 +69,6 @@ jobs:
             echo "📝 Generando artículo $i/$QUANTITY..."
             echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-            # Ejecutar script de generación
             if node scripts/generate-smart-article.js; then
               echo "✅ Artículo $i generado exitosamente"
             else
@@ -82,24 +76,21 @@ jobs:
               exit 1
             fi
 
-            # Delay entre artículos para evitar rate limits
             if [ $i -lt $QUANTITY ]; then
-              echo "⏳ Esperando 45 segundos antes del siguiente..."
+              echo "⏳ Esperando 45 segundos..."
               sleep 45
             fi
           done
 
           echo ""
-          echo "✅ Todos los artículos generados exitosamente"
+          echo "✅ Todos los artículos generados"
 
       - name: 📊 Generate summary
         id: summary
         run: |
-          # Contar nuevos archivos
           NEW_FILES=$(git status --short | grep "\.mdx$" | wc -l)
           echo "new_count=$NEW_FILES" >> $GITHUB_OUTPUT
 
-          # Obtener títulos
           if [ $NEW_FILES -gt 0 ]; then
             echo "titles<<EOF" >> $GITHUB_OUTPUT
             git status --short | grep "\.mdx$" | while read status file; do
@@ -117,36 +108,31 @@ jobs:
       - name: ✅ Commit and push
         id: commit
         run: |
-          # Agregar archivos
+          # Solo agregar MDX y history (imágenes están en Cloudinary)
           git add src/content/blog/*.mdx 2>/dev/null || true
-          git add public/images/*.jpg 2>/dev/null || true
           git add .article-history.json 2>/dev/null || true
 
-          # Verificar cambios
           if git diff --staged --quiet; then
-            echo "⚠️ No hay cambios para commitear"
+            echo "⚠️ No hay cambios"
             echo "has_changes=false" >> $GITHUB_OUTPUT
             exit 0
           fi
 
           echo "has_changes=true" >> $GITHUB_OUTPUT
 
-          # Crear commit message detallado
           NEW_COUNT=${{ steps.summary.outputs.new_count }}
 
           git commit \
             -m "🤖 Auto: ${NEW_COUNT} new article(s)" \
             -m "Generated at: $(date -u +'%Y-%m-%d %H:%M UTC')" \
-            -m "Run ID: ${{ github.run_id }}" \
-            -m "Trigger: ${{ github.event_name }}"
+            -m "Images hosted on Cloudinary CDN"
 
-          # Push con retry
           for i in {1..3}; do
             if git push; then
               echo "✅ Push exitoso"
               break
             else
-              echo "⚠️ Push falló, reintentando ($i/3)..."
+              echo "⚠️ Reintentando ($i/3)..."
               sleep 5
               git pull --rebase
             fi
@@ -163,15 +149,14 @@ jobs:
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "**Articles Generated:** ${{ steps.summary.outputs.new_count }}" >> $GITHUB_STEP_SUMMARY
             echo "**Total Articles:** ${{ steps.check.outputs.current_count }}" >> $GITHUB_STEP_SUMMARY
-            echo "**Timestamp:** $(date -u +'%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+            echo "**Images:** Hosted on Cloudinary CDN" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "### 📝 New Articles:" >> $GITHUB_STEP_SUMMARY
             echo "${{ steps.summary.outputs.titles }}" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "🚀 **Deployment:** Articles will be live in ~2 minutes via Vercel" >> $GITHUB_STEP_SUMMARY
+            echo "🚀 Deployment: Live in ~2 minutes via Vercel" >> $GITHUB_STEP_SUMMARY
           else
             echo "### ⚠️ No Changes" >> $GITHUB_STEP_SUMMARY
-            echo "No new articles were generated." >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: ❌ Error Report
@@ -179,9 +164,7 @@ jobs:
         run: |
           echo "## ❌ Workflow Failed" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Error Details:**" >> $GITHUB_STEP_SUMMARY
-          echo "- Check the logs above for specific error messages" >> $GITHUB_STEP_SUMMARY
-          echo "- Verify API keys are configured correctly" >> $GITHUB_STEP_SUMMARY
-          echo "- Ensure rate limits haven't been exceeded" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Logs:** [${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY
+          echo "**Check:**" >> $GITHUB_STEP_SUMMARY
+          echo "- API keys configured in GitHub Secrets?" >> $GITHUB_STEP_SUMMARY
+          echo "- Cloudinary credentials correct?" >> $GITHUB_STEP_SUMMARY
+          echo "- Rate limits exceeded?" >> $GITHUB_STEP_SUMMARY
