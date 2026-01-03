@@ -163,11 +163,17 @@
       "type": "value",
       "category": "developer_productivity",
       "date": "2026-01-03T21:12:53.144Z"
+    },
+    {
+      "keyword": "training custom AI models basics",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-01-03T21:21:01.511Z"
     }
   ],
-  "lastUpdate": "2026-01-03T21:12:53.144Z",
+  "lastUpdate": "2026-01-03T21:21:01.511Z",
   "categories": {
-    "ai_tools": 8,
+    "ai_tools": 9,
     "productivity_systems": 7,
     "ai_automation": 5,
     "developer_productivity": 3,
