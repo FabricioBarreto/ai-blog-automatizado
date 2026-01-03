@@ -297,34 +297,257 @@ async function researchKeyword(keyword) {
   }
 }
 
-// ===== IMAGEN =====
-async function downloadImageFromPexels(query) {
-  if (!PEXELS_API_KEY) return "/images/default-hero.jpg";
+// ===== SISTEMA MEJORADO DE IMÁGENES =====
 
+// Caché de imágenes
+const imageCache = new Map();
+
+function buildSmartImageQuery(keyword, category) {
+  const categoryVisuals = {
+    ai_tools: "artificial intelligence technology digital futuristic",
+    productivity_systems: "productivity workspace organized minimal",
+    ai_automation: "automation workflow technology modern",
+    developer_productivity: "coding developer workspace programming",
+    monetized_hardware: "tech gadget product modern",
+  };
+
+  const stopWords = [
+    "how",
+    "to",
+    "for",
+    "with",
+    "the",
+    "a",
+    "an",
+    "and",
+    "or",
+    "but",
+    "in",
+    "on",
+    "at",
+    "from",
+    "vs",
+    "comparison",
+  ];
+
+  const keywordTerms = keyword
+    .toLowerCase()
+    .split(" ")
+    .filter((word) => !stopWords.includes(word) && word.length > 2)
+    .slice(0, 3)
+    .join(" ");
+
+  const baseVisual = categoryVisuals[category] || "technology workspace modern";
+
+  return `${keywordTerms} ${baseVisual}`;
+}
+
+function selectBestPhoto(photos) {
+  const scoredPhotos = photos.map((photo) => {
+    let score = 0;
+
+    // Bonus por resolución
+    if (photo.width >= 1920) score += 3;
+    else if (photo.width >= 1280) score += 2;
+    else score += 1;
+
+    // Bonus por aspect ratio ideal
+    const aspectRatio = photo.width / photo.height;
+    const idealRatio = 16 / 9;
+    const ratioDiff = Math.abs(aspectRatio - idealRatio);
+    if (ratioDiff < 0.1) score += 3;
+    else if (ratioDiff < 0.3) score += 2;
+    else score += 1;
+
+    // Bonus por colores no muy oscuros
+    if (photo.avg_color) {
+      const hex = photo.avg_color.replace("#", "");
+      const r = parseInt(hex.substr(0, 2), 16);
+      const g = parseInt(hex.substr(2, 2), 16);
+      const b = parseInt(hex.substr(4, 2), 16);
+      const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+      if (brightness > 100) score += 2;
+      else if (brightness > 50) score += 1;
+    }
+
+    return { photo, score };
+  });
+
+  scoredPhotos.sort((a, b) => b.score - a.score);
+  return scoredPhotos[0].photo;
+}
+
+function generateImageFilename(query) {
+  const timestamp = Date.now();
+  const slug = query
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, "")
+    .trim()
+    .split(/\s+/)
+    .slice(0, 3)
+    .join("-");
+
+  return `hero-${slug}-${timestamp}.jpg`;
+}
+
+function validateImage(filepath) {
+  try {
+    const stats = fs.statSync(filepath);
+
+    if (stats.size < 10000) {
+      console.warn("   ⚠️ Imagen demasiado pequeña");
+      return false;
+    }
+
+    const buffer = fs.readFileSync(filepath);
+    const isJPEG = buffer[0] === 0xff && buffer[1] === 0xd8;
+    const isPNG = buffer[0] === 0x89 && buffer[1] === 0x50;
+
+    if (!isJPEG && !isPNG) {
+      console.warn("   ⚠️ Formato de imagen inválido");
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error("   ❌ Error validando imagen:", error.message);
+    return false;
+  }
+}
+
+function getCategoryPlaceholder(category) {
+  const placeholders = {
+    ai_tools: "/images/placeholder-ai-tools.jpg",
+    productivity_systems: "/images/placeholder-productivity.jpg",
+    ai_automation: "/images/placeholder-automation.jpg",
+    developer_productivity: "/images/placeholder-dev.jpg",
+    monetized_hardware: "/images/placeholder-hardware.jpg",
+  };
+
+  return placeholders[category] || "/images/default-hero.jpg";
+}
+
+async function tryPexels(query) {
   try {
     const response = await axios.get("https://api.pexels.com/v1/search", {
       headers: { Authorization: PEXELS_API_KEY },
-      params: { query, per_page: 5, orientation: "landscape" },
+      params: {
+        query: query,
+        per_page: 15,
+        orientation: "landscape",
+        size: "large",
+      },
       timeout: 15000,
     });
 
-    if (!response.data.photos?.length) return "/images/default-hero.jpg";
+    if (!response.data.photos || response.data.photos.length === 0) {
+      return null;
+    }
 
-    const photo = response.data.photos[0];
-    const imageResponse = await axios.get(photo.src.large2x, {
+    const bestPhoto = selectBestPhoto(response.data.photos);
+
+    const imageResponse = await axios.get(bestPhoto.src.large2x, {
       responseType: "arraybuffer",
       timeout: 30000,
     });
 
-    const filename = `hero-${Date.now()}.jpg`;
+    const filename = generateImageFilename(query);
     const filepath = path.join("public", "images", filename);
 
     fs.mkdirSync(path.dirname(filepath), { recursive: true });
     fs.writeFileSync(filepath, imageResponse.data);
 
+    console.log(`   📸 Imagen guardada: ${filename}`);
+    console.log(`   👤 Fotógrafo: ${bestPhoto.photographer}`);
+
     return `/images/${filename}`;
   } catch (error) {
-    return "/images/default-hero.jpg";
+    console.warn(`   ⚠️ Pexels falló: ${error.message}`);
+    return null;
+  }
+}
+
+async function tryUnsplashSource(query) {
+  try {
+    const encodedQuery = encodeURIComponent(query);
+    const imageUrl = `https://source.unsplash.com/1920x1080/?${encodedQuery}`;
+
+    const response = await axios.get(imageUrl, {
+      responseType: "arraybuffer",
+      timeout: 20000,
+      maxRedirects: 5,
+    });
+
+    const filename = generateImageFilename(query);
+    const filepath = path.join("public", "images", filename);
+
+    fs.mkdirSync(path.dirname(filepath), { recursive: true });
+    fs.writeFileSync(filepath, response.data);
+
+    console.log(`   📸 Imagen guardada desde Unsplash: ${filename}`);
+
+    return `/images/${filename}`;
+  } catch (error) {
+    console.warn(`   ⚠️ Unsplash falló: ${error.message}`);
+    return null;
+  }
+}
+
+async function downloadImageWithFallback(keyword, category) {
+  console.log("🖼️  Buscando imagen perfecta para el artículo...");
+
+  const query = buildSmartImageQuery(keyword, category);
+  console.log(`   Query de búsqueda: "${query}"`);
+
+  // Intentar Pexels primero
+  if (PEXELS_API_KEY) {
+    const pexelsResult = await tryPexels(query);
+    if (pexelsResult) {
+      console.log("✅ Imagen obtenida de Pexels");
+      return pexelsResult;
+    }
+  }
+
+  // Fallback a Unsplash
+  const unsplashResult = await tryUnsplashSource(query);
+  if (unsplashResult) {
+    console.log("✅ Imagen obtenida de Unsplash");
+    return unsplashResult;
+  }
+
+  // Si todo falla, usar placeholder
+  console.log("⚠️ Usando imagen por defecto");
+  return getCategoryPlaceholder(category);
+}
+
+async function downloadImageFromPexels(keyword, category) {
+  try {
+    // Verificar caché
+    if (imageCache.has(keyword)) {
+      console.log("   💾 Usando imagen desde caché");
+      return imageCache.get(keyword);
+    }
+
+    const imageUrl = await downloadImageWithFallback(keyword, category);
+
+    // Validar si se descargó nueva imagen
+    if (imageUrl.startsWith("/images/hero-")) {
+      const filepath = path.join("public", imageUrl);
+      const isValid = validateImage(filepath);
+
+      if (!isValid) {
+        console.warn("   ⚠️ Imagen inválida, usando placeholder");
+        return getCategoryPlaceholder(category);
+      }
+    }
+
+    // Guardar en caché
+    imageCache.set(keyword, imageUrl);
+
+    return imageUrl;
+  } catch (error) {
+    console.error("   ❌ Error en sistema de imágenes:", error.message);
+    return getCategoryPlaceholder(category);
   }
 }
 
@@ -636,9 +859,8 @@ Tu misión: Crear artículos que la gente GUARDE, COMPARTA e IMPLEMENTE.`,
     }
   }
 
-  // Imagen
-  const imageQuery = keyword.split(" ").slice(0, 3).join(" ");
-  const imageUrl = await downloadImageFromPexels(imageQuery);
+  // Obtener imagen con el sistema mejorado
+  const imageUrl = await downloadImageFromPexels(keyword, category);
 
   const finalContent = articleContent.replace(
     /heroImage:\s*["']\/images\/default-hero\.jpg["']/,
@@ -656,7 +878,7 @@ Tu misión: Crear artículos que la gente GUARDE, COMPARTA e IMPLEMENTE.`,
   savePublishedTopic(keyword, isMonetized ? "monetized" : "value", category);
 
   console.log(`✅ Artículo guardado: ${filename}`);
-  console.log(`💰 Costo estimado: $${estimateCost(prompt, articleContent)}`);
+  console.log(`💰 Costo estimado: ${estimateCost(prompt, articleContent)}`);
 
   return {
     filename,
@@ -692,7 +914,6 @@ function slugify(input) {
 }
 
 function cleanMarkdownWrapper(content) {
-  // Elimina ```markdown, ```md, o ``` al inicio y final
   content = content.replace(/^```(?:markdown|md)?\s*\n/i, "");
   content = content.replace(/\n```\s*$/, "");
   content = content.replace(/^```\s*\n/, "");
@@ -707,10 +928,8 @@ function fixYamlFrontmatter(content) {
   let frontmatter = frontmatterMatch[1];
   const bodyContent = content.replace(/^---\n[\s\S]*?\n---/, "");
 
-  // Convertir comillas simples a dobles
   frontmatter = frontmatter.replace(/'/g, '"');
 
-  // Asegurar que los valores estén entre comillas
   frontmatter = frontmatter.replace(
     /^(title|description|heroImage|category|readingTime):\s*(.+)$/gm,
     (match, key, value) => {
@@ -728,7 +947,6 @@ function fixYamlFrontmatter(content) {
 function enhanceArticleContent(content) {
   console.log("\n🔍 Validando calidad del artículo...");
 
-  // Validar cantidad de H2
   const h2Count = (content.match(/^## /gm) || []).length;
   if (h2Count < 8) {
     console.warn(`⚠️ Solo ${h2Count} secciones H2 (mínimo recomendado: 10)`);
@@ -736,7 +954,6 @@ function enhanceArticleContent(content) {
     console.log(`✅ Secciones H2: ${h2Count}`);
   }
 
-  // Validar longitud
   const wordCount = content.split(/\s+/).length;
   if (wordCount < 2000) {
     console.warn(`⚠️ Solo ~${wordCount} palabras (mínimo recomendado: 2500)`);
@@ -744,7 +961,6 @@ function enhanceArticleContent(content) {
     console.log(`✅ Palabras: ~${wordCount}`);
   }
 
-  // Validar voseo (sample check)
   const tuteoErrors = [];
   if (content.includes("tú puedes") || content.includes("tu puedes")) {
     tuteoErrors.push('Encontrado: "tú puedes" (debe ser "vos podés")');
@@ -764,7 +980,6 @@ function enhanceArticleContent(content) {
     console.log("✅ Voseo argentino correcto");
   }
 
-  // Validar listas
   const listsCount = (content.match(/^[\-\*]\s/gm) || []).length;
   const expectedLists = Math.floor(wordCount / 300);
   if (listsCount < expectedLists) {
@@ -775,7 +990,6 @@ function enhanceArticleContent(content) {
     console.log(`✅ Listas: ${listsCount} items`);
   }
 
-  // Validar code blocks (solo si es categoría técnica)
   const codeBlocks = (content.match(/```/g) || []).length / 2;
   console.log(`📝 Code blocks: ${codeBlocks}`);
 
@@ -792,23 +1006,28 @@ function estimateCost(prompt, output) {
 // ===== EJECUTAR =====
 async function main() {
   try {
+    console.log("🚀 Generador de Artículos con IA - Versión Mejorada\n");
+
     const { keyword, category, isMonetized } = await selectSmartTopic();
     const result = await generateArticle(keyword, category, isMonetized);
 
-    console.log(`\n🎉 ÉXITO!`);
-    console.log(`   📄 ${result.filename}`);
-    console.log(`   🔑 ${result.keyword}`);
-    console.log(`   📂 ${result.category}`);
-    console.log(`   💰 Monetizado: ${result.monetized ? "Sí" : "No"}`);
-    console.log(`   🖼️  ${result.imageUrl}`);
+    console.log(`\n🎉 ARTÍCULO GENERADO EXITOSAMENTE!`);
+    console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+    console.log(`📄 Archivo: ${result.filename}`);
+    console.log(`🔑 Keyword: ${result.keyword}`);
+    console.log(`📂 Categoría: ${result.category}`);
+    console.log(`💰 Monetizado: ${result.monetized ? "Sí" : "No"}`);
+    console.log(`🖼️  Imagen: ${result.imageUrl}`);
 
     if (result.monetized) {
-      console.log(`   📋 Template: ${result.template}`);
-      console.log(`   🛒 Productos incluidos: ${result.products}`);
-      console.log(`\n   💡 Artículo monetizado (1 de cada 20)`);
+      console.log(`📋 Template: ${result.template}`);
+      console.log(`🛒 Productos incluidos: ${result.products}`);
+      console.log(`\n💡 Artículo monetizado (1 de cada 20)`);
     } else {
-      console.log(`\n   ℹ️  Artículo educativo (19 de cada 20)`);
+      console.log(`\nℹ️  Artículo educativo (19 de cada 20)`);
     }
+
+    console.log(`\n✨ Próximo paso: Revisar y publicar el artículo`);
   } catch (error) {
     console.error("❌ Error fatal:", error);
     console.error(error.stack);
