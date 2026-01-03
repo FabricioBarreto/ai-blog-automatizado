@@ -229,12 +229,18 @@
       "type": "value",
       "category": "developer_productivity",
       "date": "2026-01-03T22:37:40.111Z"
+    },
+    {
+      "keyword": "morning routine for focus",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-01-03T22:40:36.364Z"
     }
   ],
-  "lastUpdate": "2026-01-03T22:37:40.111Z",
+  "lastUpdate": "2026-01-03T22:40:36.364Z",
   "categories": {
     "ai_tools": 12,
-    "productivity_systems": 10,
+    "productivity_systems": 11,
     "ai_automation": 7,
     "developer_productivity": 4,
     "monetized_hardware": 2
