@@ -1,5 +1,4 @@
 // @ts-check
-
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import { defineConfig } from "astro/config";
@@ -9,7 +8,7 @@ import vercel from "@astrojs/vercel";
 // https://astro.build/config
 export default defineConfig({
   site: "https://ai-blog-automatizado.vercel.app/",
-  output: "static", // Static site with on-demand API routes
+  output: "static",
   adapter: vercel(),
   integrations: [
     mdx(),
@@ -20,4 +19,15 @@ export default defineConfig({
       },
     }),
   ],
+
+  // Agregar configuración para imágenes remotas
+  image: {
+    domains: ["res.cloudinary.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+    ],
+  },
 });

@@ -374,6 +374,13 @@ async function downloadAndUploadImage(keyword, category) {
   const query = buildSmartImageQuery(keyword, category);
   console.log(`   Query: "${query}"`);
 
+  // Validar que Cloudinary esté configurado
+  if (!process.env.CLOUDINARY_CLOUD_NAME) {
+    console.error("ERROR: CLOUDINARY_CLOUD_NAME no está configurado");
+    // Retornar una URL válida de placeholder o null
+    return null; // O retornar un placeholder local: "/images/placeholder.jpg"
+  }
+
   try {
     // Intentar Pexels
     if (PEXELS_API_KEY) {
@@ -429,8 +436,12 @@ async function downloadAndUploadImage(keyword, category) {
     return cloudinaryUrl;
   } catch (error) {
     console.error(`   Error obteniendo imagen: ${error.message}`);
-    // Fallback: URL de placeholder en Cloudinary
-    return `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/v1/placeholders/${category}.jpg`;
+    console.error(
+      `   CLOUD_NAME configurado: ${process.env.CLOUDINARY_CLOUD_NAME || "NO"}`
+    );
+
+    // Retornar null o un placeholder local
+    return null; // El componente usará el emoji fallback
   }
 }
 
@@ -583,10 +594,13 @@ Misión: Artículos que la gente GUARDE y COMPARTA.`,
   // Obtener imagen y subir a Cloudinary
   const imageUrl = await downloadAndUploadImage(keyword, category);
 
-  const finalContent = articleContent.replace(
-    /heroImage:\s*["'].*?["']/,
-    `heroImage: "${imageUrl}"`
-  );
+  // Si no hay imagen, usar null para que el componente muestre el fallback
+  const finalContent = imageUrl
+    ? articleContent.replace(
+        /heroImage:\s*["'].*?["']/,
+        `heroImage: "${imageUrl}"`
+      )
+    : articleContent.replace(/heroImage:\s*["'].*?["']/, `heroImage: null`);
 
   // Guardar artículo
   const slug = slugify(keyword);

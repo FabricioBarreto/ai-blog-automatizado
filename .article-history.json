@@ -193,12 +193,18 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-01-03T21:55:16.041Z"
+    },
+    {
+      "keyword": "time blocking vs task batching",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-01-03T22:07:23.845Z"
     }
   ],
-  "lastUpdate": "2026-01-03T21:55:16.041Z",
+  "lastUpdate": "2026-01-03T22:07:23.845Z",
   "categories": {
     "ai_tools": 10,
-    "productivity_systems": 8,
+    "productivity_systems": 9,
     "ai_automation": 6,
     "developer_productivity": 3,
     "monetized_hardware": 2
