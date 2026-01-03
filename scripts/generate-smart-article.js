@@ -91,7 +91,7 @@ async function loadProducts() {
       buildComparisonData: module.buildComparisonData,
     };
   } catch (error) {
-    console.warn("⚠️ No se pudo cargar products.js:", error.message);
+    console.warn("Advertencia: No se pudo cargar products.js:", error.message);
     return {
       getRelevantProducts: () => [],
       buildComparisonData: () => [],
@@ -195,7 +195,7 @@ const CONTENT_CATEGORIES = {
 
 // ===== SELECCIÓN DE TEMA =====
 async function selectSmartTopic() {
-  console.log("🎯 Seleccionando tema con balance de categorías...\n");
+  console.log("Seleccionando tema con balance de categorías...\n");
 
   const categoryBalance = getCategoryBalance();
   const totalArticles = Object.values(categoryBalance).reduce(
@@ -203,7 +203,7 @@ async function selectSmartTopic() {
     0
   );
 
-  console.log("📊 Balance actual:", categoryBalance);
+  console.log("Balance actual:", categoryBalance);
 
   const categoryScores = Object.entries(CONTENT_CATEGORIES)
     .map(([cat, config]) => {
@@ -237,13 +237,13 @@ async function selectSmartTopic() {
     );
     selectedKeyword =
       validKeywords[Math.floor(Math.random() * validKeywords.length)];
-    console.log("⚠️ Usando keyword reciente");
+    console.log("Advertencia: Usando keyword reciente");
   }
 
   const isMonetized = selectedCategory.category === "monetized_hardware";
 
-  console.log(`✅ Tema: ${selectedKeyword}`);
-  console.log(`   Categoría: ${selectedCategory.category}\n`);
+  console.log(`Tema seleccionado: ${selectedKeyword}`);
+  console.log(`Categoría: ${selectedCategory.category}\n`);
 
   return {
     keyword: selectedKeyword,
@@ -254,7 +254,7 @@ async function selectSmartTopic() {
 
 // ===== RESEARCH =====
 async function researchKeyword(keyword) {
-  console.log(`🔍 Researching: ${keyword}`);
+  console.log(`Investigando: ${keyword}`);
 
   try {
     const response = await axios.post(
@@ -275,10 +275,10 @@ async function researchKeyword(keyword) {
       snippet: r.snippet,
     }));
 
-    console.log(`✅ ${competitorInsights.length} competidores analizados`);
+    console.log(`Competidores analizados: ${competitorInsights.length}`);
     return { competitorInsights };
   } catch (error) {
-    console.warn("⚠️ Research timeout (continuando)");
+    console.warn("Advertencia: Research timeout (continuando)");
     return { competitorInsights: [] };
   }
 }
@@ -358,18 +358,18 @@ async function uploadToCloudinary(imageBuffer, keyword, category) {
       }
     );
 
-    console.log(`   ✅ Subido a Cloudinary`);
-    console.log(`   📏 ${(result.bytes / 1024).toFixed(1)} KB`);
+    console.log(`   Subido a Cloudinary exitosamente`);
+    console.log(`   Tamaño: ${(result.bytes / 1024).toFixed(1)} KB`);
 
     return result.secure_url;
   } catch (error) {
-    console.error(`   ❌ Error Cloudinary: ${error.message}`);
+    console.error(`   Error Cloudinary: ${error.message}`);
     throw error;
   }
 }
 
 async function downloadAndUploadImage(keyword, category) {
-  console.log("🖼️  Obteniendo imagen...");
+  console.log("Obteniendo imagen...");
 
   const query = buildSmartImageQuery(keyword, category);
   console.log(`   Query: "${query}"`);
@@ -395,7 +395,7 @@ async function downloadAndUploadImage(keyword, category) {
           timeout: 30000,
         });
 
-        console.log(`   📸 Pexels - ${bestPhoto.photographer}`);
+        console.log(`   Fuente: Pexels - ${bestPhoto.photographer}`);
 
         const cloudinaryUrl = await uploadToCloudinary(
           Buffer.from(imageResponse.data),
@@ -418,7 +418,7 @@ async function downloadAndUploadImage(keyword, category) {
       maxRedirects: 5,
     });
 
-    console.log("   📸 Unsplash");
+    console.log("   Fuente: Unsplash");
 
     const cloudinaryUrl = await uploadToCloudinary(
       Buffer.from(unsplashResponse.data),
@@ -428,8 +428,8 @@ async function downloadAndUploadImage(keyword, category) {
 
     return cloudinaryUrl;
   } catch (error) {
-    console.error(`   ❌ Error obteniendo imagen: ${error.message}`);
-    // Fallback: URL de placeholder en Cloudinary (créalo manualmente)
+    console.error(`   Error obteniendo imagen: ${error.message}`);
+    // Fallback: URL de placeholder en Cloudinary
     return `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/v1/placeholders/${category}.jpg`;
   }
 }
@@ -438,7 +438,7 @@ async function downloadAndUploadImage(keyword, category) {
 async function generateArticle(keyword, category, isMonetized) {
   const today = new Date().toISOString().split("T")[0];
 
-  console.log("🔍 Investigando competencia...");
+  console.log("Investigando competencia...");
   const { competitorInsights } = await researchKeyword(keyword);
   const competitorContext =
     competitorInsights.length > 0
@@ -496,12 +496,12 @@ ${competitorContext}
 12. CONCLUSIÓN + PRÓXIMOS PASOS
 
 **VOSEO ARGENTINO OBLIGATORIO:**
-✅ "Vos podés", "fijate", "asegurate", "probá"
-❌ NUNCA "tú puedes", "fíjate", "asegúrate"
+CORRECTO: "Vos podés", "fijate", "asegurate", "probá"
+INCORRECTO: NUNCA "tú puedes", "fíjate", "asegúrate"
 
 **FORMATO:**
 - Párrafos: 3-4 líneas máx
-- Emojis: 2-3 por H2 (✅ ❌ 💡 🚀)
+- Usa 1-2 emojis estratégicos por sección H2 (solo cuando agreguen valor)
 - **Negritas** para términos clave
 - \`código\` para comandos técnicos
 - Code snippets cuando sea técnico
@@ -512,10 +512,10 @@ ${competitorContext}
 - Tags: 4-6 tags relevantes
 - H2: Variaciones de keyword en 3-4 headers
 
-**OUTPUT (sin bloques markdown):**
+**OUTPUT (FORMATO EXACTO - NO MODIFICAR):**
 ---
-title: "Título 50-60 chars"
-description: "Descripción 150-155 chars"
+title: "Título entre comillas de 50-60 caracteres con keyword"
+description: "Descripción entre comillas de 150-155 caracteres con CTA clara"
 pubDate: ${today}
 heroImage: "/placeholder.jpg"
 category: "${getCategoryLabel(category)}"
@@ -524,21 +524,25 @@ featured: true
 readingTime: "10 min"
 ---
 
-## Título H2
+## Primer H2 Aquí
 
-Contenido...
+Tu contenido empieza aquí, sin ningún wrapper de markdown...
 
-**VALIDACIONES:**
-- ✅ 2500-3500 palabras
-- ✅ 10+ H2 con 200+ palabras cada uno
-- ✅ 3+ ejemplos concretos
-- ✅ Voseo argentino TODO el texto
-- ✅ Sin placeholder text
+**VALIDACIONES CRÍTICAS:**
+- OBLIGATORIO: El frontmatter DEBE empezar con --- en la primera línea
+- OBLIGATORIO: title y description SIEMPRE entre comillas dobles
+- PROHIBIDO: NO uses bloques \`\`\`markdown para envolver el contenido
+- PROHIBIDO: NO uses comillas simples en valores YAML
+- OBLIGATORIO: 2500-3500 palabras
+- OBLIGATORIO: 10+ H2 con 200+ palabras cada uno
+- OBLIGATORIO: 3+ ejemplos concretos
+- OBLIGATORIO: Voseo argentino en TODO el texto
+- PROHIBIDO: Sin placeholder text
 
 Priorizá VALOR REAL. El lector debe poder implementar HOY.`;
   }
 
-  console.log("📝 Generando con GPT-4o...");
+  console.log("Generando contenido con GPT-4o...");
 
   const completion = await openai.chat.completions.create({
     model: "gpt-4o",
@@ -552,7 +556,8 @@ Reglas NUNCA violadas:
 - NUNCA bloques markdown para MDX
 - SIEMPRE 12 secciones completas
 - NUNCA placeholder text
-- NUNCA formato en frontmatter YAML
+- NUNCA formato incorrecto en frontmatter YAML
+- Title y description SIEMPRE entre comillas dobles
 
 Misión: Artículos que la gente GUARDE y COMPARTA.`,
       },
@@ -571,7 +576,7 @@ Misión: Artículos que la gente GUARDE y COMPARTA.`,
   if (isMonetized && template) {
     const validation = validateMonetization(articleContent, template);
     if (!validation.valid) {
-      console.warn("⚠️ Errores de monetización");
+      console.warn("Advertencia: Errores de monetización detectados");
     }
   }
 
@@ -593,8 +598,8 @@ Misión: Artículos que la gente GUARDE y COMPARTA.`,
 
   savePublishedTopic(keyword, isMonetized ? "monetized" : "value", category);
 
-  console.log(`\n✅ Artículo guardado: ${filename}`);
-  console.log(`💰 Costo: $${estimateCost(prompt, articleContent)}`);
+  console.log(`\nArtículo guardado: ${filename}`);
+  console.log(`Costo estimado: $${estimateCost(prompt, articleContent)}`);
 
   return {
     filename,
@@ -635,37 +640,93 @@ function cleanMarkdownWrapper(content) {
 
 function fixYamlFrontmatter(content) {
   const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
-  if (!frontmatterMatch) return content;
+  if (!frontmatterMatch) {
+    console.error("ERROR: No se encontró frontmatter válido");
+    return content;
+  }
 
   let frontmatter = frontmatterMatch[1];
   const bodyContent = content.replace(/^---\n[\s\S]*?\n---/, "");
 
-  frontmatter = frontmatter.replace(/'/g, '"');
-  frontmatter = frontmatter.replace(
-    /^(title|description|heroImage|category|readingTime):\s*(.+)$/gm,
-    (match, key, value) => {
-      const trimmed = value.trim();
-      if (trimmed.startsWith('"') && trimmed.endsWith('"')) return match;
-      const clean = trimmed.replace(/^['"]|['"]$/g, "");
-      const escaped = clean.replace(/"/g, '\\"');
-      return `${key}: "${escaped}"`;
-    }
-  );
+  // Parsear línea por línea para evitar corrupción
+  const lines = frontmatter.split("\n");
+  const fixedLines = lines.map((line) => {
+    // Si es una línea de array (tags), dejarla como está
+    if (line.trim().startsWith("-")) return line;
 
-  return `---\n${frontmatter}\n---${bodyContent}`;
+    // Si es una propiedad: valor
+    const match = line.match(/^(\w+):\s*(.*)$/);
+    if (!match) return line;
+
+    const [, key, value] = match;
+    const trimmed = value.trim();
+
+    // Si ya tiene comillas dobles, dejar como está
+    if (trimmed.startsWith('"') && trimmed.endsWith('"')) {
+      return line;
+    }
+
+    // Si es un array o booleano, dejar como está
+    if (trimmed.startsWith("[") || trimmed === "true" || trimmed === "false") {
+      return line;
+    }
+
+    // Agregar comillas dobles a strings
+    const cleaned = trimmed.replace(/^['"]|['"]$/g, "");
+    const escaped = cleaned.replace(/"/g, '\\"');
+    return `${key}: "${escaped}"`;
+  });
+
+  const fixedFrontmatter = fixedLines.join("\n");
+
+  // Validar que existan los campos requeridos
+  if (!fixedFrontmatter.includes("title:")) {
+    console.error('ERROR CRÍTICO: Falta campo "title" en frontmatter');
+  }
+  if (!fixedFrontmatter.includes("description:")) {
+    console.error('ERROR CRÍTICO: Falta campo "description" en frontmatter');
+  }
+
+  return `---\n${fixedFrontmatter}\n---${bodyContent}`;
 }
 
 function enhanceArticleContent(content) {
-  console.log("\n🔍 Validando...");
+  console.log("\nValidando contenido generado...");
+
+  // Validar que existe frontmatter
+  const hasFrontmatter = content.match(/^---\n[\s\S]*?\n---/);
+  if (!hasFrontmatter) {
+    console.error("ERROR: No se detectó frontmatter YAML");
+    return content;
+  }
+
+  // Validar campos requeridos
+  const frontmatter = hasFrontmatter[0];
+  const hasTitle = /^title:\s*["'].+["']/m.test(frontmatter);
+  const hasDescription = /^description:\s*["'].+["']/m.test(frontmatter);
+
+  if (!hasTitle) {
+    console.error("ERROR: Falta campo 'title' en frontmatter");
+  } else {
+    console.log("OK: Campo 'title' presente");
+  }
+
+  if (!hasDescription) {
+    console.error("ERROR: Falta campo 'description' en frontmatter");
+  } else {
+    console.log("OK: Campo 'description' presente");
+  }
 
   const h2Count = (content.match(/^## /gm) || []).length;
   const wordCount = content.split(/\s+/).length;
 
-  if (h2Count < 8) console.warn(`⚠️ Solo ${h2Count} H2`);
-  else console.log(`✅ H2: ${h2Count}`);
+  if (h2Count < 8)
+    console.warn(`Advertencia: Solo ${h2Count} H2 (esperado: 10+)`);
+  else console.log(`OK: ${h2Count} H2`);
 
-  if (wordCount < 2000) console.warn(`⚠️ Solo ${wordCount} palabras`);
-  else console.log(`✅ Palabras: ~${wordCount}`);
+  if (wordCount < 2000)
+    console.warn(`Advertencia: Solo ${wordCount} palabras (esperado: 2500+)`);
+  else console.log(`OK: ~${wordCount} palabras`);
 
   const tuteoErrors = [];
   if (content.includes("tú puedes")) tuteoErrors.push('"tú puedes"');
@@ -673,9 +734,9 @@ function enhanceArticleContent(content) {
   if (content.includes("asegúrate")) tuteoErrors.push('"asegúrate"');
 
   if (tuteoErrors.length > 0) {
-    console.error(`\n❌ TUTEO DETECTADO: ${tuteoErrors.join(", ")}`);
+    console.error(`\nERROR: TUTEO DETECTADO: ${tuteoErrors.join(", ")}`);
   } else {
-    console.log("✅ Voseo correcto");
+    console.log("OK: Voseo correcto");
   }
 
   return content;
@@ -690,19 +751,18 @@ function estimateCost(prompt, output) {
 // ===== EJECUTAR =====
 async function main() {
   try {
-    console.log("🚀 Generador de Artículos + Cloudinary\n");
+    console.log("=== Generador de Artículos con Cloudinary ===\n");
 
     const { keyword, category, isMonetized } = await selectSmartTopic();
     const result = await generateArticle(keyword, category, isMonetized);
 
-    console.log(`\n🎉 ÉXITO!`);
-    console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
-    console.log(`📄 ${result.filename}`);
-    console.log(`🔑 ${result.keyword}`);
-    console.log(`🖼️  ${result.imageUrl}`);
-    console.log(`💰 ${result.monetized ? "Monetizado" : "Educativo"}`);
+    console.log(`\n=== GENERACIÓN EXITOSA ===`);
+    console.log(`Archivo: ${result.filename}`);
+    console.log(`Keyword: ${result.keyword}`);
+    console.log(`Imagen: ${result.imageUrl}`);
+    console.log(`Tipo: ${result.monetized ? "Monetizado" : "Educativo"}`);
   } catch (error) {
-    console.error("❌ Error:", error.message);
+    console.error("ERROR FATAL:", error.message);
     process.exit(1);
   }
 }
