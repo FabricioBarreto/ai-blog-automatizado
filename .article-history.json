@@ -163,14 +163,32 @@
       "type": "value",
       "category": "developer_productivity",
       "date": "2026-01-03T21:12:53.144Z"
+    },
+    {
+      "keyword": "training custom AI models basics",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-01-03T21:21:01.511Z"
+    },
+    {
+      "keyword": "energy management strategies",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-01-03T21:31:16.734Z"
+    },
+    {
+      "keyword": "noise cancelling headphones focus",
+      "type": "value",
+      "category": "monetized_hardware",
+      "date": "2026-01-03T21:35:50.104Z"
     }
   ],
-  "lastUpdate": "2026-01-03T21:12:53.144Z",
+  "lastUpdate": "2026-01-03T21:35:50.104Z",
   "categories": {
-    "ai_tools": 8,
-    "productivity_systems": 7,
+    "ai_tools": 9,
+    "productivity_systems": 8,
     "ai_automation": 5,
     "developer_productivity": 3,
-    "monetized_hardware": 1
+    "monetized_hardware": 2
   }
 }
