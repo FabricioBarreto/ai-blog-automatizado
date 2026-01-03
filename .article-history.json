@@ -223,14 +223,20 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-01-03T22:35:33.916Z"
+    },
+    {
+      "keyword": "docker development workflow",
+      "type": "value",
+      "category": "developer_productivity",
+      "date": "2026-01-03T22:37:40.111Z"
     }
   ],
-  "lastUpdate": "2026-01-03T22:35:33.916Z",
+  "lastUpdate": "2026-01-03T22:37:40.111Z",
   "categories": {
     "ai_tools": 12,
     "productivity_systems": 10,
     "ai_automation": 7,
-    "developer_productivity": 3,
+    "developer_productivity": 4,
     "monetized_hardware": 2
   }
 }
