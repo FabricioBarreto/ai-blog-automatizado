@@ -199,11 +199,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-01-03T22:07:23.845Z"
+    },
+    {
+      "keyword": "Claude vs ChatGPT for coding",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-01-03T22:10:11.032Z"
     }
   ],
-  "lastUpdate": "2026-01-03T22:07:23.845Z",
+  "lastUpdate": "2026-01-03T22:10:11.032Z",
   "categories": {
-    "ai_tools": 10,
+    "ai_tools": 11,
     "productivity_systems": 9,
     "ai_automation": 6,
     "developer_productivity": 3,
