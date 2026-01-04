@@ -247,12 +247,18 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-01-03T22:47:40.743Z"
+    },
+    {
+      "keyword": "digital minimalism approach",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-01-04T12:39:49.103Z"
     }
   ],
-  "lastUpdate": "2026-01-03T22:47:40.743Z",
+  "lastUpdate": "2026-01-04T12:39:49.103Z",
   "categories": {
     "ai_tools": 13,
-    "productivity_systems": 11,
+    "productivity_systems": 12,
     "ai_automation": 8,
     "developer_productivity": 4,
     "monetized_hardware": 2
