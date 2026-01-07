@@ -265,12 +265,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-01-06T12:44:02.829Z"
+    },
+    {
+      "keyword": "kanban workflow for solo work",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-01-07T12:44:49.145Z"
     }
   ],
-  "lastUpdate": "2026-01-06T12:44:02.829Z",
+  "lastUpdate": "2026-01-07T12:44:49.145Z",
   "categories": {
     "ai_tools": 15,
-    "productivity_systems": 12,
+    "productivity_systems": 13,
     "ai_automation": 8,
     "developer_productivity": 4,
     "monetized_hardware": 2
