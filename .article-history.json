@@ -271,13 +271,19 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-01-07T12:44:49.145Z"
+    },
+    {
+      "keyword": "AI calendar management",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-01-08T12:45:03.880Z"
     }
   ],
-  "lastUpdate": "2026-01-07T12:44:49.145Z",
+  "lastUpdate": "2026-01-08T12:45:03.880Z",
   "categories": {
     "ai_tools": 15,
     "productivity_systems": 13,
-    "ai_automation": 8,
+    "ai_automation": 9,
     "developer_productivity": 4,
     "monetized_hardware": 2
   }
