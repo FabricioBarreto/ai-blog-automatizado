@@ -247,13 +247,43 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-01-03T22:47:40.743Z"
+    },
+    {
+      "keyword": "digital minimalism approach",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-01-04T12:39:49.103Z"
+    },
+    {
+      "keyword": "AI code review tools",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-01-05T12:46:13.781Z"
+    },
+    {
+      "keyword": "natural language to SQL with AI",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-01-06T12:44:02.829Z"
+    },
+    {
+      "keyword": "kanban workflow for solo work",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-01-07T12:44:49.145Z"
+    },
+    {
+      "keyword": "AI calendar management",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-01-08T12:45:03.880Z"
     }
   ],
-  "lastUpdate": "2026-01-03T22:47:40.743Z",
+  "lastUpdate": "2026-01-08T12:45:03.880Z",
   "categories": {
-    "ai_tools": 13,
-    "productivity_systems": 11,
-    "ai_automation": 8,
+    "ai_tools": 15,
+    "productivity_systems": 13,
+    "ai_automation": 9,
     "developer_productivity": 4,
     "monetized_hardware": 2
   }
