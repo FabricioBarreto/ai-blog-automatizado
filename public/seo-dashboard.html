@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>SEO Dashboard - ProductivityLab</title>
+  <style>
+    body {
+      font-family: system-ui;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .metric {
+      background: #f3f4f6;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 10px 0;
+    }
+
+    .metric h3 {
+      margin: 0 0 10px 0;
+      color: #1f2937;
+    }
+
+    .metric .value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #667eea;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>📊 SEO Dashboard</h1>
+
+  <div class="grid">
+    <div class="metric">
+      <h3>Artículos Publicados</h3>
+      <div class="value" id="articles">--</div>
+    </div>
+
+    <div class="metric">
+      <h3>Keywords Rankeando (Top 50)</h3>
+      <div class="value" id="keywords">--</div>
+      <small>Actualizar manualmente desde Search Console</small>
+    </div>
+
+    <div class="metric">
+      <h3>Tráfico Orgánico (Mes)</h3>
+      <div class="value" id="traffic">--</div>
+      <small>Desde Google Analytics</small>
+    </div>
+
+    <div class="metric">
+      <h3>Promedio Posición</h3>
+      <div class="value" id="position">--</div>
+      <small>Desde Search Console</small>
+    </div>
+  </div>
+
+  <h2>🎯 Objetivos 2026</h2>
+  <ul>
+    <li>✅ 50+ artículos publicados (Actual: <span id="current-articles">--</span>)</li>
+    <li>⏳ 10,000+ visitas mensuales</li>
+    <li>⏳ 100+ keywords en Top 10</li>
+    <li>⏳ Domain Authority 30+</li>
+  </ul>
+
+  <h2>📝 Checklist Semanal</h2>
+  <ul>
+    <li><input type="checkbox"> Verificar Search Console (errores, nuevas indexaciones)</li>
+    <li><input type="checkbox"> Revisar top 5 artículos en Analytics</li>
+    <li><input type="checkbox"> Actualizar 1 artículo antiguo con nueva info</li>
+    <li><input type="checkbox"> Publicar en redes el mejor artículo de la semana</li>
+    <li><input type="checkbox"> Responder comentarios/menciones</li>
+  </ul>
+
+  <script>
+    // Actualizar artículos automáticamente
+    fetch('/api/analytics-summary.json')
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById('articles').textContent = data.totalArticles || '--';
+        document.getElementById('current-articles').textContent = data.totalArticles || '--';
+      });
+  </script>
+</body>
+
+</html>

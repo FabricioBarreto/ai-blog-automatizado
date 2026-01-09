@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Allow: /blog/
+Allow: /about
+Disallow: /api/
+Disallow: /dashboard
+
+Sitemap: https://www.productivitylab.online/sitemap-index.xml
+
+# Para Bing
+User-agent: bingbot
+Crawl-delay: 1
+
+# Bloquear bots malos
+User-agent: AhrefsBot
+User-agent: SemrushBot
+Crawl-delay: 10

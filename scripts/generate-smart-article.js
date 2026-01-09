@@ -352,6 +352,9 @@ async function uploadToCloudinary(imageBuffer, keyword, category) {
             gravity: "auto",
             quality: "auto:good",
             fetch_format: "auto",
+            dpr: "auto",
+            flags: "progressive",
+            effect: "sharpen:80",
           },
         ],
         tags: [category, "blog", "auto-generated"],
@@ -488,6 +491,31 @@ async function generateArticle(keyword, category, isMonetized) {
 
 **Contexto competitivo:**
 ${competitorContext}
+
+**ANÁLISIS COMPETITIVO:**
+Analizá los top 3 resultados y superalos en:
+1. Profundidad (más detalles prácticos)
+2. Ejemplos (al menos 3 casos reales)
+3. Estructura (mejor organización)
+4. Actualidad (mencionar trends 2026)
+
+**OPTIMIZACIÓN SEO OBLIGATORIA:**
+- Keyword principal en: Title, H1, primer párrafo, conclusión
+- Variaciones de keyword en 3-4 H2 diferentes
+- Keyword secundarias relacionadas (usar sinónimos)
+- LSI keywords naturalmente distribuidas
+- Densidad de keyword: 1-2% (natural, no forzado)
+
+**ENGAGEMENT:**
+- Hook en primeros 50 palabras que genere curiosidad
+- Preguntas directas al lector cada 300 palabras
+- CTAs micro en medio del artículo ("Probá esto ahora", "Guardá este tip")
+- Conclusión con next steps concretos
+
+**FORMATO PARA COMPARTIR:**
+- Pull quotes destacables cada 500 palabras
+- Listas numeradas para compartir en redes
+- Estadísticas/datos citados (cuando sea posible)
 
 **OBJETIVO:** Crear el artículo MÁS COMPLETO Y PRÁCTICO sobre este tema que existe en español.
 

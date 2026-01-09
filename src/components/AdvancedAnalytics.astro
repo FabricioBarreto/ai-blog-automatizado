@@ -1,0 +1,164 @@
+<script is:inline>
+(function() {
+  // Solo ejecutar si Google Analytics está cargado
+  if (typeof gtag === 'undefined') return;
+
+  // === SCROLL DEPTH TRACKING ===
+  const scrollThresholds = [25, 50, 75, 90, 100];
+  const scrolledThresholds = new Set();
+
+  function trackScrollDepth() {
+    const scrollPercentage = Math.round(
+      (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+    );
+
+    scrollThresholds.forEach(threshold => {
+      if (scrollPercentage >= threshold && !scrolledThresholds.has(threshold)) {
+        scrolledThresholds.add(threshold);
+        gtag('event', 'scroll_depth', {
+          percent_scrolled: threshold,
+          page_location: window.location.pathname
+        });
+      }
+    });
+  }
+
+  let scrollTimeout;
+  window.addEventListener('scroll', () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(trackScrollDepth, 100);
+  }, { passive: true });
+
+  // === TIME ON PAGE ===
+  const startTime = Date.now();
+
+  window.addEventListener('beforeunload', () => {
+    const timeSpent = Math.round((Date.now() - startTime) / 1000);
+    
+    if (timeSpent > 5) { // Solo trackear si estuvo más de 5 segundos
+      gtag('event', 'time_on_page', {
+        value: timeSpent,
+        page_location: window.location.pathname
+      });
+    }
+  });
+
+  // === OUTBOUND LINK TRACKING ===
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    
+    if (!link) return;
+    
+    const href = link.getAttribute('href');
+    const isExternal = href && (
+      href.startsWith('http') && 
+      !href.includes(window.location.hostname)
+    );
+    
+    if (isExternal) {
+      gtag('event', 'click', {
+        event_category: 'outbound',
+        event_label: href,
+        transport_type: 'beacon'
+      });
+    }
+  });
+
+  // === AFFILIATE LINK TRACKING ===
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    
+    if (!link) return;
+    
+    const href = link.getAttribute('href');
+    const isAffiliate = href && (
+      href.includes('amazon') || 
+      href.includes('amzn.to') ||
+      link.dataset.affiliate === 'true'
+    );
+    
+    if (isAffiliate) {
+      gtag('event', 'affiliate_click', {
+        event_category: 'monetization',
+        event_label: href,
+        value: 1
+      });
+    }
+  });
+
+  // === COPY CODE TRACKING ===
+  document.addEventListener('copy', (e) => {
+    const selection = window.getSelection().toString();
+    
+    if (selection.length > 20) {
+      gtag('event', 'copy_content', {
+        event_category: 'engagement',
+        event_label: selection.substring(0, 100),
+        page_location: window.location.pathname
+      });
+    }
+  });
+
+  // === VIDEO ENGAGEMENT (si hay videos) ===
+  const videos = document.querySelectorAll('video');
+  videos.forEach(video => {
+    video.addEventListener('play', () => {
+      gtag('event', 'video_start', {
+        event_category: 'media',
+        event_label: video.src || 'embedded_video'
+      });
+    });
+
+    video.addEventListener('ended', () => {
+      gtag('event', 'video_complete', {
+        event_category: 'media',
+        event_label: video.src || 'embedded_video'
+      });
+    });
+  });
+
+  // === NEWSLETTER SIGNUP TRACKING ===
+  const newsletterForms = document.querySelectorAll('form[data-newsletter="true"]');
+  newsletterForms.forEach(form => {
+    form.addEventListener('submit', () => {
+      gtag('event', 'newsletter_signup', {
+        event_category: 'conversion',
+        event_label: 'newsletter',
+        value: 1
+      });
+    });
+  });
+
+  // === 404 ERROR TRACKING ===
+  if (document.title.includes('404')) {
+    gtag('event', 'page_not_found', {
+      event_category: 'error',
+      event_label: window.location.pathname,
+      page_referrer: document.referrer
+    });
+  }
+
+  // === ENGAGEMENT SCORE ===
+  function calculateEngagement() {
+    const score = {
+      scrolled: scrolledThresholds.size * 10,
+      timeSpent: Math.min((Date.now() - startTime) / 1000 / 60, 10) * 5,
+      interactions: 0
+    };
+
+    const totalScore = score.scrolled + score.timeSpent + score.interactions;
+
+    if (totalScore > 50) {
+      gtag('event', 'high_engagement', {
+        value: Math.round(totalScore),
+        page_location: window.location.pathname
+      });
+    }
+  }
+
+  // Calcular engagement antes de salir
+  window.addEventListener('beforeunload', calculateEngagement);
+
+  console.log('📊 Advanced Analytics loaded');
+})();
+</script>

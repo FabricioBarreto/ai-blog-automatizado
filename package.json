@@ -14,8 +14,16 @@
     "test:serper": "node scripts/test-apis.js serper",
     "test:pexels": "node scripts/test-apis.js pexels",
     "test:all": "node scripts/test-apis.js all",
+    "seo:check": "node scripts/validate-seo-metadata.js",
     "clean:images": "node scripts/cleanup-images.js",
-    "stats": "node scripts/stats.js"
+    "stats": "node scripts/stats.js",
+    "seo:validate": "node scripts/validate-seo-metadata.js",
+    "seo:links": "node scripts/add-internal-links.js",
+    "seo:refresh": "node scripts/find-content-to-refresh.js",
+    "seo:competitors": "node scripts/track-competitors.js",
+    "seo:keywords": "node scripts/keyword-table.js",
+    "seo:check-all": "npm run seo:validate && npm run seo:refresh",
+    "seo:weekly": "npm run seo:check-all && npm run seo:competitors"
   },
   "keywords": [
     "astro",
@@ -46,6 +54,7 @@
   "devDependencies": {
     "@astrojs/rss": "^4.0.1",
     "@astrojs/sitemap": "^3.0.3",
+    "astro-compress": "^2.3.8",
     "prettier": "^3.1.1",
     "prettier-plugin-astro": "^0.12.3"
   }

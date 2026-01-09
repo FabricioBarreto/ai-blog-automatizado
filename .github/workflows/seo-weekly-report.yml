@@ -1,0 +1,43 @@
+name: SEO Weekly Report
+
+on:
+  schedule:
+    - cron: "0 9 * * 1" # Lunes 9AM UTC
+  workflow_dispatch:
+
+jobs:
+  seo-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Check SEO Health
+        run: |
+          npm ci
+          npm run seo:check
+
+      - name: Count Articles
+        run: |
+          ARTICLE_COUNT=$(find src/content/blog -name "*.mdx" | wc -l)
+          echo "📚 Artículos totales: $ARTICLE_COUNT" >> $GITHUB_STEP_SUMMARY
+          echo "🎯 Meta: 50 artículos" >> $GITHUB_STEP_SUMMARY
+
+          if [ $ARTICLE_COUNT -ge 50 ]; then
+            echo "✅ ¡Meta alcanzada!" >> $GITHUB_STEP_SUMMARY
+          else
+            REMAINING=$((50 - ARTICLE_COUNT))
+            echo "⏳ Faltan: $REMAINING artículos" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Reminder
+        run: |
+          echo "## 📋 Tareas SEO de esta semana" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- [ ] Revisar Search Console" >> $GITHUB_STEP_SUMMARY
+          echo "- [ ] Actualizar 1 artículo antiguo" >> $GITHUB_STEP_SUMMARY
+          echo "- [ ] Publicar en redes" >> $GITHUB_STEP_SUMMARY

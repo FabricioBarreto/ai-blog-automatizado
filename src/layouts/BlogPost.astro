@@ -1,508 +1,175 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import Header from '../components/Header.astro';
-import SpeedInsights from "@vercel/speed-insights/astro";
-import Analytics from '@vercel/analytics/astro';
-import MonetizationHub from '../components/MonetizationHub.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 
-type BlogData = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'];
 
-type Heading = {
-	depth: number;
-	slug: string;
-	text: string;
-};
-
-interface Props extends BlogData {
-	slug: string;
-	headings?: Heading[];
-	relatedPosts?: CollectionEntry<'blog'>[];
-	nextPost?: CollectionEntry<'blog'> | null;
-	prevPost?: CollectionEntry<'blog'> | null;
-}
-
-const {
-	title,
-	description,
-	pubDate,
-	updatedDate,
-	heroImage,
-	tags = [],
-	category,
-	slug,
-	headings = [],
-	relatedPosts = [],
-	nextPost = null,
-	prevPost = null
-} = Astro.props as Props;
-
-// TOC: solo H2/H3 (evita ruido)
-const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
-const hasToc = toc.length >= 3; // si hay poco, no jodas con TOC
+const { title, description, pubDate, updatedDate, heroImage, category, tags = [] } = Astro.props;
 ---
 
-<html lang="es">
-	<head>
-		<BaseHead title={title} description={description} image={heroImage} type="article" />
+<html lang="es-AR">
+  <head>
+    <BaseHead 
+      title={title}
+      description={description}
+      image={heroImage}
+      type="article"
+      pubDate={pubDate.toISOString()}
+      tags={tags}
+    />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <article>
+        <!-- Breadcrumbs para SEO -->
+        <div class="container">
+          <Breadcrumbs currentPage={title} />
+        </div>
 
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 1200px;
-				margin: 0 auto;
-			}
+        <!-- Hero Image -->
+        {heroImage && (
+          <div class="hero-image">
+            <img 
+              src={heroImage} 
+              alt={title}
+              loading="eager"
+              width="1920"
+              height="1080"
+            />
+          </div>
+        )}
 
-			.progress {
-				position: fixed;
-				top: 0;
-				left: 0;
-				height: 3px;
-				width: 0%;
-				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-				z-index: 9999;
-			}
+        <!-- Article Header -->
+        <div class="container">
+          <header class="article-header">
+            {category && (
+              <span class="category-badge">{category}</span>
+            )}
+            <h1>{title}</h1>
+            <div class="article-meta">
+              <FormattedDate date={pubDate} />
+              {updatedDate && (
+                <span class="updated">
+                  Actualizado: <FormattedDate date={updatedDate} />
+                </span>
+              )}
+            </div>
+            {tags.length > 0 && (
+              <div class="tags">
+                {tags.map((tag: string) => (
+                  <a href={`/blog?tag=${tag}`} class="tag">
+                    #{tag}
+                  </a>
+                ))}
+              </div>
+            )}
+          </header>
 
-			.hero-image {
-				width: 100%;
-				max-height: 480px;
-				overflow: hidden;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				background: rgb(var(--gray-light));
-				border-radius: 16px;
-				margin-top: 1.25rem;
-			}
-			.hero-image img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				display: block;
-			}
-			.no-hero-image {
-				width: 100%;
-				height: 360px;
-				border-radius: 16px;
-				background: linear-gradient(135deg, rgb(var(--accent-light)) 0%, rgb(var(--accent)) 100%);
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				color: white;
-				font-size: 5rem;
-				margin-top: 1.25rem;
-			}
-
-			/* Layout con sidebar para TOC */
-			.layout {
-				display: grid;
-				grid-template-columns: 1fr;
-				gap: 2rem;
-				margin-top: 1.5rem;
-			}
-
-			@media (min-width: 1024px) {
-				.layout {
-					grid-template-columns: 260px 1fr;
-					align-items: start;
-				}
-			}
-
-			.prose {
-				width: 100%;
-				max-width: 760px;
-				margin: 0 auto;
-				padding: 1.5em 0.25em 2em;
-				color: rgb(var(--gray-dark));
-				line-height: 1.8;
-			}
-
-			.title {
-				margin-bottom: 1.25rem;
-				padding: 1rem 0;
-				text-align: center;
-				line-height: 1.2;
-			}
-			.title h1 {
-				margin: 0.2rem 0 0.75rem 0;
-				font-size: 2.5rem;
-				color: rgb(var(--black));
-			}
-			.meta {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.75rem;
-				justify-content: center;
-				color: rgb(var(--gray));
-				font-size: 0.95rem;
-				margin-bottom: 0.75rem;
-			}
-			.pill {
-				padding: 0.25rem 0.75rem;
-				border-radius: 999px;
-				background: rgba(102, 126, 234, 0.08);
-				border: 1px solid rgba(102, 126, 234, 0.18);
-				color: #667eea;
-				font-weight: 600;
-				font-size: 0.85rem;
-			}
-
-			.last-updated-on {
-				font-style: italic;
-				color: rgb(var(--gray));
-			}
-
-			/* TOC */
-			.toc {
-				display: none;
-			}
-			@media (min-width: 1024px) {
-				.toc {
-					display: block;
-					position: sticky;
-					top: 90px;
-					padding: 1rem;
-					border-radius: 14px;
-					background: rgba(255,255,255,0.7);
-					backdrop-filter: blur(10px);
-					border: 1px solid rgba(0,0,0,0.06);
-					box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-				}
-			}
-
-			.toc h3 {
-				margin: 0 0 0.75rem 0;
-				font-size: 1rem;
-				font-weight: 800;
-				color: rgb(var(--black));
-			}
-
-			.toc a {
-				display: block;
-				text-decoration: none;
-				color: rgb(var(--gray-dark));
-				padding: 0.35rem 0.25rem;
-				border-radius: 8px;
-				font-size: 0.92rem;
-				border-left: 2px solid transparent;
-			}
-
-			.toc a:hover {
-				background: rgba(102,126,234,0.08);
-			}
-
-			.toc a[data-depth="3"] {
-				padding-left: 1rem;
-				opacity: 0.9;
-				font-size: 0.9rem;
-			}
-
-			.toc a.active {
-				background: rgba(102,126,234,0.12);
-				border-left-color: #667eea;
-				color: #667eea;
-				font-weight: 700;
-			}
-
-			/* Mobile TOC */
-			.toc-mobile {
-				display: block;
-				max-width: 760px;
-				margin: 0 auto;
-				border: 1px solid rgba(0,0,0,0.06);
-				border-radius: 14px;
-				overflow: hidden;
-				background: rgba(255,255,255,0.85);
-				backdrop-filter: blur(10px);
-			}
-			@media (min-width: 1024px) {
-				.toc-mobile { display: none; }
-			}
-			.toc-mobile summary {
-				cursor: pointer;
-				padding: 0.9rem 1rem;
-				font-weight: 800;
-			}
-			.toc-mobile .toc-links {
-				padding: 0.25rem 1rem 1rem;
-			}
-			.toc-mobile a {
-				display: block;
-				padding: 0.4rem 0.25rem;
-				text-decoration: none;
-				color: rgb(var(--gray-dark));
-			}
-
-			/* Prose styles */
-			.prose h2 { margin-top: 2em; margin-bottom: 1em; color: rgb(var(--accent)); }
-			.prose h3 { margin-top: 1.5em; margin-bottom: 0.75em; }
-			.prose p { margin-bottom: 1.2em; }
-			.prose ul, .prose ol { margin-bottom: 1.2em; padding-left: 2em; }
-			.prose li { margin-bottom: 0.5em; }
-			.prose code { background: rgb(var(--gray-light)); padding: 0.2em 0.4em; border-radius: 4px; font-size: 0.9em; }
-			.prose pre { background: rgb(var(--gray-light)); padding: 1.2em; border-radius: 10px; overflow-x: auto; margin-bottom: 1.2em; }
-			.prose pre code { background: none; padding: 0; }
-			.prose a { color: rgb(var(--accent)); text-decoration: none; border-bottom: 1px solid rgb(var(--accent-light)); transition: all 0.2s; }
-			.prose a:hover { border-bottom-color: rgb(var(--accent)); }
-			.prose blockquote { border-left: 4px solid rgb(var(--accent)); padding-left: 1.5em; margin: 1.5em 0; font-style: italic; color: rgb(var(--gray-dark)); }
-			.prose img { max-width: 100%; height: auto; border-radius: 10px; margin: 1.25em 0; }
-
-			/* Related / Read next */
-			.more {
-				max-width: 760px;
-				margin: 0 auto 3rem;
-				padding: 0 0.25rem;
-			}
-
-			.more h2 {
-				font-size: 1.6rem;
-				margin: 2.5rem 0 1rem;
-			}
-
-			.cards {
-				display: grid;
-				grid-template-columns: 1fr;
-				gap: 1rem;
-			}
-
-			@media (min-width: 768px) {
-				.cards {
-					grid-template-columns: repeat(2, 1fr);
-				}
-			}
-
-			.card {
-				display: block;
-				text-decoration: none;
-				color: inherit;
-				border-radius: 16px;
-				overflow: hidden;
-				background: white;
-				border: 1px solid rgba(0,0,0,0.06);
-				box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-				transition: transform 0.2s ease, box-shadow 0.2s ease;
-			}
-
-			.card:hover {
-				transform: translateY(-4px);
-				box-shadow: 0 16px 40px rgba(0,0,0,0.08);
-			}
-
-			.card img {
-				width: 100%;
-				height: 160px;
-				object-fit: cover;
-				display: block;
-			}
-
-			.card-body {
-				padding: 1rem 1rem 1.1rem;
-			}
-
-			.card-title {
-				font-weight: 800;
-				margin: 0 0 0.35rem;
-				line-height: 1.2;
-			}
-
-			.card-desc {
-				margin: 0;
-				color: rgb(var(--gray));
-				font-size: 0.95rem;
-				line-height: 1.5;
-			}
-
-			.nav-nextprev {
-				display: grid;
-				grid-template-columns: 1fr;
-				gap: 1rem;
-				margin-top: 1rem;
-			}
-			@media (min-width: 768px) {
-				.nav-nextprev {
-					grid-template-columns: repeat(2, 1fr);
-				}
-			}
-			.nav-box {
-				padding: 1rem;
-				border-radius: 16px;
-				background: rgba(102,126,234,0.06);
-				border: 1px solid rgba(102,126,234,0.18);
-				text-decoration: none;
-				color: inherit;
-				transition: transform 0.2s ease;
-			}
-			.nav-box:hover { transform: translateY(-3px); }
-			.nav-kicker { font-size: 0.85rem; color: rgb(var(--gray)); margin: 0 0 0.35rem; }
-			.nav-title { margin: 0; font-weight: 800; }
-
-			@media (max-width: 768px) {
-				.title h1 { font-size: 1.85rem; }
-				.no-hero-image { height: 250px; font-size: 3rem; }
-			}
-		</style>
-	</head>
-
-	<body>
-		<div class="progress" id="read-progress"></div>
-
-		<SpeedInsights />
-		<Analytics />
-		<Header />
-
-		<main>
-			<article>
-				{heroImage && heroImage !== "null" ? (
-					<div class="hero-image">
-						<img
-							src={heroImage}
-							alt={title}
-							loading="eager"
-							onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'no-hero-image\'>📝</div>';"
-						/>
-					</div>
-				) : (
-					<div class="no-hero-image">📝</div>
-				)}
-
-				<div class="title">
-					<div class="meta">
-						<span>📅 <FormattedDate date={pubDate} /></span>
-						{updatedDate && (
-							<span class="last-updated-on">
-								• Actualizado el <FormattedDate date={updatedDate} />
-							</span>
-						)}
-						{category && <span class="pill">{category}</span>}
-						{tags?.slice(0, 2).map((t) => <span class="pill">#{t}</span>)}
-						<span class="pill" id="read-time">⏱️ — min</span>
-					</div>
-					<h1>{title}</h1>
-					<hr />
-				</div>
-
-				{hasToc && (
-					<details class="toc-mobile">
-						<summary>📌 Contenido</summary>
-						<div class="toc-links">
-							{toc.map((h) => (
-								<a href={`#${h.slug}`} data-depth={h.depth}>
-									{h.depth === 3 ? "↳ " : ""}{h.text}
-								</a>
-							))}
-						</div>
-					</details>
-				)}
-
-				<div class="layout">
-					{hasToc && (
-						<aside class="toc" aria-label="Tabla de contenidos">
-							<h3>📌 Contenido</h3>
-							<nav>
-								{toc.map((h) => (
-									<a href={`#${h.slug}`} data-depth={h.depth} data-toc-link>
-										{h.text}
-									</a>
-								))}
-							</nav>
-						</aside>
-					)}
-
-					<div class="prose" id="article-prose">
-						<slot />
-					</div>
-				</div>
-
-				<section class="more">
-					{(nextPost || prevPost) && (
-						<>
-							<h2>📈 Seguí leyendo</h2>
-							<div class="nav-nextprev">
-								{prevPost && (
-									<a class="nav-box" href={`/blog/${prevPost.id}/`}>
-										<p class="nav-kicker">← Anterior</p>
-										<p class="nav-title">{prevPost.data.title}</p>
-									</a>
-								)}
-								{nextPost && (
-									<a class="nav-box" href={`/blog/${nextPost.id}/`}>
-										<p class="nav-kicker">Siguiente →</p>
-										<p class="nav-title">{nextPost.data.title}</p>
-									</a>
-								)}
-							</div>
-						</>
-					)}
-
-					{relatedPosts.length > 0 && (
-						<>
-							<h2>🔥 Artículos relacionados</h2>
-							<div class="cards">
-								{relatedPosts.map((p) => (
-									<a class="card" href={`/blog/${p.id}/`}>
-										<img src={p.data.heroImage ?? "/images/default-hero.jpg"} alt={p.data.title} loading="lazy" />
-										<div class="card-body">
-											<p class="card-title">{p.data.title}</p>
-											<p class="card-desc">{p.data.description}</p>
-										</div>
-									</a>
-								))}
-							</div>
-						</>
-					)}
-				</section>
-			</article>
-				<MonetizationHub
-					placement="middle"
-					category={category}
-					postTitle={title}
-				/>
-		</main>
-
-		<Footer />
-
-		<script is:inline>
-			// Reading progress bar
-			const bar = document.getElementById('read-progress');
-			const prose = document.getElementById('article-prose');
-
-			function updateProgress() {
-				const doc = document.documentElement;
-				const scrollTop = doc.scrollTop || document.body.scrollTop;
-				const scrollHeight = doc.scrollHeight - doc.clientHeight;
-				const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-				if (bar) bar.style.width = progress.toFixed(2) + '%';
-			}
-			window.addEventListener('scroll', updateProgress, { passive: true });
-			updateProgress();
-
-			// Reading time (200 wpm)
-			const text = prose ? prose.innerText : '';
-			const words = text.trim().split(/\s+/).filter(Boolean).length;
-			const mins = Math.max(1, Math.round(words / 200));
-			const rt = document.getElementById('read-time');
-			if (rt) rt.textContent = `⏱️ ${mins} min`;
-
-			// TOC active link highlighting
-			const tocLinks = Array.from(document.querySelectorAll('[data-toc-link]'));
-			const headingEls = Array.from(document.querySelectorAll('h2[id], h3[id]'));
-
-			const obs = new IntersectionObserver((entries) => {
-				const visible = entries
-					.filter(e => e.isIntersecting)
-					.sort((a,b) => (a.boundingClientRect.top - b.boundingClientRect.top))[0];
-
-				if (!visible) return;
-
-				const id = visible.target.getAttribute('id');
-				tocLinks.forEach(a => a.classList.remove('active'));
-				const active = tocLinks.find(a => a.getAttribute('href') === `#${id}`);
-				active?.classList.add('active');
-			}, { rootMargin: '-20% 0px -70% 0px', threshold: [0, 1] });
-
-			headingEls.forEach(h => obs.observe(h));
-		</script>
-	</body>
+          <!-- Article Content -->
+          <div class="prose">
+            <slot />
+          </div>
+        </div>
+      </article>
+    </main>
+    <Footer />
+  </body>
 </html>
+
+<style>
+  .container {
+    max-width: 768px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .hero-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .article-header {
+    margin-bottom: 3rem;
+  }
+
+  .category-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: #0066cc;
+    color: white;
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    margin: 1rem 0;
+    font-weight: 700;
+  }
+
+  .article-meta {
+    display: flex;
+    gap: 1rem;
+    color: #666;
+    font-size: 0.9375rem;
+    margin: 1rem 0;
+  }
+
+  .updated {
+    font-style: italic;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .tag {
+    color: #0066cc;
+    text-decoration: none;
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.25rem;
+    transition: all 0.2s ease;
+  }
+
+  .tag:hover {
+    background: #f0f0f0;
+    border-color: #0066cc;
+  }
+
+  .prose {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: #333;
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem;
+    }
+    
+    .prose {
+      font-size: 1rem;
+    }
+  }
+</style>
