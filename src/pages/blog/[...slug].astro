@@ -1,19 +1,28 @@
-
 ---
+export const prerender = true;
+
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 
 type Post = CollectionEntry<'blog'>;
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: post,
-	}));
+  const posts = await getCollection('blog');
+
+  return posts.map((post) => ({
+    // Como es [...slug], Astro espera string[]
+    // Si tus ids llegaran a tener subcarpetas, cambiá a: post.id.split('/')
+    params: { slug: [post.id] },
+    props: post,
+  }));
 }
 
-const post = Astro.props as Post;
+const post = Astro.props as Post | undefined;
+
+// Safety net: si por algún motivo no hay props, devolvé 404
+if (!post) {
+  return new Response('Not found', { status: 404 });
+}
 
 // Render del contenido + headings (para TOC)
 const { Content, headings } = await render(post);
@@ -23,56 +32,59 @@ const allPosts = await getCollection('blog');
 
 // Ordenados por fecha (más nuevos primero)
 const sorted = allPosts
-	.slice()
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  .slice()
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const currentIndex = sorted.findIndex((p) => p.id === post.id);
 
 // Next/Prev para retención
 const nextPost = currentIndex > 0 ? sorted[currentIndex - 1] : null;
-const prevPost = currentIndex >= 0 && currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
+const prevPost =
+  currentIndex >= 0 && currentIndex < sorted.length - 1
+    ? sorted[currentIndex + 1]
+    : null;
 
 // Related: score por tags + category
 const currentTags = post.data.tags ?? [];
 const currentCategory = (post.data.category ?? '').toLowerCase();
 
 function scoreRelated(candidate: Post) {
-	if (candidate.id === post.id) return -999;
+  if (candidate.id === post.id) return -999;
 
-	let score = 0;
+  let score = 0;
 
-	const candTags = candidate.data.tags ?? [];
-	const candCategory = (candidate.data.category ?? '').toLowerCase();
+  const candTags = candidate.data.tags ?? [];
+  const candCategory = (candidate.data.category ?? '').toLowerCase();
 
-	// Match por categoría (pesa más)
-	if (currentCategory && candCategory && currentCategory === candCategory) score += 5;
+  // Match por categoría (pesa más)
+  if (currentCategory && candCategory && currentCategory === candCategory) score += 5;
 
-	// Match por tags
-	const tagMatches = candTags.filter((t) => currentTags.includes(t)).length;
-	score += tagMatches * 2;
+  // Match por tags
+  const tagMatches = candTags.filter((t) => currentTags.includes(t)).length;
+  score += tagMatches * 2;
 
-	// Bonus si ambos tienen tags (evita "randoms")
-	if (tagMatches > 0) score += 1;
+  // Bonus si ambos tienen tags (evita "randoms")
+  if (tagMatches > 0) score += 1;
 
-	return score;
+  return score;
 }
 
 const relatedPosts = sorted
-	.filter((p) => p.id !== post.id)
-	.map((p) => ({ post: p, score: scoreRelated(p) }))
-	.filter((x) => x.score > 0)
-	.sort((a, b) => b.score - a.score)
-	.slice(0, 4)
-	.map((x) => x.post);
+  .filter((p) => p.id !== post.id)
+  .map((p) => ({ post: p, score: scoreRelated(p) }))
+  .filter((x) => x.score > 0)
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 4)
+  .map((x) => x.post);
 ---
 
 <BlogPost
-	{...post.data}
-	slug={post.id}
-	headings={headings}
-	relatedPosts={relatedPosts}
-	nextPost={nextPost}
-	prevPost={prevPost}
+  {...post.data}
+  slug={post.id}
+  headings={headings}
+  relatedPosts={relatedPosts}
+  nextPost={nextPost}
+  prevPost={prevPost}
 >
-	<Content />
+  <Content />
 </BlogPost>
