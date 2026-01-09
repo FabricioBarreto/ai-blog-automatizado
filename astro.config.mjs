@@ -3,14 +3,11 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import compress from "astro-compress";
 import partytown from "@astrojs/partytown";
-import vercel from "@astrojs/vercel/serverless"; // 👈 NUEVO
 
+// https://astro.build/config
 export default defineConfig({
   site: "https://www.productivitylab.online",
-
-  output: "server", // 👈 NUEVO (necesario para SSR)
-  adapter: vercel(), // 👈 NUEVO
-
+  output: "static",
   integrations: [
     mdx(),
     sitemap({
@@ -25,6 +22,7 @@ export default defineConfig({
       },
     }),
     compress({
+      // Comprimir CSS
       CSS: {
         csso: {
           restructure: true,
@@ -32,6 +30,7 @@ export default defineConfig({
           comments: false,
         },
       },
+      // Comprimir HTML
       HTML: {
         "html-minifier-terser": {
           removeAttributeQuotes: false,
@@ -41,10 +40,11 @@ export default defineConfig({
           minifyJS: true,
         },
       },
+      // Comprimir JavaScript
       JavaScript: {
         terser: {
           compress: {
-            drop_console: true,
+            drop_console: true, // Remover console.log en producción
             passes: 2,
           },
           mangle: true,
@@ -53,12 +53,22 @@ export default defineConfig({
           },
         },
       },
+      // Comprimir imágenes
       Image: {
-        avif: { quality: 80 },
-        webp: { quality: 85 },
-        jpg: { quality: 85 },
-        png: { quality: 85 },
+        avif: {
+          quality: 80,
+        },
+        webp: {
+          quality: 85,
+        },
+        jpg: {
+          quality: 85,
+        },
+        png: {
+          quality: 85,
+        },
       },
+      // Comprimir SVG
       SVG: {
         svgo: {
           plugins: [
@@ -76,18 +86,15 @@ export default defineConfig({
       },
     }),
   ],
-
   markdown: {
     shikiConfig: {
       theme: "github-dark",
       wrap: true,
     },
   },
-
   build: {
     inlineStylesheets: "auto",
   },
-
   vite: {
     build: {
       cssCodeSplit: true,
