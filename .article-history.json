@@ -283,11 +283,17 @@
       "type": "value",
       "category": "developer_productivity",
       "date": "2026-01-09T12:44:12.198Z"
+    },
+    {
+      "keyword": "AI for data analysis and visualization",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-01-10T12:39:17.039Z"
     }
   ],
-  "lastUpdate": "2026-01-09T12:44:12.198Z",
+  "lastUpdate": "2026-01-10T12:39:17.039Z",
   "categories": {
-    "ai_tools": 15,
+    "ai_tools": 16,
     "productivity_systems": 13,
     "ai_automation": 9,
     "developer_productivity": 5,
