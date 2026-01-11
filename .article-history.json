@@ -289,12 +289,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-01-10T12:39:17.039Z"
+    },
+    {
+      "keyword": "weekly review process setup",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-01-11T12:40:24.132Z"
     }
   ],
-  "lastUpdate": "2026-01-10T12:39:17.039Z",
+  "lastUpdate": "2026-01-11T12:40:24.132Z",
   "categories": {
     "ai_tools": 16,
-    "productivity_systems": 13,
+    "productivity_systems": 14,
     "ai_automation": 9,
     "developer_productivity": 5,
     "monetized_hardware": 2
