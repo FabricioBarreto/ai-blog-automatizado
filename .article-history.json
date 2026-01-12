@@ -1,11 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "remote work in : is it still the future or losing its ...",
-      "type": "monetized",
-      "date": "2025-12-27T13:30:40.019Z"
-    },
-    {
       "keyword": "remote job hunting in  is tough. here's what actually ...",
       "type": "monetized",
       "date": "2025-12-27T13:31:50.476Z"
@@ -295,14 +290,20 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-01-11T12:40:24.132Z"
+    },
+    {
+      "keyword": "desk accessories for efficiency",
+      "type": "value",
+      "category": "monetized_hardware",
+      "date": "2026-01-12T12:46:52.174Z"
     }
   ],
-  "lastUpdate": "2026-01-11T12:40:24.132Z",
+  "lastUpdate": "2026-01-12T12:46:52.174Z",
   "categories": {
     "ai_tools": 16,
     "productivity_systems": 14,
     "ai_automation": 9,
     "developer_productivity": 5,
-    "monetized_hardware": 2
+    "monetized_hardware": 3
   }
 }
