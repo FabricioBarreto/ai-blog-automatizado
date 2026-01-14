@@ -1,11 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "How can I make $2000 a week working from home?",
-      "type": "value",
-      "date": "2025-12-27T13:33:35.458Z"
-    },
-    {
       "keyword": "does remote work still exist in this space going into ?",
       "type": "monetized",
       "date": "2025-12-27T13:41:12.209Z"
@@ -297,13 +292,19 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-01-13T12:46:44.044Z"
+    },
+    {
+      "keyword": "AI integration with existing tools",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-01-14T12:45:33.706Z"
     }
   ],
-  "lastUpdate": "2026-01-13T12:46:44.044Z",
+  "lastUpdate": "2026-01-14T12:45:33.706Z",
   "categories": {
     "ai_tools": 17,
     "productivity_systems": 14,
-    "ai_automation": 9,
+    "ai_automation": 10,
     "developer_productivity": 5,
     "monetized_hardware": 3
   }
