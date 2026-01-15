@@ -1,11 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "does remote work still exist in this space going into ?",
-      "type": "monetized",
-      "date": "2025-12-27T13:41:12.209Z"
-    },
-    {
       "keyword": "AI API integration guide",
       "type": "value",
       "category": "ai_tools",
@@ -298,12 +293,18 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-01-14T12:45:33.706Z"
+    },
+    {
+      "keyword": "atomic habits implementation",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-01-15T12:45:05.686Z"
     }
   ],
-  "lastUpdate": "2026-01-14T12:45:33.706Z",
+  "lastUpdate": "2026-01-15T12:45:05.686Z",
   "categories": {
     "ai_tools": 17,
-    "productivity_systems": 14,
+    "productivity_systems": 15,
     "ai_automation": 10,
     "developer_productivity": 5,
     "monetized_hardware": 3
