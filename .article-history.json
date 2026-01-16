@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI API integration guide",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2025-12-27T15:22:17.930Z"
-    },
-    {
       "keyword": "para method for organization",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-01-15T12:45:05.686Z"
+    },
+    {
+      "keyword": "AI API integration guide",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-01-16T12:43:46.159Z"
     }
   ],
-  "lastUpdate": "2026-01-15T12:45:05.686Z",
+  "lastUpdate": "2026-01-16T12:43:46.159Z",
   "categories": {
-    "ai_tools": 17,
+    "ai_tools": 18,
     "productivity_systems": 15,
     "ai_automation": 10,
     "developer_productivity": 5,
