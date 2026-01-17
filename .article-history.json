@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "para method for organization",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2025-12-27T15:34:08.376Z"
-    },
-    {
       "keyword": "automating repetitive tasks with AI",
       "type": "value",
       "category": "ai_automation",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-01-16T12:43:46.159Z"
+    },
+    {
+      "keyword": "para method for organization",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-01-17T12:39:07.520Z"
     }
   ],
-  "lastUpdate": "2026-01-16T12:43:46.159Z",
+  "lastUpdate": "2026-01-17T12:39:07.520Z",
   "categories": {
     "ai_tools": 18,
-    "productivity_systems": 15,
+    "productivity_systems": 16,
     "ai_automation": 10,
     "developer_productivity": 5,
     "monetized_hardware": 3
