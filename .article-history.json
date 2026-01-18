@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "automating repetitive tasks with AI",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2025-12-27T22:59:27.678Z"
-    },
-    {
       "keyword": "terminal productivity tips",
       "type": "value",
       "category": "developer_productivity",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-01-17T12:39:07.520Z"
+    },
+    {
+      "keyword": "document processing automation",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-01-18T12:39:29.025Z"
     }
   ],
-  "lastUpdate": "2026-01-17T12:39:07.520Z",
+  "lastUpdate": "2026-01-18T12:39:29.025Z",
   "categories": {
     "ai_tools": 18,
     "productivity_systems": 16,
-    "ai_automation": 10,
+    "ai_automation": 11,
     "developer_productivity": 5,
     "monetized_hardware": 3
   }
