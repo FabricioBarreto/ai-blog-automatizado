@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "best mechanical keyboards for coding",
-      "type": "monetized",
-      "category": "monetized_hardware",
-      "date": "2025-12-28T15:14:13.043Z"
-    },
-    {
       "keyword": "AI writing tools comparison 2025",
       "type": "value",
       "category": "ai_tools",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-01-19T12:49:38.506Z"
+    },
+    {
+      "keyword": "CI/CD pipeline optimization",
+      "type": "value",
+      "category": "developer_productivity",
+      "date": "2026-01-20T12:50:36.871Z"
     }
   ],
-  "lastUpdate": "2026-01-19T12:49:38.506Z",
+  "lastUpdate": "2026-01-20T12:50:36.871Z",
   "categories": {
     "ai_tools": 19,
     "productivity_systems": 16,
     "ai_automation": 11,
-    "developer_productivity": 5,
+    "developer_productivity": 6,
     "monetized_hardware": 3
   }
 }
