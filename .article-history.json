@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI writing tools comparison 2025",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2025-12-28T15:14:39.804Z"
-    },
-    {
       "keyword": "getting things done GTD system",
       "type": "value",
       "category": "productivity_systems",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "developer_productivity",
       "date": "2026-01-20T12:50:36.871Z"
+    },
+    {
+      "keyword": "kanban workflow for solo work",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-01-21T12:50:26.651Z"
     }
   ],
-  "lastUpdate": "2026-01-20T12:50:36.871Z",
+  "lastUpdate": "2026-01-21T12:50:26.651Z",
   "categories": {
     "ai_tools": 19,
-    "productivity_systems": 16,
+    "productivity_systems": 17,
     "ai_automation": 11,
     "developer_productivity": 6,
     "monetized_hardware": 3
