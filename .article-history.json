@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "getting things done GTD system",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2025-12-28T16:04:41.467Z"
-    },
-    {
       "keyword": "automated content repurposing",
       "type": "value",
       "category": "ai_automation",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-01-21T12:50:26.651Z"
+    },
+    {
+      "keyword": "AI writing tools comparison 2025",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-01-22T12:49:36.372Z"
     }
   ],
-  "lastUpdate": "2026-01-21T12:50:26.651Z",
+  "lastUpdate": "2026-01-22T12:49:36.372Z",
   "categories": {
-    "ai_tools": 19,
+    "ai_tools": 20,
     "productivity_systems": 17,
     "ai_automation": 11,
     "developer_productivity": 6,
