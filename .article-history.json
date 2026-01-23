@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "automated content repurposing",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2025-12-28T16:39:12.628Z"
-    },
-    {
       "keyword": "how to use ChatGPT for content creation",
       "type": "value",
       "category": "ai_tools",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-01-22T12:49:36.372Z"
+    },
+    {
+      "keyword": "automating repetitive tasks with AI",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-01-23T12:46:20.888Z"
     }
   ],
-  "lastUpdate": "2026-01-22T12:49:36.372Z",
+  "lastUpdate": "2026-01-23T12:46:20.888Z",
   "categories": {
     "ai_tools": 20,
     "productivity_systems": 17,
-    "ai_automation": 11,
+    "ai_automation": 12,
     "developer_productivity": 6,
     "monetized_hardware": 3
   }
