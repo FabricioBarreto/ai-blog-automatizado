@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "zettelkasten note-taking method",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2025-12-28T23:19:18.950Z"
-    },
-    {
       "keyword": "AI for debugging and error fixing",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-01-24T12:40:13.107Z"
+    },
+    {
+      "keyword": "how to use ChatGPT for content creation",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-01-25T12:41:33.707Z"
     }
   ],
-  "lastUpdate": "2026-01-24T12:40:13.107Z",
+  "lastUpdate": "2026-01-25T12:41:33.707Z",
   "categories": {
-    "ai_tools": 20,
+    "ai_tools": 21,
     "productivity_systems": 18,
     "ai_automation": 12,
     "developer_productivity": 6,
