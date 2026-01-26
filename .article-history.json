@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI for debugging and error fixing",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2025-12-28T23:38:58.432Z"
-    },
-    {
       "keyword": "eisenhower matrix prioritization",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-01-25T12:41:33.707Z"
+    },
+    {
+      "keyword": "using AI for research and note-taking",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-01-26T12:48:37.483Z"
     }
   ],
-  "lastUpdate": "2026-01-25T12:41:33.707Z",
+  "lastUpdate": "2026-01-26T12:48:37.483Z",
   "categories": {
-    "ai_tools": 21,
+    "ai_tools": 22,
     "productivity_systems": 18,
     "ai_automation": 12,
     "developer_productivity": 6,
