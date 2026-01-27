@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "eisenhower matrix prioritization",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2025-12-28T23:47:55.876Z"
-    },
-    {
       "keyword": "building custom GPTs for business",
       "type": "value",
       "category": "ai_automation",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-01-26T12:48:37.483Z"
+    },
+    {
+      "keyword": "zettelkasten note-taking method",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-01-27T12:50:54.798Z"
     }
   ],
-  "lastUpdate": "2026-01-26T12:48:37.483Z",
+  "lastUpdate": "2026-01-27T12:50:54.798Z",
   "categories": {
     "ai_tools": 22,
-    "productivity_systems": 18,
+    "productivity_systems": 19,
     "ai_automation": 12,
     "developer_productivity": 6,
     "monetized_hardware": 3
