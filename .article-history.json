@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "building custom GPTs for business",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2025-12-28T23:49:43.274Z"
-    },
-    {
       "keyword": "GitHub Copilot vs Cursor AI",
       "type": "value",
       "category": "ai_tools",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-01-27T12:50:54.798Z"
+    },
+    {
+      "keyword": "batch processing with AI APIs",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-01-28T12:50:53.710Z"
     }
   ],
-  "lastUpdate": "2026-01-27T12:50:54.798Z",
+  "lastUpdate": "2026-01-28T12:50:53.710Z",
   "categories": {
     "ai_tools": 22,
     "productivity_systems": 19,
-    "ai_automation": 12,
+    "ai_automation": 13,
     "developer_productivity": 6,
     "monetized_hardware": 3
   }
