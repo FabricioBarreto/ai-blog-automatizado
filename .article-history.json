@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "GitHub Copilot vs Cursor AI",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2025-12-28T23:50:00.794Z"
-    },
-    {
       "keyword": "CLI tools every dev needs",
       "type": "value",
       "category": "developer_productivity",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-01-28T12:50:53.710Z"
+    },
+    {
+      "keyword": "refactoring legacy code approach",
+      "type": "value",
+      "category": "developer_productivity",
+      "date": "2026-01-29T12:57:07.044Z"
     }
   ],
-  "lastUpdate": "2026-01-28T12:50:53.710Z",
+  "lastUpdate": "2026-01-29T12:57:07.044Z",
   "categories": {
     "ai_tools": 22,
     "productivity_systems": 19,
     "ai_automation": 13,
-    "developer_productivity": 6,
+    "developer_productivity": 7,
     "monetized_hardware": 3
   }
 }
