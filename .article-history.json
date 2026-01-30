@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "CLI tools every dev needs",
-      "type": "value",
-      "category": "developer_productivity",
-      "date": "2025-12-29T12:44:02.769Z"
-    },
-    {
       "keyword": "habit stacking techniques",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "developer_productivity",
       "date": "2026-01-29T12:57:07.044Z"
+    },
+    {
+      "keyword": "AI for debugging and error fixing",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-01-30T12:55:09.813Z"
     }
   ],
-  "lastUpdate": "2026-01-29T12:57:07.044Z",
+  "lastUpdate": "2026-01-30T12:55:09.813Z",
   "categories": {
-    "ai_tools": 22,
+    "ai_tools": 23,
     "productivity_systems": 19,
     "ai_automation": 13,
     "developer_productivity": 7,
