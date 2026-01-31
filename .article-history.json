@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "habit stacking techniques",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2025-12-29T15:06:15.895Z"
-    },
-    {
       "keyword": "using AI for research and note-taking",
       "type": "value",
       "category": "ai_tools",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-01-30T12:55:09.813Z"
+    },
+    {
+      "keyword": "eisenhower matrix prioritization",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-01-31T12:46:41.970Z"
     }
   ],
-  "lastUpdate": "2026-01-30T12:55:09.813Z",
+  "lastUpdate": "2026-01-31T12:46:41.970Z",
   "categories": {
     "ai_tools": 23,
-    "productivity_systems": 19,
+    "productivity_systems": 20,
     "ai_automation": 13,
     "developer_productivity": 7,
     "monetized_hardware": 3
