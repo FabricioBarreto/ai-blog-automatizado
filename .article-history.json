@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "using AI for research and note-taking",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2025-12-30T02:10:03.593Z"
-    },
-    {
       "keyword": "AI data entry and extraction",
       "type": "value",
       "category": "ai_automation",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-01-31T12:46:41.970Z"
+    },
+    {
+      "keyword": "ergonomic setup for programmers",
+      "type": "value",
+      "category": "monetized_hardware",
+      "date": "2026-02-01T12:49:25.832Z"
     }
   ],
-  "lastUpdate": "2026-01-31T12:46:41.970Z",
+  "lastUpdate": "2026-02-01T12:49:25.832Z",
   "categories": {
     "ai_tools": 23,
     "productivity_systems": 20,
     "ai_automation": 13,
     "developer_productivity": 7,
-    "monetized_hardware": 3
+    "monetized_hardware": 4
   }
 }
