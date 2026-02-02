@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI data entry and extraction",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2025-12-30T12:38:31.713Z"
-    },
-    {
       "keyword": "building a second brain tutorial",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "monetized_hardware",
       "date": "2026-02-01T12:49:25.832Z"
+    },
+    {
+      "keyword": "GitHub Copilot vs Cursor AI",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-02-02T12:59:08.601Z"
     }
   ],
-  "lastUpdate": "2026-02-01T12:49:25.832Z",
+  "lastUpdate": "2026-02-02T12:59:08.601Z",
   "categories": {
-    "ai_tools": 23,
+    "ai_tools": 24,
     "productivity_systems": 20,
     "ai_automation": 13,
     "developer_productivity": 7,
