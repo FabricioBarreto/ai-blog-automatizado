@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "building a second brain tutorial",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2025-12-30T12:42:43.136Z"
-    },
-    {
       "keyword": "AI tools for developers workflow",
       "type": "value",
       "category": "ai_tools",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-02-02T12:59:08.601Z"
+    },
+    {
+      "keyword": "workflow automation without code",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-02-03T12:59:36.811Z"
     }
   ],
-  "lastUpdate": "2026-02-02T12:59:08.601Z",
+  "lastUpdate": "2026-02-03T12:59:36.811Z",
   "categories": {
     "ai_tools": 24,
     "productivity_systems": 20,
-    "ai_automation": 13,
+    "ai_automation": 14,
     "developer_productivity": 7,
     "monetized_hardware": 4
   }
