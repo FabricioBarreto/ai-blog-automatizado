@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "natural language to SQL with AI",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-01-01T12:42:01.260Z"
-    },
-    {
       "keyword": "pomodoro technique for deep work",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-02-04T12:59:20.307Z"
+    },
+    {
+      "keyword": "AI tools for developers workflow",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-02-05T13:02:19.060Z"
     }
   ],
-  "lastUpdate": "2026-02-04T12:59:20.307Z",
+  "lastUpdate": "2026-02-05T13:02:19.060Z",
   "categories": {
-    "ai_tools": 24,
+    "ai_tools": 25,
     "productivity_systems": 21,
     "ai_automation": 14,
     "developer_productivity": 7,
