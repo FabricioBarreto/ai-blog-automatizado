@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "pomodoro technique for deep work",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-01-02T12:40:39.434Z"
-    },
-    {
       "keyword": "Zapier vs Make for AI workflows",
       "type": "value",
       "category": "ai_automation",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-02-05T13:02:19.060Z"
+    },
+    {
+      "keyword": "building a second brain tutorial",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-02-06T12:58:42.795Z"
     }
   ],
-  "lastUpdate": "2026-02-05T13:02:19.060Z",
+  "lastUpdate": "2026-02-06T12:58:42.795Z",
   "categories": {
     "ai_tools": 25,
-    "productivity_systems": 21,
+    "productivity_systems": 22,
     "ai_automation": 14,
     "developer_productivity": 7,
     "monetized_hardware": 4
