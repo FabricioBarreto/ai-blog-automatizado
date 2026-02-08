@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "technical documentation writing",
-      "type": "value",
-      "category": "developer_productivity",
-      "date": "2026-01-03T21:12:53.144Z"
-    },
-    {
       "keyword": "training custom AI models basics",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-02-07T12:47:52.859Z"
+    },
+    {
+      "keyword": "training custom AI models basics",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-02-08T12:49:34.847Z"
     }
   ],
-  "lastUpdate": "2026-02-07T12:47:52.859Z",
+  "lastUpdate": "2026-02-08T12:49:34.847Z",
   "categories": {
-    "ai_tools": 25,
+    "ai_tools": 26,
     "productivity_systems": 22,
     "ai_automation": 15,
     "developer_productivity": 7,
