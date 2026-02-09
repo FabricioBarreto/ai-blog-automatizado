@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "training custom AI models basics",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-01-03T21:21:01.511Z"
-    },
-    {
       "keyword": "energy management strategies",
       "type": "value",
       "category": "productivity_systems",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-02-08T12:49:34.847Z"
+    },
+    {
+      "keyword": "monitoring and logging setup",
+      "type": "value",
+      "category": "developer_productivity",
+      "date": "2026-02-09T13:08:46.718Z"
     }
   ],
-  "lastUpdate": "2026-02-08T12:49:34.847Z",
+  "lastUpdate": "2026-02-09T13:08:46.718Z",
   "categories": {
     "ai_tools": 26,
     "productivity_systems": 22,
     "ai_automation": 15,
-    "developer_productivity": 7,
+    "developer_productivity": 8,
     "monetized_hardware": 4
   }
 }
