@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "energy management strategies",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-01-03T21:31:16.734Z"
-    },
-    {
       "keyword": "noise cancelling headphones focus",
       "type": "value",
       "category": "monetized_hardware",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "developer_productivity",
       "date": "2026-02-09T13:08:46.718Z"
+    },
+    {
+      "keyword": "pomodoro technique for deep work",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-02-10T13:13:42.615Z"
     }
   ],
-  "lastUpdate": "2026-02-09T13:08:46.718Z",
+  "lastUpdate": "2026-02-10T13:13:42.615Z",
   "categories": {
     "ai_tools": 26,
-    "productivity_systems": 22,
+    "productivity_systems": 23,
     "ai_automation": 15,
     "developer_productivity": 8,
     "monetized_hardware": 4
