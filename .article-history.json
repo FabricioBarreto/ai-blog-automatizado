@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "noise cancelling headphones focus",
-      "type": "value",
-      "category": "monetized_hardware",
-      "date": "2026-01-03T21:35:50.104Z"
-    },
-    {
       "keyword": "AI for data analysis and visualization",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-02-10T13:13:42.615Z"
+    },
+    {
+      "keyword": "AI for data analysis and visualization",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-02-11T13:09:42.059Z"
     }
   ],
-  "lastUpdate": "2026-02-10T13:13:42.615Z",
+  "lastUpdate": "2026-02-11T13:09:42.059Z",
   "categories": {
-    "ai_tools": 26,
+    "ai_tools": 27,
     "productivity_systems": 23,
     "ai_automation": 15,
     "developer_productivity": 8,
