@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "automated reporting with AI",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-01-03T21:55:16.041Z"
-    },
-    {
       "keyword": "time blocking vs task batching",
       "type": "value",
       "category": "productivity_systems",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-02-12T13:07:13.979Z"
+    },
+    {
+      "keyword": "energy management strategies",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-02-13T12:59:02.762Z"
     }
   ],
-  "lastUpdate": "2026-02-12T13:07:13.979Z",
+  "lastUpdate": "2026-02-13T12:59:02.762Z",
   "categories": {
     "ai_tools": 27,
-    "productivity_systems": 23,
+    "productivity_systems": 24,
     "ai_automation": 16,
     "developer_productivity": 8,
     "monetized_hardware": 4
