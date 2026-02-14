@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "time blocking vs task batching",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-01-03T22:07:23.845Z"
-    },
-    {
       "keyword": "Claude vs ChatGPT for coding",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-02-13T12:59:02.762Z"
+    },
+    {
+      "keyword": "automated testing with AI",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-02-14T12:47:46.519Z"
     }
   ],
-  "lastUpdate": "2026-02-13T12:59:02.762Z",
+  "lastUpdate": "2026-02-14T12:47:46.519Z",
   "categories": {
-    "ai_tools": 27,
+    "ai_tools": 28,
     "productivity_systems": 24,
     "ai_automation": 16,
     "developer_productivity": 8,
