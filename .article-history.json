@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "Claude vs ChatGPT for coding",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-01-03T22:10:11.032Z"
-    },
-    {
       "keyword": "inbox zero email system",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-02-14T12:47:46.519Z"
+    },
+    {
+      "keyword": "training custom AI models basics",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-02-15T12:50:40.605Z"
     }
   ],
-  "lastUpdate": "2026-02-14T12:47:46.519Z",
+  "lastUpdate": "2026-02-15T12:50:40.605Z",
   "categories": {
-    "ai_tools": 28,
+    "ai_tools": 29,
     "productivity_systems": 24,
     "ai_automation": 16,
     "developer_productivity": 8,
