@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "inbox zero email system",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-01-03T22:16:06.865Z"
-    },
-    {
       "keyword": "AI customer support setup",
       "type": "value",
       "category": "ai_automation",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-02-15T12:50:40.605Z"
+    },
+    {
+      "keyword": "time blocking vs task batching",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-02-16T13:02:48.559Z"
     }
   ],
-  "lastUpdate": "2026-02-15T12:50:40.605Z",
+  "lastUpdate": "2026-02-16T13:02:48.559Z",
   "categories": {
     "ai_tools": 29,
-    "productivity_systems": 24,
+    "productivity_systems": 25,
     "ai_automation": 16,
     "developer_productivity": 8,
     "monetized_hardware": 4
