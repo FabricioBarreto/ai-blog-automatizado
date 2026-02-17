@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI customer support setup",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-01-03T22:26:27.638Z"
-    },
-    {
       "keyword": "prompt engineering techniques",
       "type": "value",
       "category": "ai_tools",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-02-16T13:02:48.559Z"
+    },
+    {
+      "keyword": "Zapier vs Make for AI workflows",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-02-17T13:02:55.793Z"
     }
   ],
-  "lastUpdate": "2026-02-16T13:02:48.559Z",
+  "lastUpdate": "2026-02-17T13:02:55.793Z",
   "categories": {
     "ai_tools": 29,
     "productivity_systems": 25,
-    "ai_automation": 16,
+    "ai_automation": 17,
     "developer_productivity": 8,
     "monetized_hardware": 4
   }
