@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "prompt engineering techniques",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-01-03T22:35:33.916Z"
-    },
-    {
       "keyword": "docker development workflow",
       "type": "value",
       "category": "developer_productivity",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-02-17T13:02:55.793Z"
+    },
+    {
+      "keyword": "terminal productivity tips",
+      "type": "value",
+      "category": "developer_productivity",
+      "date": "2026-02-18T13:03:57.284Z"
     }
   ],
-  "lastUpdate": "2026-02-17T13:02:55.793Z",
+  "lastUpdate": "2026-02-18T13:03:57.284Z",
   "categories": {
     "ai_tools": 29,
     "productivity_systems": 25,
     "ai_automation": 17,
-    "developer_productivity": 8,
+    "developer_productivity": 9,
     "monetized_hardware": 4
   }
 }
