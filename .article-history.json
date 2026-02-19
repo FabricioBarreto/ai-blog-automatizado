@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "docker development workflow",
-      "type": "value",
-      "category": "developer_productivity",
-      "date": "2026-01-03T22:37:40.111Z"
-    },
-    {
       "keyword": "morning routine for focus",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "developer_productivity",
       "date": "2026-02-18T13:03:57.284Z"
+    },
+    {
+      "keyword": "prompt engineering techniques",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-02-19T13:04:50.068Z"
     }
   ],
-  "lastUpdate": "2026-02-18T13:03:57.284Z",
+  "lastUpdate": "2026-02-19T13:04:50.068Z",
   "categories": {
-    "ai_tools": 29,
+    "ai_tools": 30,
     "productivity_systems": 25,
     "ai_automation": 17,
     "developer_productivity": 9,
