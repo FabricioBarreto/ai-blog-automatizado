@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "morning routine for focus",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-01-03T22:40:36.364Z"
-    },
-    {
       "keyword": "AI agents for automation",
       "type": "value",
       "category": "ai_tools",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-02-19T13:04:50.068Z"
+    },
+    {
+      "keyword": "inbox zero email system",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-02-20T12:58:11.101Z"
     }
   ],
-  "lastUpdate": "2026-02-19T13:04:50.068Z",
+  "lastUpdate": "2026-02-20T12:58:11.101Z",
   "categories": {
     "ai_tools": 30,
-    "productivity_systems": 25,
+    "productivity_systems": 26,
     "ai_automation": 17,
     "developer_productivity": 9,
     "monetized_hardware": 4
