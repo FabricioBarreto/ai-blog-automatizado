@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI agents for automation",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-01-03T22:46:05.572Z"
-    },
-    {
       "keyword": "AI email management automation",
       "type": "value",
       "category": "ai_automation",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-02-20T12:58:11.101Z"
+    },
+    {
+      "keyword": "noise cancelling headphones focus",
+      "type": "value",
+      "category": "monetized_hardware",
+      "date": "2026-02-21T12:46:08.364Z"
     }
   ],
-  "lastUpdate": "2026-02-20T12:58:11.101Z",
+  "lastUpdate": "2026-02-21T12:46:08.364Z",
   "categories": {
     "ai_tools": 30,
     "productivity_systems": 26,
     "ai_automation": 17,
     "developer_productivity": 9,
-    "monetized_hardware": 4
+    "monetized_hardware": 5
   }
 }
