@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI email management automation",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-01-03T22:47:40.743Z"
-    },
-    {
       "keyword": "digital minimalism approach",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "monetized_hardware",
       "date": "2026-02-21T12:46:08.364Z"
+    },
+    {
+      "keyword": "AI code review tools",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-02-22T12:49:21.135Z"
     }
   ],
-  "lastUpdate": "2026-02-21T12:46:08.364Z",
+  "lastUpdate": "2026-02-22T12:49:21.135Z",
   "categories": {
-    "ai_tools": 30,
+    "ai_tools": 31,
     "productivity_systems": 26,
     "ai_automation": 17,
     "developer_productivity": 9,
