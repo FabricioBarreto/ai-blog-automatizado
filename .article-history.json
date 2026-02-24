@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI code review tools",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-01-05T12:46:13.781Z"
-    },
-    {
       "keyword": "natural language to SQL with AI",
       "type": "value",
       "category": "ai_tools",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-02-23T13:03:43.000Z"
+    },
+    {
+      "keyword": "morning routine for focus",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-02-24T13:05:53.065Z"
     }
   ],
-  "lastUpdate": "2026-02-23T13:03:43.000Z",
+  "lastUpdate": "2026-02-24T13:05:53.065Z",
   "categories": {
     "ai_tools": 31,
-    "productivity_systems": 26,
+    "productivity_systems": 27,
     "ai_automation": 18,
     "developer_productivity": 9,
     "monetized_hardware": 5
