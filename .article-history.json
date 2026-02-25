@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "natural language to SQL with AI",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-01-06T12:44:02.829Z"
-    },
-    {
       "keyword": "kanban workflow for solo work",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-02-24T13:05:53.065Z"
+    },
+    {
+      "keyword": "natural language to SQL with AI",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-02-25T13:03:45.503Z"
     }
   ],
-  "lastUpdate": "2026-02-24T13:05:53.065Z",
+  "lastUpdate": "2026-02-25T13:03:45.503Z",
   "categories": {
-    "ai_tools": 31,
+    "ai_tools": 32,
     "productivity_systems": 27,
     "ai_automation": 18,
     "developer_productivity": 9,
