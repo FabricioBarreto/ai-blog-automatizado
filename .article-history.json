@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "kanban workflow for solo work",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-01-07T12:44:49.145Z"
-    },
-    {
       "keyword": "AI calendar management",
       "type": "value",
       "category": "ai_automation",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-02-25T13:03:45.503Z"
+    },
+    {
+      "keyword": "digital minimalism approach",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-02-26T13:05:15.108Z"
     }
   ],
-  "lastUpdate": "2026-02-25T13:03:45.503Z",
+  "lastUpdate": "2026-02-26T13:05:15.108Z",
   "categories": {
     "ai_tools": 32,
-    "productivity_systems": 27,
+    "productivity_systems": 28,
     "ai_automation": 18,
     "developer_productivity": 9,
     "monetized_hardware": 5
