@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI calendar management",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-01-08T12:45:03.880Z"
-    },
-    {
       "keyword": "pair programming remotely",
       "type": "value",
       "category": "developer_productivity",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-02-26T13:05:15.108Z"
+    },
+    {
+      "keyword": "AI calendar management",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-02-27T12:58:35.338Z"
     }
   ],
-  "lastUpdate": "2026-02-26T13:05:15.108Z",
+  "lastUpdate": "2026-02-27T12:58:35.338Z",
   "categories": {
     "ai_tools": 32,
     "productivity_systems": 28,
-    "ai_automation": 18,
+    "ai_automation": 19,
     "developer_productivity": 9,
     "monetized_hardware": 5
   }
