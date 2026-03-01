@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI for data analysis and visualization",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-01-10T12:39:17.039Z"
-    },
-    {
       "keyword": "weekly review process setup",
       "type": "value",
       "category": "productivity_systems",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-02-28T12:44:07.024Z"
+    },
+    {
+      "keyword": "git workflow optimization",
+      "type": "value",
+      "category": "developer_productivity",
+      "date": "2026-03-01T12:47:27.106Z"
     }
   ],
-  "lastUpdate": "2026-02-28T12:44:07.024Z",
+  "lastUpdate": "2026-03-01T12:47:27.106Z",
   "categories": {
     "ai_tools": 33,
     "productivity_systems": 28,
     "ai_automation": 19,
-    "developer_productivity": 9,
+    "developer_productivity": 10,
     "monetized_hardware": 5
   }
 }
