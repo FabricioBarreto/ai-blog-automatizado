@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "weekly review process setup",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-01-11T12:40:24.132Z"
-    },
-    {
       "keyword": "desk accessories for efficiency",
       "type": "value",
       "category": "monetized_hardware",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "developer_productivity",
       "date": "2026-03-01T12:47:27.106Z"
+    },
+    {
+      "keyword": "atomic habits implementation",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-03-02T12:58:09.429Z"
     }
   ],
-  "lastUpdate": "2026-03-01T12:47:27.106Z",
+  "lastUpdate": "2026-03-02T12:58:09.429Z",
   "categories": {
     "ai_tools": 33,
-    "productivity_systems": 28,
+    "productivity_systems": 29,
     "ai_automation": 19,
     "developer_productivity": 10,
     "monetized_hardware": 5
