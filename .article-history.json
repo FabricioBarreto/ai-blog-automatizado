@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "Claude vs ChatGPT for coding",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-01-13T12:46:44.044Z"
-    },
-    {
       "keyword": "AI integration with existing tools",
       "type": "value",
       "category": "ai_automation",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-03-03T12:56:47.331Z"
+    },
+    {
+      "keyword": "AI data entry and extraction",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-03-04T12:56:02.027Z"
     }
   ],
-  "lastUpdate": "2026-03-03T12:56:47.331Z",
+  "lastUpdate": "2026-03-04T12:56:02.027Z",
   "categories": {
     "ai_tools": 34,
     "productivity_systems": 29,
-    "ai_automation": 19,
+    "ai_automation": 20,
     "developer_productivity": 10,
     "monetized_hardware": 5
   }
