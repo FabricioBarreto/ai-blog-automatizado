@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "atomic habits implementation",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-01-15T12:45:05.686Z"
-    },
-    {
       "keyword": "AI API integration guide",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-03-05T13:00:19.442Z"
+    },
+    {
+      "keyword": "Claude vs ChatGPT for coding",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-03-06T12:55:21.912Z"
     }
   ],
-  "lastUpdate": "2026-03-05T13:00:19.442Z",
+  "lastUpdate": "2026-03-06T12:55:21.912Z",
   "categories": {
-    "ai_tools": 34,
+    "ai_tools": 35,
     "productivity_systems": 30,
     "ai_automation": 20,
     "developer_productivity": 10,
