@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "para method for organization",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-01-17T12:39:07.520Z"
-    },
-    {
       "keyword": "document processing automation",
       "type": "value",
       "category": "ai_automation",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-03-07T12:46:01.182Z"
+    },
+    {
+      "keyword": "para method for organization",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-03-08T12:48:04.996Z"
     }
   ],
-  "lastUpdate": "2026-03-07T12:46:01.182Z",
+  "lastUpdate": "2026-03-08T12:48:04.996Z",
   "categories": {
     "ai_tools": 36,
-    "productivity_systems": 30,
+    "productivity_systems": 31,
     "ai_automation": 20,
     "developer_productivity": 10,
     "monetized_hardware": 5
