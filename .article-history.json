@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "document processing automation",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-01-18T12:39:29.025Z"
-    },
-    {
       "keyword": "Claude vs ChatGPT for coding",
       "type": "value",
       "category": "ai_tools",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-03-08T12:48:04.996Z"
+    },
+    {
+      "keyword": "automating repetitive tasks with AI",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-03-09T13:02:20.416Z"
     }
   ],
-  "lastUpdate": "2026-03-08T12:48:04.996Z",
+  "lastUpdate": "2026-03-09T13:02:20.416Z",
   "categories": {
     "ai_tools": 36,
     "productivity_systems": 31,
-    "ai_automation": 20,
+    "ai_automation": 21,
     "developer_productivity": 10,
     "monetized_hardware": 5
   }
