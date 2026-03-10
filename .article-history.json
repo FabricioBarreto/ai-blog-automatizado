@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "Claude vs ChatGPT for coding",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-01-19T12:49:38.506Z"
-    },
-    {
       "keyword": "CI/CD pipeline optimization",
       "type": "value",
       "category": "developer_productivity",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-03-09T13:02:20.416Z"
+    },
+    {
+      "keyword": "VS Code extensions for speed",
+      "type": "value",
+      "category": "developer_productivity",
+      "date": "2026-03-10T12:59:37.524Z"
     }
   ],
-  "lastUpdate": "2026-03-09T13:02:20.416Z",
+  "lastUpdate": "2026-03-10T12:59:37.524Z",
   "categories": {
     "ai_tools": 36,
     "productivity_systems": 31,
     "ai_automation": 21,
-    "developer_productivity": 10,
+    "developer_productivity": 11,
     "monetized_hardware": 5
   }
 }
