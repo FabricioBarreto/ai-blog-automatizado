@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI writing tools comparison 2025",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-01-22T12:49:36.372Z"
-    },
-    {
       "keyword": "automating repetitive tasks with AI",
       "type": "value",
       "category": "ai_automation",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-03-12T12:59:08.237Z"
+    },
+    {
+      "keyword": "best mechanical keyboards for coding",
+      "type": "value",
+      "category": "monetized_hardware",
+      "date": "2026-03-13T12:57:52.189Z"
     }
   ],
-  "lastUpdate": "2026-03-12T12:59:08.237Z",
+  "lastUpdate": "2026-03-13T12:57:52.189Z",
   "categories": {
     "ai_tools": 37,
     "productivity_systems": 32,
     "ai_automation": 21,
     "developer_productivity": 11,
-    "monetized_hardware": 5
+    "monetized_hardware": 6
   }
 }
