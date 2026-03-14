@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "automating repetitive tasks with AI",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-01-23T12:46:20.888Z"
-    },
-    {
       "keyword": "getting things done GTD system",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "monetized_hardware",
       "date": "2026-03-13T12:57:52.189Z"
+    },
+    {
+      "keyword": "how to use ChatGPT for content creation",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-03-14T12:51:13.968Z"
     }
   ],
-  "lastUpdate": "2026-03-13T12:57:52.189Z",
+  "lastUpdate": "2026-03-14T12:51:13.968Z",
   "categories": {
-    "ai_tools": 37,
+    "ai_tools": 38,
     "productivity_systems": 32,
     "ai_automation": 21,
     "developer_productivity": 11,
