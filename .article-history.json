@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "how to use ChatGPT for content creation",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-01-25T12:41:33.707Z"
-    },
-    {
       "keyword": "using AI for research and note-taking",
       "type": "value",
       "category": "ai_tools",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-03-15T12:52:17.640Z"
+    },
+    {
+      "keyword": "kanban workflow for solo work",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-03-16T13:11:38.694Z"
     }
   ],
-  "lastUpdate": "2026-03-15T12:52:17.640Z",
+  "lastUpdate": "2026-03-16T13:11:38.694Z",
   "categories": {
     "ai_tools": 38,
-    "productivity_systems": 32,
+    "productivity_systems": 33,
     "ai_automation": 22,
     "developer_productivity": 11,
     "monetized_hardware": 6
