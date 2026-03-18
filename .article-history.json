@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "zettelkasten note-taking method",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-01-27T12:50:54.798Z"
-    },
-    {
       "keyword": "batch processing with AI APIs",
       "type": "value",
       "category": "ai_automation",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-03-17T13:11:28.110Z"
+    },
+    {
+      "keyword": "zettelkasten note-taking method",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-03-18T13:11:21.669Z"
     }
   ],
-  "lastUpdate": "2026-03-17T13:11:28.110Z",
+  "lastUpdate": "2026-03-18T13:11:21.670Z",
   "categories": {
     "ai_tools": 39,
-    "productivity_systems": 33,
+    "productivity_systems": 34,
     "ai_automation": 22,
     "developer_productivity": 11,
     "monetized_hardware": 6
