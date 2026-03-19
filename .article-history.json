@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "batch processing with AI APIs",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-01-28T12:50:53.710Z"
-    },
-    {
       "keyword": "refactoring legacy code approach",
       "type": "value",
       "category": "developer_productivity",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-03-18T13:11:21.669Z"
+    },
+    {
+      "keyword": "document processing automation",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-03-19T13:03:59.503Z"
     }
   ],
-  "lastUpdate": "2026-03-18T13:11:21.670Z",
+  "lastUpdate": "2026-03-19T13:03:59.503Z",
   "categories": {
     "ai_tools": 39,
     "productivity_systems": 34,
-    "ai_automation": 22,
+    "ai_automation": 23,
     "developer_productivity": 11,
     "monetized_hardware": 6
   }
