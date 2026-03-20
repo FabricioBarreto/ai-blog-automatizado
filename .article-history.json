@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "refactoring legacy code approach",
-      "type": "value",
-      "category": "developer_productivity",
-      "date": "2026-01-29T12:57:07.044Z"
-    },
-    {
       "keyword": "AI for debugging and error fixing",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-03-19T13:03:59.503Z"
+    },
+    {
+      "keyword": "GitHub Copilot vs Cursor AI",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-03-20T12:58:50.054Z"
     }
   ],
-  "lastUpdate": "2026-03-19T13:03:59.503Z",
+  "lastUpdate": "2026-03-20T12:58:50.054Z",
   "categories": {
-    "ai_tools": 39,
+    "ai_tools": 40,
     "productivity_systems": 34,
     "ai_automation": 23,
     "developer_productivity": 11,
