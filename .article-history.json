@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI for debugging and error fixing",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-01-30T12:55:09.813Z"
-    },
-    {
       "keyword": "eisenhower matrix prioritization",
       "type": "value",
       "category": "productivity_systems",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-03-20T12:58:50.054Z"
+    },
+    {
+      "keyword": "technical documentation writing",
+      "type": "value",
+      "category": "developer_productivity",
+      "date": "2026-03-21T12:48:16.662Z"
     }
   ],
-  "lastUpdate": "2026-03-20T12:58:50.054Z",
+  "lastUpdate": "2026-03-21T12:48:16.662Z",
   "categories": {
     "ai_tools": 40,
     "productivity_systems": 34,
     "ai_automation": 23,
-    "developer_productivity": 11,
+    "developer_productivity": 12,
     "monetized_hardware": 6
   }
 }
