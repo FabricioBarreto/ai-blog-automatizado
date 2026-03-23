@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "ergonomic setup for programmers",
-      "type": "value",
-      "category": "monetized_hardware",
-      "date": "2026-02-01T12:49:25.832Z"
-    },
-    {
       "keyword": "GitHub Copilot vs Cursor AI",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-03-22T12:51:10.882Z"
+    },
+    {
+      "keyword": "AI tools for developers workflow",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-03-23T13:06:46.840Z"
     }
   ],
-  "lastUpdate": "2026-03-22T12:51:10.882Z",
+  "lastUpdate": "2026-03-23T13:06:46.840Z",
   "categories": {
-    "ai_tools": 40,
+    "ai_tools": 41,
     "productivity_systems": 35,
     "ai_automation": 23,
     "developer_productivity": 12,
