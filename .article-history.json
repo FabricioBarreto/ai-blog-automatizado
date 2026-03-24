@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "GitHub Copilot vs Cursor AI",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-02-02T12:59:08.601Z"
-    },
-    {
       "keyword": "workflow automation without code",
       "type": "value",
       "category": "ai_automation",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-03-23T13:06:46.840Z"
+    },
+    {
+      "keyword": "workflow automation without code",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-03-24T13:10:56.354Z"
     }
   ],
-  "lastUpdate": "2026-03-23T13:06:46.840Z",
+  "lastUpdate": "2026-03-24T13:10:56.354Z",
   "categories": {
     "ai_tools": 41,
     "productivity_systems": 35,
-    "ai_automation": 23,
+    "ai_automation": 24,
     "developer_productivity": 12,
     "monetized_hardware": 6
   }
