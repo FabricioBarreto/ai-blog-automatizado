@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "workflow automation without code",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-02-03T12:59:36.811Z"
-    },
-    {
       "keyword": "habit stacking techniques",
       "type": "value",
       "category": "productivity_systems",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-03-24T13:10:56.354Z"
+    },
+    {
+      "keyword": "building a second brain tutorial",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-03-25T13:09:46.637Z"
     }
   ],
-  "lastUpdate": "2026-03-24T13:10:56.354Z",
+  "lastUpdate": "2026-03-25T13:09:46.637Z",
   "categories": {
     "ai_tools": 41,
-    "productivity_systems": 35,
+    "productivity_systems": 36,
     "ai_automation": 24,
     "developer_productivity": 12,
     "monetized_hardware": 6
