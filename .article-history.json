@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "habit stacking techniques",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-02-04T12:59:20.307Z"
-    },
-    {
       "keyword": "AI tools for developers workflow",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-03-25T13:09:46.637Z"
+    },
+    {
+      "keyword": "AI agents for automation",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-03-26T13:15:28.172Z"
     }
   ],
-  "lastUpdate": "2026-03-25T13:09:46.637Z",
+  "lastUpdate": "2026-03-26T13:15:28.172Z",
   "categories": {
-    "ai_tools": 41,
+    "ai_tools": 42,
     "productivity_systems": 36,
     "ai_automation": 24,
     "developer_productivity": 12,
