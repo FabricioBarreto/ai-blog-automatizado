@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI tools for developers workflow",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-02-05T13:02:19.060Z"
-    },
-    {
       "keyword": "building a second brain tutorial",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-03-26T13:15:28.172Z"
+    },
+    {
+      "keyword": "automated testing with AI",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-03-27T13:05:56.071Z"
     }
   ],
-  "lastUpdate": "2026-03-26T13:15:28.172Z",
+  "lastUpdate": "2026-03-27T13:05:56.071Z",
   "categories": {
-    "ai_tools": 42,
+    "ai_tools": 43,
     "productivity_systems": 36,
     "ai_automation": 24,
     "developer_productivity": 12,
