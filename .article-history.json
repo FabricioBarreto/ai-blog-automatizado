@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "building a second brain tutorial",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-02-06T12:58:42.795Z"
-    },
-    {
       "keyword": "smart notification filtering",
       "type": "value",
       "category": "ai_automation",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-03-27T13:05:56.071Z"
+    },
+    {
+      "keyword": "pomodoro technique for deep work",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-03-28T12:54:33.930Z"
     }
   ],
-  "lastUpdate": "2026-03-27T13:05:56.071Z",
+  "lastUpdate": "2026-03-28T12:54:33.930Z",
   "categories": {
     "ai_tools": 43,
-    "productivity_systems": 36,
+    "productivity_systems": 37,
     "ai_automation": 24,
     "developer_productivity": 12,
     "monetized_hardware": 6
