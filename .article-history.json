@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "pomodoro technique for deep work",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-02-10T13:13:42.615Z"
-    },
-    {
       "keyword": "AI for data analysis and visualization",
       "type": "value",
       "category": "ai_tools",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-03-31T13:17:44.321Z"
+    },
+    {
+      "keyword": "energy management strategies",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-04-01T13:21:13.443Z"
     }
   ],
-  "lastUpdate": "2026-03-31T13:17:44.321Z",
+  "lastUpdate": "2026-04-01T13:21:13.443Z",
   "categories": {
     "ai_tools": 44,
-    "productivity_systems": 37,
+    "productivity_systems": 38,
     "ai_automation": 25,
     "developer_productivity": 13,
     "monetized_hardware": 6
