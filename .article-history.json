@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI for data analysis and visualization",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-02-11T13:09:42.059Z"
-    },
-    {
       "keyword": "building custom GPTs for business",
       "type": "value",
       "category": "ai_automation",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-04-01T13:21:13.443Z"
+    },
+    {
+      "keyword": "desk accessories for efficiency",
+      "type": "value",
+      "category": "monetized_hardware",
+      "date": "2026-04-02T13:13:12.890Z"
     }
   ],
-  "lastUpdate": "2026-04-01T13:21:13.443Z",
+  "lastUpdate": "2026-04-02T13:13:12.890Z",
   "categories": {
     "ai_tools": 44,
     "productivity_systems": 38,
     "ai_automation": 25,
     "developer_productivity": 13,
-    "monetized_hardware": 6
+    "monetized_hardware": 7
   }
 }
