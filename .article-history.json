@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "energy management strategies",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-02-13T12:59:02.762Z"
-    },
-    {
       "keyword": "automated testing with AI",
       "type": "value",
       "category": "ai_tools",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-04-03T13:03:04.914Z"
+    },
+    {
+      "keyword": "automated content repurposing",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-04-04T12:54:50.176Z"
     }
   ],
-  "lastUpdate": "2026-04-03T13:03:04.914Z",
+  "lastUpdate": "2026-04-04T12:54:50.176Z",
   "categories": {
     "ai_tools": 45,
     "productivity_systems": 38,
-    "ai_automation": 25,
+    "ai_automation": 26,
     "developer_productivity": 13,
     "monetized_hardware": 7
   }
