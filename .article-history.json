@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "automated testing with AI",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-02-14T12:47:46.519Z"
-    },
-    {
       "keyword": "training custom AI models basics",
       "type": "value",
       "category": "ai_tools",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-04-04T12:54:50.176Z"
+    },
+    {
+      "keyword": "time blocking vs task batching",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-04-05T12:56:53.151Z"
     }
   ],
-  "lastUpdate": "2026-04-04T12:54:50.176Z",
+  "lastUpdate": "2026-04-05T12:56:53.152Z",
   "categories": {
     "ai_tools": 45,
-    "productivity_systems": 38,
+    "productivity_systems": 39,
     "ai_automation": 26,
     "developer_productivity": 13,
     "monetized_hardware": 7
