@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "training custom AI models basics",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-02-15T12:50:40.605Z"
-    },
-    {
       "keyword": "time blocking vs task batching",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-04-05T12:56:53.151Z"
+    },
+    {
+      "keyword": "prompt engineering techniques",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-04-06T13:09:20.633Z"
     }
   ],
-  "lastUpdate": "2026-04-05T12:56:53.152Z",
+  "lastUpdate": "2026-04-06T13:09:20.633Z",
   "categories": {
-    "ai_tools": 45,
+    "ai_tools": 46,
     "productivity_systems": 39,
     "ai_automation": 26,
     "developer_productivity": 13,
