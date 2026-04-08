@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "Zapier vs Make for AI workflows",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-02-17T13:02:55.793Z"
-    },
-    {
       "keyword": "terminal productivity tips",
       "type": "value",
       "category": "developer_productivity",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-04-07T13:18:20.710Z"
+    },
+    {
+      "keyword": "AI customer support setup",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-04-08T13:19:26.532Z"
     }
   ],
-  "lastUpdate": "2026-04-07T13:18:20.710Z",
+  "lastUpdate": "2026-04-08T13:19:26.532Z",
   "categories": {
     "ai_tools": 46,
     "productivity_systems": 40,
-    "ai_automation": 26,
+    "ai_automation": 27,
     "developer_productivity": 13,
     "monetized_hardware": 7
   }
