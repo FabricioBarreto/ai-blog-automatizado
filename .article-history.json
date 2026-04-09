@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "terminal productivity tips",
-      "type": "value",
-      "category": "developer_productivity",
-      "date": "2026-02-18T13:03:57.284Z"
-    },
-    {
       "keyword": "prompt engineering techniques",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-04-08T13:19:26.532Z"
+    },
+    {
+      "keyword": "AI code review tools",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-04-09T13:27:13.480Z"
     }
   ],
-  "lastUpdate": "2026-04-08T13:19:26.532Z",
+  "lastUpdate": "2026-04-09T13:27:13.480Z",
   "categories": {
-    "ai_tools": 46,
+    "ai_tools": 47,
     "productivity_systems": 40,
     "ai_automation": 27,
     "developer_productivity": 13,
