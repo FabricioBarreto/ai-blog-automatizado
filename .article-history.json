@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "inbox zero email system",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-02-20T12:58:11.101Z"
-    },
-    {
       "keyword": "noise cancelling headphones focus",
       "type": "value",
       "category": "monetized_hardware",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "developer_productivity",
       "date": "2026-04-10T13:09:23.507Z"
+    },
+    {
+      "keyword": "inbox zero email system",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-04-11T12:56:41.735Z"
     }
   ],
-  "lastUpdate": "2026-04-10T13:09:23.507Z",
+  "lastUpdate": "2026-04-11T12:56:41.735Z",
   "categories": {
     "ai_tools": 47,
-    "productivity_systems": 40,
+    "productivity_systems": 41,
     "ai_automation": 27,
     "developer_productivity": 14,
     "monetized_hardware": 7
