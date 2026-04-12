@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "noise cancelling headphones focus",
-      "type": "value",
-      "category": "monetized_hardware",
-      "date": "2026-02-21T12:46:08.364Z"
-    },
-    {
       "keyword": "AI code review tools",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-04-11T12:56:41.735Z"
+    },
+    {
+      "keyword": "natural language to SQL with AI",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-04-12T13:00:35.659Z"
     }
   ],
-  "lastUpdate": "2026-04-11T12:56:41.735Z",
+  "lastUpdate": "2026-04-12T13:00:35.659Z",
   "categories": {
-    "ai_tools": 47,
+    "ai_tools": 48,
     "productivity_systems": 41,
     "ai_automation": 27,
     "developer_productivity": 14,
