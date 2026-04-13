@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI code review tools",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-02-22T12:49:21.135Z"
-    },
-    {
       "keyword": "AI email management automation",
       "type": "value",
       "category": "ai_automation",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-04-12T13:00:35.659Z"
+    },
+    {
+      "keyword": "Zapier vs Make for AI workflows",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-04-13T13:25:25.267Z"
     }
   ],
-  "lastUpdate": "2026-04-12T13:00:35.659Z",
+  "lastUpdate": "2026-04-13T13:25:25.267Z",
   "categories": {
     "ai_tools": 48,
     "productivity_systems": 41,
-    "ai_automation": 27,
+    "ai_automation": 28,
     "developer_productivity": 14,
     "monetized_hardware": 7
   }
