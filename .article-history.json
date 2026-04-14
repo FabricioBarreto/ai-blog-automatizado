@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI email management automation",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-02-23T13:03:43.000Z"
-    },
-    {
       "keyword": "morning routine for focus",
       "type": "value",
       "category": "productivity_systems",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-04-13T13:25:25.267Z"
+    },
+    {
+      "keyword": "morning routine for focus",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-04-14T13:25:07.911Z"
     }
   ],
-  "lastUpdate": "2026-04-13T13:25:25.267Z",
+  "lastUpdate": "2026-04-14T13:25:07.911Z",
   "categories": {
     "ai_tools": 48,
-    "productivity_systems": 41,
+    "productivity_systems": 42,
     "ai_automation": 28,
     "developer_productivity": 14,
     "monetized_hardware": 7
