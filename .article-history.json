@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI calendar management",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-02-27T12:58:35.338Z"
-    },
-    {
       "keyword": "AI agents for automation",
       "type": "value",
       "category": "ai_tools",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-04-17T13:18:49.249Z"
+    },
+    {
+      "keyword": "AI data entry and extraction",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-04-18T13:01:13.044Z"
     }
   ],
-  "lastUpdate": "2026-04-17T13:18:49.249Z",
+  "lastUpdate": "2026-04-18T13:01:13.044Z",
   "categories": {
     "ai_tools": 50,
     "productivity_systems": 43,
-    "ai_automation": 28,
+    "ai_automation": 29,
     "developer_productivity": 14,
     "monetized_hardware": 7
   }
