@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI agents for automation",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-02-28T12:44:07.024Z"
-    },
-    {
       "keyword": "git workflow optimization",
       "type": "value",
       "category": "developer_productivity",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-04-18T13:01:13.044Z"
+    },
+    {
+      "keyword": "docker development workflow",
+      "type": "value",
+      "category": "developer_productivity",
+      "date": "2026-04-19T13:00:25.946Z"
     }
   ],
-  "lastUpdate": "2026-04-18T13:01:13.044Z",
+  "lastUpdate": "2026-04-19T13:00:25.946Z",
   "categories": {
     "ai_tools": 50,
     "productivity_systems": 43,
     "ai_automation": 29,
-    "developer_productivity": 14,
+    "developer_productivity": 15,
     "monetized_hardware": 7
   }
 }
