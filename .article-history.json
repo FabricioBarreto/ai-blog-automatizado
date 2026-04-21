@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "atomic habits implementation",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-03-02T12:58:09.429Z"
-    },
-    {
       "keyword": "AI API integration guide",
       "type": "value",
       "category": "ai_tools",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-04-20T13:28:27.399Z"
+    },
+    {
+      "keyword": "atomic habits implementation",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-04-21T13:25:44.276Z"
     }
   ],
-  "lastUpdate": "2026-04-20T13:28:27.399Z",
+  "lastUpdate": "2026-04-21T13:25:44.276Z",
   "categories": {
     "ai_tools": 51,
-    "productivity_systems": 43,
+    "productivity_systems": 44,
     "ai_automation": 29,
     "developer_productivity": 15,
     "monetized_hardware": 7
