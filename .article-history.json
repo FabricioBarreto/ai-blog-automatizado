@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI API integration guide",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-03-03T12:56:47.331Z"
-    },
-    {
       "keyword": "AI data entry and extraction",
       "type": "value",
       "category": "ai_automation",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-04-21T13:25:44.276Z"
+    },
+    {
+      "keyword": "ergonomic setup for programmers",
+      "type": "value",
+      "category": "monetized_hardware",
+      "date": "2026-04-22T13:26:14.853Z"
     }
   ],
-  "lastUpdate": "2026-04-21T13:25:44.276Z",
+  "lastUpdate": "2026-04-22T13:26:14.853Z",
   "categories": {
     "ai_tools": 51,
     "productivity_systems": 44,
     "ai_automation": 29,
     "developer_productivity": 15,
-    "monetized_hardware": 7
+    "monetized_hardware": 8
   }
 }
