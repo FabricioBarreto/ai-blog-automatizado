@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "Claude vs ChatGPT for coding",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-03-06T12:55:21.912Z"
-    },
-    {
       "keyword": "AI for debugging and error fixing",
       "type": "value",
       "category": "ai_tools",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-04-24T13:22:49.521Z"
+    },
+    {
+      "keyword": "weekly review process setup",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-04-25T13:03:29.329Z"
     }
   ],
-  "lastUpdate": "2026-04-24T13:22:49.521Z",
+  "lastUpdate": "2026-04-25T13:03:29.329Z",
   "categories": {
     "ai_tools": 52,
-    "productivity_systems": 44,
+    "productivity_systems": 45,
     "ai_automation": 30,
     "developer_productivity": 15,
     "monetized_hardware": 8
