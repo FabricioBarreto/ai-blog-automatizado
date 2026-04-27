@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "para method for organization",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-03-08T12:48:04.996Z"
-    },
-    {
       "keyword": "automating repetitive tasks with AI",
       "type": "value",
       "category": "ai_automation",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-04-26T13:05:56.457Z"
+    },
+    {
+      "keyword": "getting things done GTD system",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-04-27T13:52:01.055Z"
     }
   ],
-  "lastUpdate": "2026-04-26T13:05:56.457Z",
+  "lastUpdate": "2026-04-27T13:52:01.055Z",
   "categories": {
     "ai_tools": 53,
-    "productivity_systems": 45,
+    "productivity_systems": 46,
     "ai_automation": 30,
     "developer_productivity": 15,
     "monetized_hardware": 8
