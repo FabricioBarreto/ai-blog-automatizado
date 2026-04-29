@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "automating repetitive tasks with AI",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-03-09T13:02:20.416Z"
-    },
-    {
       "keyword": "VS Code extensions for speed",
       "type": "value",
       "category": "developer_productivity",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-04-27T13:52:01.055Z"
+    },
+    {
+      "keyword": "smart notification filtering",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-04-29T13:55:11.723Z"
     }
   ],
-  "lastUpdate": "2026-04-27T13:52:01.055Z",
+  "lastUpdate": "2026-04-29T13:55:11.723Z",
   "categories": {
     "ai_tools": 53,
     "productivity_systems": 46,
-    "ai_automation": 30,
+    "ai_automation": 31,
     "developer_productivity": 15,
     "monetized_hardware": 8
   }
