@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "VS Code extensions for speed",
-      "type": "value",
-      "category": "developer_productivity",
-      "date": "2026-03-10T12:59:37.524Z"
-    },
-    {
       "keyword": "AI writing tools comparison 2025",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-04-29T13:55:11.723Z"
+    },
+    {
+      "keyword": "AI writing tools comparison 2025",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-04-30T13:53:12.554Z"
     }
   ],
-  "lastUpdate": "2026-04-29T13:55:11.723Z",
+  "lastUpdate": "2026-04-30T13:53:12.554Z",
   "categories": {
-    "ai_tools": 53,
+    "ai_tools": 54,
     "productivity_systems": 46,
     "ai_automation": 31,
     "developer_productivity": 15,
