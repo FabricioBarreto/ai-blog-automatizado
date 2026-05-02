@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "getting things done GTD system",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-03-12T12:59:08.237Z"
-    },
-    {
       "keyword": "best mechanical keyboards for coding",
       "type": "value",
       "category": "monetized_hardware",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "developer_productivity",
       "date": "2026-05-01T13:17:35.839Z"
+    },
+    {
+      "keyword": "para method for organization",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-05-02T13:09:52.414Z"
     }
   ],
-  "lastUpdate": "2026-05-01T13:17:35.839Z",
+  "lastUpdate": "2026-05-02T13:09:52.414Z",
   "categories": {
     "ai_tools": 54,
-    "productivity_systems": 46,
+    "productivity_systems": 47,
     "ai_automation": 31,
     "developer_productivity": 16,
     "monetized_hardware": 8
