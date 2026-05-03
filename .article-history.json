@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "best mechanical keyboards for coding",
-      "type": "value",
-      "category": "monetized_hardware",
-      "date": "2026-03-13T12:57:52.189Z"
-    },
-    {
       "keyword": "how to use ChatGPT for content creation",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-05-02T13:09:52.414Z"
+    },
+    {
+      "keyword": "using AI for research and note-taking",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-05-03T13:09:01.797Z"
     }
   ],
-  "lastUpdate": "2026-05-02T13:09:52.414Z",
+  "lastUpdate": "2026-05-03T13:09:01.797Z",
   "categories": {
-    "ai_tools": 54,
+    "ai_tools": 55,
     "productivity_systems": 47,
     "ai_automation": 31,
     "developer_productivity": 16,
