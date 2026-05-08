@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "zettelkasten note-taking method",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-03-18T13:11:21.669Z"
-    },
-    {
       "keyword": "document processing automation",
       "type": "value",
       "category": "ai_automation",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-05-07T14:06:46.865Z"
+    },
+    {
+      "keyword": "kanban workflow for solo work",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-05-08T13:46:02.241Z"
     }
   ],
-  "lastUpdate": "2026-05-07T14:06:46.865Z",
+  "lastUpdate": "2026-05-08T13:46:02.241Z",
   "categories": {
     "ai_tools": 57,
-    "productivity_systems": 48,
+    "productivity_systems": 49,
     "ai_automation": 32,
     "developer_productivity": 16,
     "monetized_hardware": 8
