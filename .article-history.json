@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "GitHub Copilot vs Cursor AI",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-03-20T12:58:50.054Z"
-    },
-    {
       "keyword": "technical documentation writing",
       "type": "value",
       "category": "developer_productivity",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-05-09T13:16:30.324Z"
+    },
+    {
+      "keyword": "git workflow optimization",
+      "type": "value",
+      "category": "developer_productivity",
+      "date": "2026-05-10T13:17:05.774Z"
     }
   ],
-  "lastUpdate": "2026-05-09T13:16:30.324Z",
+  "lastUpdate": "2026-05-10T13:17:05.774Z",
   "categories": {
     "ai_tools": 57,
     "productivity_systems": 49,
     "ai_automation": 33,
-    "developer_productivity": 16,
+    "developer_productivity": 17,
     "monetized_hardware": 8
   }
 }
