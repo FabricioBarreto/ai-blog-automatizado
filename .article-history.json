@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI tools for developers workflow",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-03-23T13:06:46.840Z"
-    },
-    {
       "keyword": "workflow automation without code",
       "type": "value",
       "category": "ai_automation",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-05-12T14:23:39.911Z"
+    },
+    {
+      "keyword": "best mechanical keyboards for coding",
+      "type": "value",
+      "category": "monetized_hardware",
+      "date": "2026-05-13T14:32:12.704Z"
     }
   ],
-  "lastUpdate": "2026-05-12T14:23:39.911Z",
+  "lastUpdate": "2026-05-13T14:32:12.704Z",
   "categories": {
     "ai_tools": 58,
     "productivity_systems": 50,
     "ai_automation": 33,
     "developer_productivity": 17,
-    "monetized_hardware": 8
+    "monetized_hardware": 9
   }
 }
