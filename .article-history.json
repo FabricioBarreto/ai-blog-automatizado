@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI agents for automation",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-03-26T13:15:28.172Z"
-    },
-    {
       "keyword": "automated testing with AI",
       "type": "value",
       "category": "ai_tools",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-05-15T14:05:47.171Z"
+    },
+    {
+      "keyword": "building a second brain tutorial",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-05-16T13:20:38.348Z"
     }
   ],
-  "lastUpdate": "2026-05-15T14:05:47.171Z",
+  "lastUpdate": "2026-05-16T13:20:38.349Z",
   "categories": {
     "ai_tools": 59,
-    "productivity_systems": 50,
+    "productivity_systems": 51,
     "ai_automation": 34,
     "developer_productivity": 17,
     "monetized_hardware": 9
