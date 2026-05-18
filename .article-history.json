@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "pomodoro technique for deep work",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-03-28T12:54:33.930Z"
-    },
-    {
       "keyword": "batch processing with AI APIs",
       "type": "value",
       "category": "ai_automation",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-05-17T13:19:04.772Z"
+    },
+    {
+      "keyword": "pomodoro technique for deep work",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-05-18T15:31:02.770Z"
     }
   ],
-  "lastUpdate": "2026-05-17T13:19:04.772Z",
+  "lastUpdate": "2026-05-18T15:31:02.770Z",
   "categories": {
     "ai_tools": 60,
-    "productivity_systems": 51,
+    "productivity_systems": 52,
     "ai_automation": 34,
     "developer_productivity": 17,
     "monetized_hardware": 9
