@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "batch processing with AI APIs",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-03-29T12:55:23.461Z"
-    },
-    {
       "keyword": "monitoring and logging setup",
       "type": "value",
       "category": "developer_productivity",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-05-18T15:31:02.770Z"
+    },
+    {
+      "keyword": "automated content repurposing",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-05-19T15:19:18.648Z"
     }
   ],
-  "lastUpdate": "2026-05-18T15:31:02.770Z",
+  "lastUpdate": "2026-05-19T15:19:18.648Z",
   "categories": {
     "ai_tools": 60,
     "productivity_systems": 52,
-    "ai_automation": 34,
+    "ai_automation": 35,
     "developer_productivity": 17,
     "monetized_hardware": 9
   }
