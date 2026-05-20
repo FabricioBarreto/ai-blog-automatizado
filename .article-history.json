@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "monitoring and logging setup",
-      "type": "value",
-      "category": "developer_productivity",
-      "date": "2026-03-30T13:18:47.225Z"
-    },
-    {
       "keyword": "AI for data analysis and visualization",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-05-19T15:19:18.648Z"
+    },
+    {
+      "keyword": "training custom AI models basics",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-05-20T15:17:59.097Z"
     }
   ],
-  "lastUpdate": "2026-05-19T15:19:18.648Z",
+  "lastUpdate": "2026-05-20T15:17:59.097Z",
   "categories": {
-    "ai_tools": 60,
+    "ai_tools": 61,
     "productivity_systems": 52,
     "ai_automation": 35,
     "developer_productivity": 17,
