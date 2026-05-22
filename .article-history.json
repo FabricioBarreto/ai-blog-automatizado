@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "energy management strategies",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-04-01T13:21:13.443Z"
-    },
-    {
       "keyword": "desk accessories for efficiency",
       "type": "value",
       "category": "monetized_hardware",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "developer_productivity",
       "date": "2026-05-21T15:23:44.504Z"
+    },
+    {
+      "keyword": "time blocking vs task batching",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-05-22T14:37:53.790Z"
     }
   ],
-  "lastUpdate": "2026-05-21T15:23:44.504Z",
+  "lastUpdate": "2026-05-22T14:37:53.790Z",
   "categories": {
     "ai_tools": 61,
-    "productivity_systems": 52,
+    "productivity_systems": 53,
     "ai_automation": 35,
     "developer_productivity": 18,
     "monetized_hardware": 9
