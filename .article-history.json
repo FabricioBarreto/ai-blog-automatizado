@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "desk accessories for efficiency",
-      "type": "value",
-      "category": "monetized_hardware",
-      "date": "2026-04-02T13:13:12.890Z"
-    },
-    {
       "keyword": "training custom AI models basics",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-05-22T14:37:53.790Z"
+    },
+    {
+      "keyword": "AI writing tools comparison 2025",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-05-23T13:23:21.816Z"
     }
   ],
-  "lastUpdate": "2026-05-22T14:37:53.790Z",
+  "lastUpdate": "2026-05-23T13:23:21.816Z",
   "categories": {
-    "ai_tools": 61,
+    "ai_tools": 62,
     "productivity_systems": 53,
     "ai_automation": 35,
     "developer_productivity": 18,
