@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "training custom AI models basics",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-04-03T13:03:04.914Z"
-    },
-    {
       "keyword": "automated content repurposing",
       "type": "value",
       "category": "ai_automation",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-05-23T13:23:21.816Z"
+    },
+    {
+      "keyword": "AI email management automation",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-05-24T13:24:24.913Z"
     }
   ],
-  "lastUpdate": "2026-05-23T13:23:21.816Z",
+  "lastUpdate": "2026-05-24T13:24:24.913Z",
   "categories": {
     "ai_tools": 62,
     "productivity_systems": 53,
-    "ai_automation": 35,
+    "ai_automation": 36,
     "developer_productivity": 18,
     "monetized_hardware": 9
   }
