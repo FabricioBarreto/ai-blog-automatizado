@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "prompt engineering techniques",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-04-06T13:09:20.633Z"
-    },
-    {
       "keyword": "eisenhower matrix prioritization",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-05-26T15:24:39.630Z"
+    },
+    {
+      "keyword": "natural language to SQL with AI",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-05-27T15:39:28.624Z"
     }
   ],
-  "lastUpdate": "2026-05-26T15:24:39.630Z",
+  "lastUpdate": "2026-05-27T15:39:28.625Z",
   "categories": {
-    "ai_tools": 63,
+    "ai_tools": 64,
     "productivity_systems": 54,
     "ai_automation": 36,
     "developer_productivity": 18,
