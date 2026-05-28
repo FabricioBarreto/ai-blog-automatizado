@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "eisenhower matrix prioritization",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-04-07T13:18:20.710Z"
-    },
-    {
       "keyword": "AI customer support setup",
       "type": "value",
       "category": "ai_automation",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-05-27T15:39:28.624Z"
+    },
+    {
+      "keyword": "energy management strategies",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-05-28T15:55:14.645Z"
     }
   ],
-  "lastUpdate": "2026-05-27T15:39:28.625Z",
+  "lastUpdate": "2026-05-28T15:55:14.646Z",
   "categories": {
     "ai_tools": 64,
-    "productivity_systems": 54,
+    "productivity_systems": 55,
     "ai_automation": 36,
     "developer_productivity": 18,
     "monetized_hardware": 9
