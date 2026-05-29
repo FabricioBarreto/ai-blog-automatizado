@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI customer support setup",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-04-08T13:19:26.532Z"
-    },
-    {
       "keyword": "AI code review tools",
       "type": "value",
       "category": "ai_tools",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-05-28T15:55:14.645Z"
+    },
+    {
+      "keyword": "automating repetitive tasks with AI",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-05-29T15:28:04.453Z"
     }
   ],
-  "lastUpdate": "2026-05-28T15:55:14.646Z",
+  "lastUpdate": "2026-05-29T15:28:04.453Z",
   "categories": {
     "ai_tools": 64,
     "productivity_systems": 55,
-    "ai_automation": 36,
+    "ai_automation": 37,
     "developer_productivity": 18,
     "monetized_hardware": 9
   }
