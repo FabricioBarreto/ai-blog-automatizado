@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "debugging techniques advanced",
-      "type": "value",
-      "category": "developer_productivity",
-      "date": "2026-04-10T13:09:23.507Z"
-    },
-    {
       "keyword": "inbox zero email system",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "developer_productivity",
       "date": "2026-05-30T13:27:41.556Z"
+    },
+    {
+      "keyword": "prompt engineering techniques",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-05-31T13:43:21.775Z"
     }
   ],
-  "lastUpdate": "2026-05-30T13:27:41.556Z",
+  "lastUpdate": "2026-05-31T13:43:21.775Z",
   "categories": {
-    "ai_tools": 64,
+    "ai_tools": 65,
     "productivity_systems": 55,
     "ai_automation": 37,
     "developer_productivity": 19,
