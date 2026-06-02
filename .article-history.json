@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "natural language to SQL with AI",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-04-12T13:00:35.659Z"
-    },
-    {
       "keyword": "Zapier vs Make for AI workflows",
       "type": "value",
       "category": "ai_automation",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-06-01T17:37:30.625Z"
+    },
+    {
+      "keyword": "ultrawide monitors productivity",
+      "type": "value",
+      "category": "monetized_hardware",
+      "date": "2026-06-02T16:23:14.311Z"
     }
   ],
-  "lastUpdate": "2026-06-01T17:37:30.625Z",
+  "lastUpdate": "2026-06-02T16:23:14.311Z",
   "categories": {
     "ai_tools": 65,
     "productivity_systems": 56,
     "ai_automation": 37,
     "developer_productivity": 19,
-    "monetized_hardware": 9
+    "monetized_hardware": 10
   }
 }
