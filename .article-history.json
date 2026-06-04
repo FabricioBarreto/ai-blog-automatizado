@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "morning routine for focus",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-04-14T13:25:07.911Z"
-    },
-    {
       "keyword": "prompt engineering techniques",
       "type": "value",
       "category": "ai_tools",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-06-03T16:47:12.398Z"
+    },
+    {
+      "keyword": "workflow automation without code",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-06-04T14:58:54.273Z"
     }
   ],
-  "lastUpdate": "2026-06-03T16:47:12.398Z",
+  "lastUpdate": "2026-06-04T14:58:54.273Z",
   "categories": {
     "ai_tools": 66,
     "productivity_systems": 56,
-    "ai_automation": 37,
+    "ai_automation": 38,
     "developer_productivity": 19,
     "monetized_hardware": 10
   }
