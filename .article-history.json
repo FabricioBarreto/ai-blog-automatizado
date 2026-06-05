@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "prompt engineering techniques",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-04-15T13:23:45.542Z"
-    },
-    {
       "keyword": "automated testing with AI",
       "type": "value",
       "category": "ai_tools",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-06-04T14:58:54.273Z"
+    },
+    {
+      "keyword": "inbox zero email system",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-06-05T14:49:27.959Z"
     }
   ],
-  "lastUpdate": "2026-06-04T14:58:54.273Z",
+  "lastUpdate": "2026-06-05T14:49:27.959Z",
   "categories": {
     "ai_tools": 66,
-    "productivity_systems": 56,
+    "productivity_systems": 57,
     "ai_automation": 38,
     "developer_productivity": 19,
     "monetized_hardware": 10
