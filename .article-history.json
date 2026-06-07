@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "digital minimalism approach",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-04-17T13:18:49.249Z"
-    },
-    {
       "keyword": "AI data entry and extraction",
       "type": "value",
       "category": "ai_automation",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-06-06T13:41:07.705Z"
+    },
+    {
+      "keyword": "atomic habits implementation",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-06-07T13:50:49.344Z"
     }
   ],
-  "lastUpdate": "2026-06-06T13:41:07.705Z",
+  "lastUpdate": "2026-06-07T13:50:49.344Z",
   "categories": {
     "ai_tools": 67,
-    "productivity_systems": 57,
+    "productivity_systems": 58,
     "ai_automation": 38,
     "developer_productivity": 19,
     "monetized_hardware": 10
