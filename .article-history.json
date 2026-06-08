@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI data entry and extraction",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-04-18T13:01:13.044Z"
-    },
-    {
       "keyword": "docker development workflow",
       "type": "value",
       "category": "developer_productivity",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-06-07T13:50:49.344Z"
+    },
+    {
+      "keyword": "AI calendar management",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-06-08T15:50:53.090Z"
     }
   ],
-  "lastUpdate": "2026-06-07T13:50:49.344Z",
+  "lastUpdate": "2026-06-08T15:50:53.090Z",
   "categories": {
     "ai_tools": 67,
     "productivity_systems": 58,
-    "ai_automation": 38,
+    "ai_automation": 39,
     "developer_productivity": 19,
     "monetized_hardware": 10
   }
