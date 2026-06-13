@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI API integration guide",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-04-23T13:28:07.575Z"
-    },
-    {
       "keyword": "AI integration with existing tools",
       "type": "value",
       "category": "ai_automation",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-06-12T14:56:52.461Z"
+    },
+    {
+      "keyword": "AI integration with existing tools",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-06-13T13:58:05.985Z"
     }
   ],
-  "lastUpdate": "2026-06-12T14:56:52.461Z",
+  "lastUpdate": "2026-06-13T13:58:05.985Z",
   "categories": {
     "ai_tools": 69,
     "productivity_systems": 59,
-    "ai_automation": 39,
+    "ai_automation": 40,
     "developer_productivity": 20,
     "monetized_hardware": 10
   }
