@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI integration with existing tools",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-04-24T13:22:49.521Z"
-    },
-    {
       "keyword": "weekly review process setup",
       "type": "value",
       "category": "productivity_systems",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-06-13T13:58:05.985Z"
+    },
+    {
+      "keyword": "digital minimalism approach",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-06-14T14:01:14.627Z"
     }
   ],
-  "lastUpdate": "2026-06-13T13:58:05.985Z",
+  "lastUpdate": "2026-06-14T14:01:14.627Z",
   "categories": {
     "ai_tools": 69,
-    "productivity_systems": 59,
+    "productivity_systems": 60,
     "ai_automation": 40,
     "developer_productivity": 20,
     "monetized_hardware": 10
