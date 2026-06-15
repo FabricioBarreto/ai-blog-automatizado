@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "weekly review process setup",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-04-25T13:03:29.329Z"
-    },
-    {
       "keyword": "AI for debugging and error fixing",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-06-14T14:01:14.627Z"
+    },
+    {
+      "keyword": "GitHub Copilot vs Cursor AI",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-06-15T17:13:54.441Z"
     }
   ],
-  "lastUpdate": "2026-06-14T14:01:14.627Z",
+  "lastUpdate": "2026-06-15T17:13:54.441Z",
   "categories": {
-    "ai_tools": 69,
+    "ai_tools": 70,
     "productivity_systems": 60,
     "ai_automation": 40,
     "developer_productivity": 20,
