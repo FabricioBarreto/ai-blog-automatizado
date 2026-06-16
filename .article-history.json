@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI for debugging and error fixing",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-04-26T13:05:56.457Z"
-    },
-    {
       "keyword": "getting things done GTD system",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-06-15T17:13:54.441Z"
+    },
+    {
+      "keyword": "AI agents for automation",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-06-16T16:50:16.184Z"
     }
   ],
-  "lastUpdate": "2026-06-15T17:13:54.441Z",
+  "lastUpdate": "2026-06-16T16:50:16.184Z",
   "categories": {
-    "ai_tools": 70,
+    "ai_tools": 71,
     "productivity_systems": 60,
     "ai_automation": 40,
     "developer_productivity": 20,
