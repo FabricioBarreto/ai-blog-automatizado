@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "getting things done GTD system",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-04-27T13:52:01.055Z"
-    },
-    {
       "keyword": "smart notification filtering",
       "type": "value",
       "category": "ai_automation",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-06-16T16:50:16.184Z"
+    },
+    {
+      "keyword": "para method for organization",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-06-17T15:27:29.865Z"
     }
   ],
-  "lastUpdate": "2026-06-16T16:50:16.184Z",
+  "lastUpdate": "2026-06-17T15:27:29.865Z",
   "categories": {
     "ai_tools": 71,
-    "productivity_systems": 60,
+    "productivity_systems": 61,
     "ai_automation": 40,
     "developer_productivity": 20,
     "monetized_hardware": 10
