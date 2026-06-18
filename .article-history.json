@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "smart notification filtering",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-04-29T13:55:11.723Z"
-    },
-    {
       "keyword": "AI writing tools comparison 2025",
       "type": "value",
       "category": "ai_tools",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-06-17T15:27:29.865Z"
+    },
+    {
+      "keyword": "social media scheduling with AI",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-06-18T15:22:16.131Z"
     }
   ],
-  "lastUpdate": "2026-06-17T15:27:29.865Z",
+  "lastUpdate": "2026-06-18T15:22:16.131Z",
   "categories": {
     "ai_tools": 71,
     "productivity_systems": 61,
-    "ai_automation": 40,
+    "ai_automation": 41,
     "developer_productivity": 20,
     "monetized_hardware": 10
   }
