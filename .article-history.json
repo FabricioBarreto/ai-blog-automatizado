@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI writing tools comparison 2025",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-04-30T13:53:12.554Z"
-    },
-    {
       "keyword": "CLI tools every dev needs",
       "type": "value",
       "category": "developer_productivity",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-06-18T15:22:16.131Z"
+    },
+    {
+      "keyword": "API testing tools comparison",
+      "type": "value",
+      "category": "developer_productivity",
+      "date": "2026-06-19T15:13:43.747Z"
     }
   ],
-  "lastUpdate": "2026-06-18T15:22:16.131Z",
+  "lastUpdate": "2026-06-19T15:13:43.747Z",
   "categories": {
     "ai_tools": 71,
     "productivity_systems": 61,
     "ai_automation": 41,
-    "developer_productivity": 20,
+    "developer_productivity": 21,
     "monetized_hardware": 10
   }
 }
