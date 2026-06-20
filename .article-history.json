@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "CLI tools every dev needs",
-      "type": "value",
-      "category": "developer_productivity",
-      "date": "2026-05-01T13:17:35.839Z"
-    },
-    {
       "keyword": "para method for organization",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "developer_productivity",
       "date": "2026-06-19T15:13:43.747Z"
+    },
+    {
+      "keyword": "using AI for research and note-taking",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-06-20T14:01:38.918Z"
     }
   ],
-  "lastUpdate": "2026-06-19T15:13:43.747Z",
+  "lastUpdate": "2026-06-20T14:01:38.918Z",
   "categories": {
-    "ai_tools": 71,
+    "ai_tools": 72,
     "productivity_systems": 61,
     "ai_automation": 41,
     "developer_productivity": 21,
