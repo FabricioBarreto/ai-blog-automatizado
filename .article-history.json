@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "document processing automation",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-05-04T13:59:06.434Z"
-    },
-    {
       "keyword": "zettelkasten note-taking method",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "monetized_hardware",
       "date": "2026-06-22T16:54:34.702Z"
+    },
+    {
+      "keyword": "AI tools for developers workflow",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-06-23T14:46:43.253Z"
     }
   ],
-  "lastUpdate": "2026-06-22T16:54:34.702Z",
+  "lastUpdate": "2026-06-23T14:46:43.253Z",
   "categories": {
-    "ai_tools": 72,
+    "ai_tools": 73,
     "productivity_systems": 62,
     "ai_automation": 41,
     "developer_productivity": 21,
