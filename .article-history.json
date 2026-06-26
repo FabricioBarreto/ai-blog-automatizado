@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI tools for developers workflow",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-05-07T14:06:46.865Z"
-    },
-    {
       "keyword": "kanban workflow for solo work",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-06-25T14:31:16.664Z"
+    },
+    {
+      "keyword": "how to use ChatGPT for content creation",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-06-26T14:22:59.316Z"
     }
   ],
-  "lastUpdate": "2026-06-25T14:31:16.664Z",
+  "lastUpdate": "2026-06-26T14:22:59.316Z",
   "categories": {
-    "ai_tools": 73,
+    "ai_tools": 74,
     "productivity_systems": 63,
     "ai_automation": 42,
     "developer_productivity": 21,
