@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "kanban workflow for solo work",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-05-08T13:46:02.241Z"
-    },
-    {
       "keyword": "building custom GPTs for business",
       "type": "value",
       "category": "ai_automation",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-06-26T14:22:59.316Z"
+    },
+    {
+      "keyword": "kanban workflow for solo work",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-06-27T13:40:56.515Z"
     }
   ],
-  "lastUpdate": "2026-06-26T14:22:59.316Z",
+  "lastUpdate": "2026-06-27T13:40:56.515Z",
   "categories": {
     "ai_tools": 74,
-    "productivity_systems": 63,
+    "productivity_systems": 64,
     "ai_automation": 42,
     "developer_productivity": 21,
     "monetized_hardware": 11
