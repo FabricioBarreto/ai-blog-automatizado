@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "building custom GPTs for business",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-05-09T13:16:30.324Z"
-    },
-    {
       "keyword": "git workflow optimization",
       "type": "value",
       "category": "developer_productivity",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-06-27T13:40:56.515Z"
+    },
+    {
+      "keyword": "Zapier vs Make for AI workflows",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-06-28T13:44:16.108Z"
     }
   ],
-  "lastUpdate": "2026-06-27T13:40:56.515Z",
+  "lastUpdate": "2026-06-28T13:44:16.108Z",
   "categories": {
     "ai_tools": 74,
     "productivity_systems": 64,
-    "ai_automation": 42,
+    "ai_automation": 43,
     "developer_productivity": 21,
     "monetized_hardware": 11
   }
