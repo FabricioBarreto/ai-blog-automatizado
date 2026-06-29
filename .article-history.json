@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "git workflow optimization",
-      "type": "value",
-      "category": "developer_productivity",
-      "date": "2026-05-10T13:17:05.774Z"
-    },
-    {
       "keyword": "AI agents for automation",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-06-28T13:44:16.108Z"
+    },
+    {
+      "keyword": "how to use ChatGPT for content creation",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-06-29T15:44:11.844Z"
     }
   ],
-  "lastUpdate": "2026-06-28T13:44:16.108Z",
+  "lastUpdate": "2026-06-29T15:44:11.844Z",
   "categories": {
-    "ai_tools": 74,
+    "ai_tools": 75,
     "productivity_systems": 64,
     "ai_automation": 43,
     "developer_productivity": 21,
