@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI agents for automation",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-05-11T14:49:04.640Z"
-    },
-    {
       "keyword": "habit stacking techniques",
       "type": "value",
       "category": "productivity_systems",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-06-29T15:44:11.844Z"
+    },
+    {
+      "keyword": "refactoring legacy code approach",
+      "type": "value",
+      "category": "developer_productivity",
+      "date": "2026-06-30T14:16:20.491Z"
     }
   ],
-  "lastUpdate": "2026-06-29T15:44:11.844Z",
+  "lastUpdate": "2026-06-30T14:16:20.492Z",
   "categories": {
     "ai_tools": 75,
     "productivity_systems": 64,
     "ai_automation": 43,
-    "developer_productivity": 21,
+    "developer_productivity": 22,
     "monetized_hardware": 11
   }
 }
