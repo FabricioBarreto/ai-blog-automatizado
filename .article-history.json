@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "habit stacking techniques",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-05-12T14:23:39.911Z"
-    },
-    {
       "keyword": "best mechanical keyboards for coding",
       "type": "value",
       "category": "monetized_hardware",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "developer_productivity",
       "date": "2026-06-30T14:16:20.491Z"
+    },
+    {
+      "keyword": "building a second brain tutorial",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-07-01T14:33:15.728Z"
     }
   ],
-  "lastUpdate": "2026-06-30T14:16:20.492Z",
+  "lastUpdate": "2026-07-01T14:33:15.728Z",
   "categories": {
     "ai_tools": 75,
-    "productivity_systems": 64,
+    "productivity_systems": 65,
     "ai_automation": 43,
     "developer_productivity": 22,
     "monetized_hardware": 11
