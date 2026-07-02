@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "best mechanical keyboards for coding",
-      "type": "value",
-      "category": "monetized_hardware",
-      "date": "2026-05-13T14:32:12.704Z"
-    },
-    {
       "keyword": "GitHub Copilot vs Cursor AI",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-07-01T14:33:15.728Z"
+    },
+    {
+      "keyword": "AI for data analysis and visualization",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-07-02T13:58:13.922Z"
     }
   ],
-  "lastUpdate": "2026-07-01T14:33:15.728Z",
+  "lastUpdate": "2026-07-02T13:58:13.922Z",
   "categories": {
-    "ai_tools": 75,
+    "ai_tools": 76,
     "productivity_systems": 65,
     "ai_automation": 43,
     "developer_productivity": 22,
