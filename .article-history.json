@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "GitHub Copilot vs Cursor AI",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-05-14T14:10:17.755Z"
-    },
-    {
       "keyword": "batch processing with AI APIs",
       "type": "value",
       "category": "ai_automation",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-07-02T13:58:13.922Z"
+    },
+    {
+      "keyword": "AI data entry and extraction",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-07-03T14:01:35.113Z"
     }
   ],
-  "lastUpdate": "2026-07-02T13:58:13.922Z",
+  "lastUpdate": "2026-07-03T14:01:35.113Z",
   "categories": {
     "ai_tools": 76,
     "productivity_systems": 65,
-    "ai_automation": 43,
+    "ai_automation": 44,
     "developer_productivity": 22,
     "monetized_hardware": 11
   }
