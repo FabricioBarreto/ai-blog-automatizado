@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "batch processing with AI APIs",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-05-15T14:05:47.171Z"
-    },
-    {
       "keyword": "building a second brain tutorial",
       "type": "value",
       "category": "productivity_systems",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-07-03T14:01:35.113Z"
+    },
+    {
+      "keyword": "pomodoro technique for deep work",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-07-04T13:23:22.591Z"
     }
   ],
-  "lastUpdate": "2026-07-03T14:01:35.113Z",
+  "lastUpdate": "2026-07-04T13:23:22.591Z",
   "categories": {
     "ai_tools": 76,
-    "productivity_systems": 65,
+    "productivity_systems": 66,
     "ai_automation": 44,
     "developer_productivity": 22,
     "monetized_hardware": 11
