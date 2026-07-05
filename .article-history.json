@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "building a second brain tutorial",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-05-16T13:20:38.348Z"
-    },
-    {
       "keyword": "AI for data analysis and visualization",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-07-04T13:23:22.591Z"
+    },
+    {
+      "keyword": "training custom AI models basics",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-07-05T13:36:45.379Z"
     }
   ],
-  "lastUpdate": "2026-07-04T13:23:22.591Z",
+  "lastUpdate": "2026-07-05T13:36:45.379Z",
   "categories": {
-    "ai_tools": 76,
+    "ai_tools": 77,
     "productivity_systems": 66,
     "ai_automation": 44,
     "developer_productivity": 22,
