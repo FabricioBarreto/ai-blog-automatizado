@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "keyboard shortcuts mastery",
-      "type": "value",
-      "category": "developer_productivity",
-      "date": "2026-05-21T15:23:44.504Z"
-    },
-    {
       "keyword": "time blocking vs task batching",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "developer_productivity",
       "date": "2026-07-09T14:56:42.135Z"
+    },
+    {
+      "keyword": "AI writing tools comparison 2025",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-07-10T14:24:14.417Z"
     }
   ],
-  "lastUpdate": "2026-07-09T14:56:42.135Z",
+  "lastUpdate": "2026-07-10T14:24:14.417Z",
   "categories": {
-    "ai_tools": 78,
+    "ai_tools": 79,
     "productivity_systems": 67,
     "ai_automation": 45,
     "developer_productivity": 23,
