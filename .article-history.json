@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI writing tools comparison 2025",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-05-23T13:23:21.816Z"
-    },
-    {
       "keyword": "AI email management automation",
       "type": "value",
       "category": "ai_automation",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-07-11T13:16:47.622Z"
+    },
+    {
+      "keyword": "desk accessories for efficiency",
+      "type": "value",
+      "category": "monetized_hardware",
+      "date": "2026-07-12T13:17:22.636Z"
     }
   ],
-  "lastUpdate": "2026-07-11T13:16:47.622Z",
+  "lastUpdate": "2026-07-12T13:17:22.636Z",
   "categories": {
     "ai_tools": 79,
     "productivity_systems": 68,
     "ai_automation": 45,
     "developer_productivity": 23,
-    "monetized_hardware": 11
+    "monetized_hardware": 12
   }
 }
