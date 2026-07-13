@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI email management automation",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-05-24T13:24:24.913Z"
-    },
-    {
       "keyword": "eisenhower matrix prioritization",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "monetized_hardware",
       "date": "2026-07-12T13:17:22.636Z"
+    },
+    {
+      "keyword": "natural language to SQL with AI",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-07-13T14:31:32.588Z"
     }
   ],
-  "lastUpdate": "2026-07-12T13:17:22.636Z",
+  "lastUpdate": "2026-07-13T14:31:32.588Z",
   "categories": {
-    "ai_tools": 79,
+    "ai_tools": 80,
     "productivity_systems": 68,
     "ai_automation": 45,
     "developer_productivity": 23,
