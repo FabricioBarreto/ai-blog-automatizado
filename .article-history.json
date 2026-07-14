@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "eisenhower matrix prioritization",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-05-25T14:52:48.493Z"
-    },
-    {
       "keyword": "AI code review tools",
       "type": "value",
       "category": "ai_tools",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-07-13T14:31:32.588Z"
+    },
+    {
+      "keyword": "smart notification filtering",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-07-14T13:41:01.370Z"
     }
   ],
-  "lastUpdate": "2026-07-13T14:31:32.588Z",
+  "lastUpdate": "2026-07-14T13:41:01.370Z",
   "categories": {
     "ai_tools": 80,
     "productivity_systems": 68,
-    "ai_automation": 45,
+    "ai_automation": 46,
     "developer_productivity": 23,
     "monetized_hardware": 12
   }
