@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI code review tools",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-05-26T15:24:39.630Z"
-    },
-    {
       "keyword": "natural language to SQL with AI",
       "type": "value",
       "category": "ai_tools",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-07-14T13:41:01.370Z"
+    },
+    {
+      "keyword": "eisenhower matrix prioritization",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-07-15T13:41:17.178Z"
     }
   ],
-  "lastUpdate": "2026-07-14T13:41:01.370Z",
+  "lastUpdate": "2026-07-15T13:41:17.178Z",
   "categories": {
     "ai_tools": 80,
-    "productivity_systems": 68,
+    "productivity_systems": 69,
     "ai_automation": 46,
     "developer_productivity": 23,
     "monetized_hardware": 12
