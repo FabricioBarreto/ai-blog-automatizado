@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "natural language to SQL with AI",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-05-27T15:39:28.624Z"
-    },
-    {
       "keyword": "energy management strategies",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-07-15T13:41:17.178Z"
+    },
+    {
+      "keyword": "prompt engineering techniques",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-07-16T13:47:56.152Z"
     }
   ],
-  "lastUpdate": "2026-07-15T13:41:17.178Z",
+  "lastUpdate": "2026-07-16T13:47:56.152Z",
   "categories": {
-    "ai_tools": 80,
+    "ai_tools": 81,
     "productivity_systems": 69,
     "ai_automation": 46,
     "developer_productivity": 23,
