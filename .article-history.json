@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "energy management strategies",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-05-28T15:55:14.645Z"
-    },
-    {
       "keyword": "automating repetitive tasks with AI",
       "type": "value",
       "category": "ai_automation",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-07-16T13:47:56.152Z"
+    },
+    {
+      "keyword": "energy management strategies",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-07-17T13:25:17.724Z"
     }
   ],
-  "lastUpdate": "2026-07-16T13:47:56.152Z",
+  "lastUpdate": "2026-07-17T13:25:17.724Z",
   "categories": {
     "ai_tools": 81,
-    "productivity_systems": 69,
+    "productivity_systems": 70,
     "ai_automation": 46,
     "developer_productivity": 23,
     "monetized_hardware": 12
