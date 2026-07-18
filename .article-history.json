@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "automating repetitive tasks with AI",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-05-29T15:28:04.453Z"
-    },
-    {
       "keyword": "code review best practices",
       "type": "value",
       "category": "developer_productivity",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-07-17T13:25:17.724Z"
+    },
+    {
+      "keyword": "automating repetitive tasks with AI",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-07-18T13:12:36.942Z"
     }
   ],
-  "lastUpdate": "2026-07-17T13:25:17.724Z",
+  "lastUpdate": "2026-07-18T13:12:36.942Z",
   "categories": {
     "ai_tools": 81,
     "productivity_systems": 70,
-    "ai_automation": 46,
+    "ai_automation": 47,
     "developer_productivity": 23,
     "monetized_hardware": 12
   }
