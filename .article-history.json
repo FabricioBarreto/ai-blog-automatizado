@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "code review best practices",
-      "type": "value",
-      "category": "developer_productivity",
-      "date": "2026-05-30T13:27:41.556Z"
-    },
-    {
       "keyword": "prompt engineering techniques",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-07-18T13:12:36.942Z"
+    },
+    {
+      "keyword": "AI code review tools",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-07-19T13:15:07.389Z"
     }
   ],
-  "lastUpdate": "2026-07-18T13:12:36.942Z",
+  "lastUpdate": "2026-07-19T13:15:07.389Z",
   "categories": {
-    "ai_tools": 81,
+    "ai_tools": 82,
     "productivity_systems": 70,
     "ai_automation": 47,
     "developer_productivity": 23,
