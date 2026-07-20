@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "prompt engineering techniques",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-05-31T13:43:21.775Z"
-    },
-    {
       "keyword": "morning routine for focus",
       "type": "value",
       "category": "productivity_systems",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-07-19T13:15:07.389Z"
+    },
+    {
+      "keyword": "pair programming remotely",
+      "type": "value",
+      "category": "developer_productivity",
+      "date": "2026-07-20T14:03:10.525Z"
     }
   ],
-  "lastUpdate": "2026-07-19T13:15:07.389Z",
+  "lastUpdate": "2026-07-20T14:03:10.525Z",
   "categories": {
     "ai_tools": 82,
     "productivity_systems": 70,
     "ai_automation": 47,
-    "developer_productivity": 23,
+    "developer_productivity": 24,
     "monetized_hardware": 12
   }
 }
