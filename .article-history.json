@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "ultrawide monitors productivity",
-      "type": "value",
-      "category": "monetized_hardware",
-      "date": "2026-06-02T16:23:14.311Z"
-    },
-    {
       "keyword": "automated testing with AI",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-07-21T13:46:50.579Z"
+    },
+    {
+      "keyword": "Claude vs ChatGPT for coding",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-07-22T13:50:12.641Z"
     }
   ],
-  "lastUpdate": "2026-07-21T13:46:50.579Z",
+  "lastUpdate": "2026-07-22T13:50:12.641Z",
   "categories": {
-    "ai_tools": 82,
+    "ai_tools": 83,
     "productivity_systems": 71,
     "ai_automation": 47,
     "developer_productivity": 24,
