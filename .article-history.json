@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "automated testing with AI",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-06-03T16:47:12.398Z"
-    },
-    {
       "keyword": "workflow automation without code",
       "type": "value",
       "category": "ai_automation",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-07-22T13:50:12.641Z"
+    },
+    {
+      "keyword": "batch processing with AI APIs",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-07-23T13:55:17.607Z"
     }
   ],
-  "lastUpdate": "2026-07-22T13:50:12.641Z",
+  "lastUpdate": "2026-07-23T13:55:17.607Z",
   "categories": {
     "ai_tools": 83,
     "productivity_systems": 71,
-    "ai_automation": 47,
+    "ai_automation": 48,
     "developer_productivity": 24,
     "monetized_hardware": 12
   }
