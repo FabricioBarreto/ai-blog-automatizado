@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "workflow automation without code",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-06-04T14:58:54.273Z"
-    },
-    {
       "keyword": "inbox zero email system",
       "type": "value",
       "category": "productivity_systems",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-07-23T13:55:17.607Z"
+    },
+    {
+      "keyword": "atomic habits implementation",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-07-24T13:42:25.567Z"
     }
   ],
-  "lastUpdate": "2026-07-23T13:55:17.607Z",
+  "lastUpdate": "2026-07-24T13:42:25.567Z",
   "categories": {
     "ai_tools": 83,
-    "productivity_systems": 71,
+    "productivity_systems": 72,
     "ai_automation": 48,
     "developer_productivity": 24,
     "monetized_hardware": 12
