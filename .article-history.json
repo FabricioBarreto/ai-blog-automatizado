@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "inbox zero email system",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-06-05T14:49:27.959Z"
-    },
-    {
       "keyword": "Claude vs ChatGPT for coding",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-07-24T13:42:25.567Z"
+    },
+    {
+      "keyword": "AI API integration guide",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-07-25T13:23:16.268Z"
     }
   ],
-  "lastUpdate": "2026-07-24T13:42:25.567Z",
+  "lastUpdate": "2026-07-25T13:23:16.268Z",
   "categories": {
-    "ai_tools": 83,
+    "ai_tools": 84,
     "productivity_systems": 72,
     "ai_automation": 48,
     "developer_productivity": 24,
