@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "Claude vs ChatGPT for coding",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-06-06T13:41:07.705Z"
-    },
-    {
       "keyword": "atomic habits implementation",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-07-25T13:23:16.268Z"
+    },
+    {
+      "keyword": "using AI for research and note-taking",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-07-26T13:19:08.241Z"
     }
   ],
-  "lastUpdate": "2026-07-25T13:23:16.268Z",
+  "lastUpdate": "2026-07-26T13:19:08.241Z",
   "categories": {
-    "ai_tools": 84,
+    "ai_tools": 85,
     "productivity_systems": 72,
     "ai_automation": 48,
     "developer_productivity": 24,
