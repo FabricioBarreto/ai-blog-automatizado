@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI calendar management",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-06-08T15:50:53.090Z"
-    },
-    {
       "keyword": "AI API integration guide",
       "type": "value",
       "category": "ai_tools",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-07-27T14:31:02.264Z"
+    },
+    {
+      "keyword": "AI integration with existing tools",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-07-28T14:04:25.382Z"
     }
   ],
-  "lastUpdate": "2026-07-27T14:31:02.264Z",
+  "lastUpdate": "2026-07-28T14:04:25.382Z",
   "categories": {
     "ai_tools": 85,
     "productivity_systems": 73,
-    "ai_automation": 48,
+    "ai_automation": 49,
     "developer_productivity": 24,
     "monetized_hardware": 12
   }
