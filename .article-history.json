@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI API integration guide",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-06-09T14:49:22.871Z"
-    },
-    {
       "keyword": "debugging techniques advanced",
       "type": "value",
       "category": "developer_productivity",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-07-28T14:04:25.382Z"
+    },
+    {
+      "keyword": "terminal productivity tips",
+      "type": "value",
+      "category": "developer_productivity",
+      "date": "2026-07-29T14:07:28.151Z"
     }
   ],
-  "lastUpdate": "2026-07-28T14:04:25.382Z",
+  "lastUpdate": "2026-07-29T14:07:28.151Z",
   "categories": {
     "ai_tools": 85,
     "productivity_systems": 73,
     "ai_automation": 49,
-    "developer_productivity": 24,
+    "developer_productivity": 25,
     "monetized_hardware": 12
   }
 }
