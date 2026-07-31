@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "getting things done GTD system",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-06-11T15:59:02.140Z"
-    },
-    {
       "keyword": "AI for debugging and error fixing",
       "type": "value",
       "category": "ai_tools",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-07-30T13:57:43.154Z"
+    },
+    {
+      "keyword": "getting things done GTD system",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-07-31T14:03:04.516Z"
     }
   ],
-  "lastUpdate": "2026-07-30T13:57:43.154Z",
+  "lastUpdate": "2026-07-31T14:03:04.516Z",
   "categories": {
     "ai_tools": 86,
-    "productivity_systems": 73,
+    "productivity_systems": 74,
     "ai_automation": 49,
     "developer_productivity": 25,
     "monetized_hardware": 12
