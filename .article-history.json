@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI for debugging and error fixing",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-06-12T14:56:52.461Z"
-    },
-    {
       "keyword": "AI integration with existing tools",
       "type": "value",
       "category": "ai_automation",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-07-31T14:03:04.516Z"
+    },
+    {
+      "keyword": "noise cancelling headphones focus",
+      "type": "value",
+      "category": "monetized_hardware",
+      "date": "2026-08-01T13:17:21.420Z"
     }
   ],
-  "lastUpdate": "2026-07-31T14:03:04.516Z",
+  "lastUpdate": "2026-08-01T13:17:21.420Z",
   "categories": {
     "ai_tools": 86,
     "productivity_systems": 74,
     "ai_automation": 49,
     "developer_productivity": 25,
-    "monetized_hardware": 12
+    "monetized_hardware": 13
   }
 }
