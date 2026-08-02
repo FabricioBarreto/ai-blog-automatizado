@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI integration with existing tools",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-06-13T13:58:05.985Z"
-    },
-    {
       "keyword": "digital minimalism approach",
       "type": "value",
       "category": "productivity_systems",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "monetized_hardware",
       "date": "2026-08-01T13:17:21.420Z"
+    },
+    {
+      "keyword": "GitHub Copilot vs Cursor AI",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-08-02T13:18:01.306Z"
     }
   ],
-  "lastUpdate": "2026-08-01T13:17:21.420Z",
+  "lastUpdate": "2026-08-02T13:18:01.306Z",
   "categories": {
-    "ai_tools": 86,
+    "ai_tools": 87,
     "productivity_systems": 74,
     "ai_automation": 49,
     "developer_productivity": 25,
