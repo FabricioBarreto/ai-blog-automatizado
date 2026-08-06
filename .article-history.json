@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "para method for organization",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-06-17T15:27:29.865Z"
-    },
-    {
       "keyword": "social media scheduling with AI",
       "type": "value",
       "category": "ai_automation",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-08-05T14:06:11.718Z"
+    },
+    {
+      "keyword": "zettelkasten note-taking method",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-08-06T14:05:39.458Z"
     }
   ],
-  "lastUpdate": "2026-08-05T14:06:11.718Z",
+  "lastUpdate": "2026-08-06T14:05:39.458Z",
   "categories": {
     "ai_tools": 88,
-    "productivity_systems": 75,
+    "productivity_systems": 76,
     "ai_automation": 50,
     "developer_productivity": 25,
     "monetized_hardware": 13
