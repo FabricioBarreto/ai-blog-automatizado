@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "API testing tools comparison",
-      "type": "value",
-      "category": "developer_productivity",
-      "date": "2026-06-19T15:13:43.747Z"
-    },
-    {
       "keyword": "using AI for research and note-taking",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-08-07T12:59:52.132Z"
+    },
+    {
+      "keyword": "AI tools for developers workflow",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-08-08T12:44:38.183Z"
     }
   ],
-  "lastUpdate": "2026-08-07T12:59:52.132Z",
+  "lastUpdate": "2026-08-08T12:44:38.183Z",
   "categories": {
-    "ai_tools": 88,
+    "ai_tools": 89,
     "productivity_systems": 76,
     "ai_automation": 51,
     "developer_productivity": 25,
