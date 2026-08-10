@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "zettelkasten note-taking method",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-06-21T14:09:03.134Z"
-    },
-    {
       "keyword": "ergonomic setup for programmers",
       "type": "value",
       "category": "monetized_hardware",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "developer_productivity",
       "date": "2026-08-09T12:47:19.048Z"
+    },
+    {
+      "keyword": "para method for organization",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-08-10T13:04:23.096Z"
     }
   ],
-  "lastUpdate": "2026-08-09T12:47:19.048Z",
+  "lastUpdate": "2026-08-10T13:04:23.096Z",
   "categories": {
     "ai_tools": 89,
-    "productivity_systems": 76,
+    "productivity_systems": 77,
     "ai_automation": 51,
     "developer_productivity": 26,
     "monetized_hardware": 13
