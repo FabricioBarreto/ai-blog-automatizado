@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "ergonomic setup for programmers",
-      "type": "value",
-      "category": "monetized_hardware",
-      "date": "2026-06-22T16:54:34.702Z"
-    },
-    {
       "keyword": "AI tools for developers workflow",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-08-10T13:04:23.096Z"
+    },
+    {
+      "keyword": "AI for data analysis and visualization",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-08-11T13:00:50.144Z"
     }
   ],
-  "lastUpdate": "2026-08-10T13:04:23.096Z",
+  "lastUpdate": "2026-08-11T13:00:50.144Z",
   "categories": {
-    "ai_tools": 89,
+    "ai_tools": 90,
     "productivity_systems": 77,
     "ai_automation": 51,
     "developer_productivity": 26,
