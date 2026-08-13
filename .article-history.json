@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "building custom GPTs for business",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-06-24T14:27:30.128Z"
-    },
-    {
       "keyword": "weekly review process setup",
       "type": "value",
       "category": "productivity_systems",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-08-12T13:05:51.376Z"
+    },
+    {
+      "keyword": "weekly review process setup",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-08-13T13:06:22.955Z"
     }
   ],
-  "lastUpdate": "2026-08-12T13:05:51.376Z",
+  "lastUpdate": "2026-08-13T13:06:22.955Z",
   "categories": {
     "ai_tools": 90,
-    "productivity_systems": 77,
+    "productivity_systems": 78,
     "ai_automation": 52,
     "developer_productivity": 26,
     "monetized_hardware": 13
