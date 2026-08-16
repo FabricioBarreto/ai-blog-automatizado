@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "kanban workflow for solo work",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-06-27T13:40:56.515Z"
-    },
-    {
       "keyword": "Zapier vs Make for AI workflows",
       "type": "value",
       "category": "ai_automation",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-08-15T12:34:10.682Z"
+    },
+    {
+      "keyword": "kanban workflow for solo work",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-08-16T12:36:07.538Z"
     }
   ],
-  "lastUpdate": "2026-08-15T12:34:10.682Z",
+  "lastUpdate": "2026-08-16T12:36:07.538Z",
   "categories": {
     "ai_tools": 92,
-    "productivity_systems": 78,
+    "productivity_systems": 79,
     "ai_automation": 52,
     "developer_productivity": 26,
     "monetized_hardware": 13
