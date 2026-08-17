@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "Zapier vs Make for AI workflows",
-      "type": "value",
-      "category": "ai_automation",
-      "date": "2026-06-28T13:44:16.108Z"
-    },
-    {
       "keyword": "how to use ChatGPT for content creation",
       "type": "value",
       "category": "ai_tools",
@@ -299,13 +293,19 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-08-16T12:36:07.538Z"
+    },
+    {
+      "keyword": "Zapier vs Make for AI workflows",
+      "type": "value",
+      "category": "ai_automation",
+      "date": "2026-08-17T12:40:29.531Z"
     }
   ],
-  "lastUpdate": "2026-08-16T12:36:07.538Z",
+  "lastUpdate": "2026-08-17T12:40:29.531Z",
   "categories": {
     "ai_tools": 92,
     "productivity_systems": 79,
-    "ai_automation": 52,
+    "ai_automation": 53,
     "developer_productivity": 26,
     "monetized_hardware": 13
   }
