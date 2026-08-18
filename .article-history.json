@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "how to use ChatGPT for content creation",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-06-29T15:44:11.844Z"
-    },
-    {
       "keyword": "refactoring legacy code approach",
       "type": "value",
       "category": "developer_productivity",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-08-17T12:40:29.531Z"
+    },
+    {
+      "keyword": "refactoring legacy code approach",
+      "type": "value",
+      "category": "developer_productivity",
+      "date": "2026-08-18T12:42:03.254Z"
     }
   ],
-  "lastUpdate": "2026-08-17T12:40:29.531Z",
+  "lastUpdate": "2026-08-18T12:42:03.254Z",
   "categories": {
     "ai_tools": 92,
     "productivity_systems": 79,
     "ai_automation": 53,
-    "developer_productivity": 26,
+    "developer_productivity": 27,
     "monetized_hardware": 13
   }
 }
