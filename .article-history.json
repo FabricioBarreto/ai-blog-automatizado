@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI for data analysis and visualization",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-07-02T13:58:13.922Z"
-    },
-    {
       "keyword": "AI data entry and extraction",
       "type": "value",
       "category": "ai_automation",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-08-20T12:45:54.417Z"
+    },
+    {
+      "keyword": "ultrawide monitors productivity",
+      "type": "value",
+      "category": "monetized_hardware",
+      "date": "2026-08-21T12:43:15.196Z"
     }
   ],
-  "lastUpdate": "2026-08-20T12:45:54.417Z",
+  "lastUpdate": "2026-08-21T12:43:15.196Z",
   "categories": {
     "ai_tools": 93,
     "productivity_systems": 80,
     "ai_automation": 53,
     "developer_productivity": 27,
-    "monetized_hardware": 13
+    "monetized_hardware": 14
   }
 }
