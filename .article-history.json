@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "training custom AI models basics",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-07-05T13:36:45.379Z"
-    },
-    {
       "keyword": "automated testing with AI",
       "type": "value",
       "category": "ai_tools",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-08-23T12:36:30.708Z"
+    },
+    {
+      "keyword": "building a second brain tutorial",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-08-24T12:46:51.504Z"
     }
   ],
-  "lastUpdate": "2026-08-23T12:36:30.708Z",
+  "lastUpdate": "2026-08-24T12:46:51.504Z",
   "categories": {
     "ai_tools": 94,
-    "productivity_systems": 80,
+    "productivity_systems": 81,
     "ai_automation": 54,
     "developer_productivity": 27,
     "monetized_hardware": 14
