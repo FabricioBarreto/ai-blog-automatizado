@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "habit stacking techniques",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-07-07T14:31:25.016Z"
-    },
-    {
       "keyword": "AI email management automation",
       "type": "value",
       "category": "ai_automation",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-08-25T12:43:32.063Z"
+    },
+    {
+      "keyword": "time blocking vs task batching",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-08-26T12:49:15.039Z"
     }
   ],
-  "lastUpdate": "2026-08-25T12:43:32.063Z",
+  "lastUpdate": "2026-08-26T12:49:15.039Z",
   "categories": {
     "ai_tools": 95,
-    "productivity_systems": 81,
+    "productivity_systems": 82,
     "ai_automation": 54,
     "developer_productivity": 27,
     "monetized_hardware": 14
