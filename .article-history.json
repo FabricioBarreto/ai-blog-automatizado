@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "docker development workflow",
-      "type": "value",
-      "category": "developer_productivity",
-      "date": "2026-07-09T14:56:42.135Z"
-    },
-    {
       "keyword": "AI writing tools comparison 2025",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "ai_automation",
       "date": "2026-08-27T21:49:21.473Z"
+    },
+    {
+      "keyword": "automated testing with AI",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-08-28T21:44:16.007Z"
     }
   ],
-  "lastUpdate": "2026-08-27T21:49:21.473Z",
+  "lastUpdate": "2026-08-28T21:44:16.007Z",
   "categories": {
-    "ai_tools": 95,
+    "ai_tools": 96,
     "productivity_systems": 82,
     "ai_automation": 55,
     "developer_productivity": 27,
