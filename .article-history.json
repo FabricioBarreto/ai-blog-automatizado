@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "AI writing tools comparison 2025",
-      "type": "value",
-      "category": "ai_tools",
-      "date": "2026-07-10T14:24:14.417Z"
-    },
-    {
       "keyword": "time blocking vs task batching",
       "type": "value",
       "category": "productivity_systems",
@@ -299,14 +293,20 @@
       "type": "value",
       "category": "ai_tools",
       "date": "2026-08-28T21:44:16.007Z"
+    },
+    {
+      "keyword": "technical documentation writing",
+      "type": "value",
+      "category": "developer_productivity",
+      "date": "2026-08-29T16:15:00.136Z"
     }
   ],
-  "lastUpdate": "2026-08-28T21:44:16.007Z",
+  "lastUpdate": "2026-08-29T16:15:00.136Z",
   "categories": {
     "ai_tools": 96,
     "productivity_systems": 82,
     "ai_automation": 55,
-    "developer_productivity": 27,
+    "developer_productivity": 28,
     "monetized_hardware": 14
   }
 }
