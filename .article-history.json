@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "time blocking vs task batching",
-      "type": "value",
-      "category": "productivity_systems",
-      "date": "2026-07-11T13:16:47.622Z"
-    },
-    {
       "keyword": "desk accessories for efficiency",
       "type": "value",
       "category": "monetized_hardware",
@@ -299,12 +293,18 @@
       "type": "value",
       "category": "developer_productivity",
       "date": "2026-08-29T16:15:00.136Z"
+    },
+    {
+      "keyword": "habit stacking techniques",
+      "type": "value",
+      "category": "productivity_systems",
+      "date": "2026-08-30T16:06:00.938Z"
     }
   ],
-  "lastUpdate": "2026-08-29T16:15:00.136Z",
+  "lastUpdate": "2026-08-30T16:06:00.938Z",
   "categories": {
     "ai_tools": 96,
-    "productivity_systems": 82,
+    "productivity_systems": 83,
     "ai_automation": 55,
     "developer_productivity": 28,
     "monetized_hardware": 14
