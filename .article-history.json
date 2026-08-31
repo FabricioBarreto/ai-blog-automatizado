@@ -1,12 +1,6 @@
 {
   "topics": [
     {
-      "keyword": "desk accessories for efficiency",
-      "type": "value",
-      "category": "monetized_hardware",
-      "date": "2026-07-12T13:17:22.636Z"
-    },
-    {
       "keyword": "natural language to SQL with AI",
       "type": "value",
       "category": "ai_tools",
@@ -299,11 +293,17 @@
       "type": "value",
       "category": "productivity_systems",
       "date": "2026-08-30T16:06:00.938Z"
+    },
+    {
+      "keyword": "prompt engineering techniques",
+      "type": "value",
+      "category": "ai_tools",
+      "date": "2026-08-31T18:48:23.542Z"
     }
   ],
-  "lastUpdate": "2026-08-30T16:06:00.938Z",
+  "lastUpdate": "2026-08-31T18:48:23.542Z",
   "categories": {
-    "ai_tools": 96,
+    "ai_tools": 97,
     "productivity_systems": 83,
     "ai_automation": 55,
     "developer_productivity": 28,
